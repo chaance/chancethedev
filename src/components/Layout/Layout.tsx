@@ -163,8 +163,8 @@ export const GridWrapper = styled.div`
     column-gap: ${rhythm(GLOBAL_MARGIN)};
     max-width: calc(${rhythm(22)} - ${rhythm(GLOBAL_MARGIN * 2)});
     grid-template:
-      'header body' fit-content(100%)
-      'header footer' 1fr / 198px 1fr;
+      'header body' 1fr
+      'header footer' fit-content(100%) / 198px 1fr;
 
     @supports (display: grid) {
       max-width: calc(100% - ${rhythm(GLOBAL_MARGIN * 2)});
