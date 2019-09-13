@@ -1,4 +1,3 @@
-export { getBreakpointQueryObject } from './getBreakpointQueryObject';
 export { invariant } from './invariant';
 export { inViewport } from './inViewport';
 export { isValidUrl } from './isValidUrl';

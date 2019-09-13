@@ -1,5 +1,4 @@
-import styled from './styled';
+export * from './utils';
+export * from './breakpoints';
 export * from './global';
 export * from './reset';
-export * from './breakpoints';
-export * from './utils';

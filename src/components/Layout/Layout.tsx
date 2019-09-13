@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Global } from '@emotion/core';
 import styled from '@emotion/styled';
 import { MDXProvider } from '@mdx-js/react';
@@ -64,7 +64,7 @@ const Layout: React.FC<LayoutProps> = ({
   } = useFonts();
   const isLargeScreen = useBreakpoint('large');
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     // Close the nav menu when the user resizes to a large screen
     if (isLargeScreen && navIsActive) {
       setNavIsActive(false);

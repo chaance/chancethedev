@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { getBreakpointQueryObject } from '$lib/utils';
+import { getBreakpointQueryObject } from '$lib/styles';
 import { useMediaLayout } from './useMedia';
 
 export const useBreakpoint = (

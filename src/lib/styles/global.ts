@@ -18,6 +18,12 @@ export const globalStyles = (theme: Theme) => {
       background: ${theme.colors.bodyBg};
       color: ${theme.colors.text};
       transition: color 400ms ease-out, background 400ms ease-out;
+
+      ${breakpoint('large')} {
+        @supports (display: grid) {
+          overflow: hidden;
+        }
+      }
     }
 
     &::selection {
