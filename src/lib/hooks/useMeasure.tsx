@@ -1,6 +1,5 @@
 import { useLayoutEffect, useState, RefObject } from 'react';
 import ResizeObserver from 'resize-observer-polyfill';
-import { DOMRectReadOnly } from './index';
 
 export const useMeasure = (
   ref: RefObject<HTMLElement | null>,
@@ -33,3 +32,17 @@ export const useMeasure = (
 
   return bounds;
 };
+
+////////////////////////////////////////////////////////////////////////////////
+// TYPES
+////////////////////////////////////////////////////////////////////////////////
+export interface DOMRectReadOnly {
+  readonly x: number;
+  readonly y: number;
+  readonly width: number;
+  readonly height: number;
+  readonly top: number;
+  readonly right: number;
+  readonly bottom: number;
+  readonly left: number;
+}

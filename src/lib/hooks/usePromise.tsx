@@ -1,10 +1,4 @@
 import { useEffect, useReducer, DependencyList } from 'react';
-import {
-  PromiseStates,
-  UsePromiseState,
-  UsePromiseAction,
-  UsePromiseReducer,
-} from './index';
 
 const resolvePromise = (promise: any) => {
   if (typeof promise === 'function') {
@@ -85,3 +79,30 @@ export function usePromise<T>(
 
   return [result, error, state];
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// TYPES
+////////////////////////////////////////////////////////////////////////////////
+export interface UsePromiseState {
+  error: any;
+  result: any;
+  state: PromiseStates;
+}
+
+export interface UsePromiseState {
+  error: any;
+  result: any;
+  state: PromiseStates;
+}
+
+export interface UsePromiseAction {
+  type?: PromiseStates;
+  payload?: any;
+}
+
+export type PromiseStates = 'pending' | 'rejected' | 'resolved';
+
+export type UsePromiseReducer = (
+  state: UsePromiseState,
+  action: UsePromiseAction
+) => UsePromiseState;

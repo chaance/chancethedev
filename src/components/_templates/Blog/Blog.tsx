@@ -6,7 +6,7 @@ import Layout from '$components/Layout';
 import Link from '$components/Link';
 import Pagination from '$components/Pagination';
 import SEO from '$components/SEO';
-import { GLOBAL_MARGIN, breakpoint } from '$lib/styles';
+import { breakpoint, GLOBAL_MARGIN } from '$lib/styles';
 import { rhythm } from '$lib/typography';
 import { formatReadingTime } from '$lib/utils';
 import { BlogProps } from './index';

@@ -1,7 +1,7 @@
 import React, { createContext } from 'react';
 import FontFaceObserver from 'fontfaceobserver';
 import { kebabCase } from 'lodash';
-import { usePromise, PromiseStates } from '$lib/hooks';
+import { usePromise, PromiseStates } from '$lib/hooks/usePromise';
 import config from '$src/../config';
 
 const typekitStylesheet = `https://use.typekit.net/${config.typekitId}.css`;

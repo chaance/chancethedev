@@ -15,5 +15,6 @@ export const useAnimationEndListener = (
       return () =>
         element.removeEventListener('animationend', handleAnimationEnd);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };

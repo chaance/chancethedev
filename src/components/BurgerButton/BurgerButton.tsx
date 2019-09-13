@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { EmotionTheme } from '$lib/providers';
 import SRT from '$components/SRT';
 import { BurgerButtonProps } from './index';
 
@@ -48,8 +47,7 @@ export default BurgerButton;
 ////////////////////////////////////////////////////////////////////////////////
 // STYLES
 ////////////////////////////////////////////////////////////////////////////////
-type StyledButtonProps = BurgerButtonProps & { theme?: EmotionTheme };
-export const Button = styled('button')<StyledButtonProps>`
+export const Button = styled('button')<BurgerButtonProps>`
   width: ${({ buttonWidth }) => buttonWidth};
   height: ${({ lineHeight, gutter }) => lineHeight! * 3 + gutter! * 2};
   margin: 0;

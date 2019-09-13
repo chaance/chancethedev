@@ -1,9 +1,9 @@
-import breakpoints from '$lib/styles/breakpoints';
 import { rem } from 'polished';
+import { breakpoints } from '$lib/styles';
 
 // Breakpoint values
-const breakpointKeys = Object.keys(breakpoints);
-const zeroBreakpoint = breakpointKeys[0];
+const breakpointKeys = breakpoints ? Object.keys(breakpoints) : [];
+const zeroBreakpoint = breakpointKeys[0] || 'small';
 
 /**
  * Get a media query object from a query string or number.

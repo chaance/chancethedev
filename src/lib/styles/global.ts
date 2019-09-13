@@ -1,5 +1,5 @@
 import { css } from '@emotion/core';
-import { Theme } from '$src/lib/providers';
+import { Theme } from '$src/lib/providers/theme';
 import { fonts, rhythm } from '$lib/typography';
 import { breakpoint } from './breakpoints';
 import { rem } from 'polished';

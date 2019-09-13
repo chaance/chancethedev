@@ -139,4 +139,5 @@ export const breakpoint = (
 export const getMQ = (mq: any) => `@media ${json2mq(mq)}`;
 
 export const breakpoints = BREAKPOINTS;
+
 export default breakpoints;

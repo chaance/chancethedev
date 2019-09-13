@@ -6,7 +6,6 @@ import Link from '$components/Link';
 import SRT from '$components/SRT';
 import { HT, H2 } from '$components/Heading';
 import { leadingSlashIt } from '$lib/utils';
-import { EmotionTheme } from '$lib/providers';
 import { breakpoint, GLOBAL_MARGIN } from '$lib/styles';
 import { rhythm, fonts } from '$lib/typography';
 import { BlogPostExcerptProps } from './index';
@@ -66,13 +65,13 @@ const PostExcerpt: React.FC<BlogPostExcerptProps> = ({
 
 export default PostExcerpt;
 
-export const InnerWrapper = styled('div')<{ theme?: EmotionTheme }>``;
+export const InnerWrapper = styled('div')``;
 
 export const BannerWrapper = styled.div`
   margin: 0 0 ${rhythm(GLOBAL_MARGIN)};
 `;
 
-export const FeaturedWrapper = styled('article')<{ theme?: EmotionTheme }>`
+export const FeaturedWrapper = styled('article')`
   /* max-width: ${rhythm(33)}; */
   ${breakpoint('large')} {
     display: grid;
@@ -97,9 +96,9 @@ export const Heading = styled(H2)`
   margin: ${rhythm(1 / 2)} 0;
 `;
 
-export const Wrapper = styled('article')<{ theme?: EmotionTheme }>``;
+export const Wrapper = styled('article')``;
 
-export const PostInfo = styled('span')<{ theme?: EmotionTheme }>`
+export const PostInfo = styled('span')`
   display: block;
   margin: ${rhythm(1 / 2)} 0;
   font-family: ${fonts.sans};
@@ -107,13 +106,13 @@ export const PostInfo = styled('span')<{ theme?: EmotionTheme }>`
   color: ${({ theme }) => theme.colors.lightText};
 `;
 
-export const Spoiler = styled('p')<{ theme?: EmotionTheme }>`
+export const Spoiler = styled('p')`
   font-family: ${fonts.sans};
   color: ${({ theme }) => theme.colors.lightText};
   margin: ${rhythm(1 / 2)} 0;
 `;
 
-export const MoreLink = styled(Link)<{ theme?: EmotionTheme }>`
+export const MoreLink = styled(Link)`
   display: block;
   font-family: ${fonts.sans};
   font-weight: bold;

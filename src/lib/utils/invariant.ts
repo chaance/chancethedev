@@ -34,4 +34,4 @@ export function invariant(
     error.framesToPop = 1; // we don't care about invariant's own frame
     throw error;
   }
-};
+}

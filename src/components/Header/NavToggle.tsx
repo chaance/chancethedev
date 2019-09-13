@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import BurgerButton, { BurgerButtonProps } from '$components/BurgerButton';
+import BurgerButton from '$components/BurgerButton';
 import { breakpoint, GLOBAL_MARGIN } from '$lib/styles';
 import { rhythm } from '$src/lib/typography';
 

@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import { rem } from 'polished';
 import Link from '$components/Link';
 import { MenuItemData } from '$components/Menu';
-import { EmotionTheme } from '$lib/providers';
 import { breakpoint, GLOBAL_MARGIN } from '$lib/styles';
 import { fonts, rhythm } from '$src/lib/typography';
 import config from '$src/../config';
@@ -89,6 +88,6 @@ export const MenuItem = styled.li`
   }
 `;
 
-export const Copyright = styled('div')<{ theme?: EmotionTheme }>`
+export const Copyright = styled('div')`
   color: ${({ theme }) => theme.colors.link};
 `;

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { ScrollPosition } from './index';
 
 const isBrowser = typeof window !== 'undefined';
 
@@ -43,3 +42,11 @@ export const useScrollYPosition = (): number => {
   const { y } = useScrollPosition();
   return y;
 };
+
+////////////////////////////////////////////////////////////////////////////////
+// TYPES
+////////////////////////////////////////////////////////////////////////////////
+export interface ScrollPosition {
+  readonly x: number;
+  readonly y: number;
+}

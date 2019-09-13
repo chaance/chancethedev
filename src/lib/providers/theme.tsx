@@ -74,7 +74,9 @@ const ThemeProvider: React.FC = ({ children }) => {
         toggleDarkMode,
       }}
     >
-      <EmotionThemeProvider theme={{ activeTheme: themeName, themes, ...theme }}>
+      <EmotionThemeProvider
+        theme={{ activeTheme: themeName, themes, ...theme }}
+      >
         {children}
       </EmotionThemeProvider>
     </ThemeContext.Provider>

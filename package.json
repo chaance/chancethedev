@@ -103,7 +103,8 @@
     "build": "gatsby build",
     "dev": "gatsby develop",
     "start": "serve public/",
-    "now-build": "npm run build"
+    "now-build": "npm run build",
+    "lint": "eslint --ext .tsx,.ts,.js src/"
   },
   "prettier": {
     "semi": true,

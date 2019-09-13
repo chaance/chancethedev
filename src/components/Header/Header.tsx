@@ -1,14 +1,12 @@
 import React from 'react';
-import styled from '@emotion/styled';
 import { css } from '@emotion/core';
+import styled from '@emotion/styled';
 import { useStaticQuery, graphql } from 'gatsby';
 import { rem, lighten, darken } from 'polished';
 
 import Menu, { MenuItemData } from '$components/Menu';
-
 import Link from '$components/Link';
 
-import { EmotionTheme } from '$lib/providers';
 import {
   breakpoint,
   GLOBAL_MARGIN,
@@ -140,7 +138,7 @@ const topLevelMenuStyles = css({
   lineHeight: 1.15,
 });
 
-export const StyledHeader = styled('header')<{ theme?: EmotionTheme }>`
+export const StyledHeader = styled('header')`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -154,7 +152,7 @@ export const StyledHeader = styled('header')<{ theme?: EmotionTheme }>`
   }
 `;
 
-export const HomeLink = styled(Link)<{ theme?: EmotionTheme }>`
+export const HomeLink = styled(Link)`
   display: block;
   color: ${({ theme }) => theme.colors.primary};
   ${topLevelMenuStyles}
@@ -174,8 +172,7 @@ export const HomeLink = styled(Link)<{ theme?: EmotionTheme }>`
   }
 `;
 
-type MenuWrapperProps = { theme?: EmotionTheme } & { navIsActive: boolean };
-export const MenuWrapper = styled('div')<MenuWrapperProps>`
+export const MenuWrapper = styled('div')<{ navIsActive: boolean }>`
   ${breakpoint('medium down')} {
     position: absolute;
     height: 100%;
@@ -203,7 +200,7 @@ export const MenuWrapper = styled('div')<MenuWrapperProps>`
   }
 `;
 
-export const StyledMenu = styled(Menu)<{ theme?: EmotionTheme }>`
+export const StyledMenu = styled(Menu)`
   &,
   ul,
   li {

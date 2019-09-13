@@ -232,3 +232,11 @@ declare module '$src/../config' {
   const config: Config;
   export default config;
 }
+
+declare module '@emotion/styled' {
+  import { CreateStyled } from '@emotion/styled/types/index';
+  import { EmotionTheme } from '$providers/theme';
+  export * from '@emotion/styled/types/index';
+  const customStyled: CreateStyled<EmotionTheme>;
+  export default customStyled;
+}

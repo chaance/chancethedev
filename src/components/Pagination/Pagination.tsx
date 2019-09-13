@@ -6,7 +6,6 @@ import { breakpoint, GLOBAL_MARGIN } from '$lib/styles';
 import { rhythm, fonts } from '$lib/typography';
 import { leadingSlashIt } from '$lib/utils';
 import { PaginationProps } from './index';
-import { EmotionTheme } from '$lib/providers/theme';
 
 const Pagination: React.FC<PaginationProps> = ({
   previousPagePath,
@@ -39,7 +38,7 @@ export default Pagination;
 ////////////////////////////////////////////////////////////////////////////////
 // STYLES
 ////////////////////////////////////////////////////////////////////////////////
-export const Wrapper = styled('nav')<{ theme?: EmotionTheme }>`
+export const Wrapper = styled('nav')`
   margin: ${rhythm(GLOBAL_MARGIN)} 0 0;
   padding: ${rhythm(GLOBAL_MARGIN / 2)} 0 0;
   font-family: ${fonts.sans};
