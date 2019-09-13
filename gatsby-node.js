@@ -68,8 +68,40 @@ exports.onCreateWebpackConfig = ({ actions }) => {
   });
 };
 
-exports.onCreateNode = ({ node, getNode, actions }) => {
-  const { createNodeField } = actions;
+exports.onCreateNode = ({
+  node,
+  getNode,
+  actions,
+  createNodeId,
+  createContentDigest,
+}) => {
+  const { createNodeField, createNode, createParentChildLink } = actions;
+
+  // Create GraphQL query for site authors
+  if (
+    node.internal.type === 'File' &&
+    node.sourceInstanceName === 'authors' &&
+    node.relativePath === 'index.js'
+  ) {
+    const authors = require(node.absolutePath);
+    if (Array.isArray(authors)) {
+      authors.forEach((author, index) => {
+        const authorNode = {
+          ...author,
+          slug: author.id,
+          id: createNodeId(`authors-${node.id}-${index}-${author.id}`),
+          children: [],
+          parent: node.id,
+          internal: {
+            contentDigest: createContentDigest(author),
+            type: 'Authors',
+          },
+        };
+        createNode(authorNode);
+        createParentChildLink({ parent: node, child: authorNode });
+      });
+    }
+  }
 
   if (node.internal.type === `Mdx`) {
     const parent = getNode(node.parent);

@@ -7,6 +7,15 @@ export const pageQuery = graphql`
     site {
       ...site
     }
+    allAuthors {
+      edges {
+        node {
+          id
+          slug
+          name
+        }
+      }
+    }
     allMdx(sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {

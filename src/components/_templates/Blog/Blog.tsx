@@ -52,7 +52,11 @@ const Blog: React.FC<BlogProps> = ({
       )}
 
       <PostGrid wrap={true}>
-        {hasFeaturedPost && <SectionHeading>Older Posts</SectionHeading>}
+        {hasFeaturedPost && (
+          <SectionHeading style={{ marginTop: rhythm(GLOBAL_MARGIN) }}>
+            Older Posts
+          </SectionHeading>
+        )}
         <Section>
           {posts.map(({ node: post }: any, index) => {
             return (

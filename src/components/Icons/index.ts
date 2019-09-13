@@ -1,0 +1,15 @@
+import { Element } from '$lib/types';
+
+export * from './Icons';
+
+////////////////////////////////////////////////////////////////////////////////
+// TYPES
+////////////////////////////////////////////////////////////////////////////////
+export interface SVGProps extends Element<'svg'> {
+  title: string;
+  titleId?: string;
+}
+
+export interface IconProps extends Partial<SVGProps> {
+  size?: number;
+}

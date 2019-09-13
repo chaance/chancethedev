@@ -1,5 +1,6 @@
 import { css } from '@emotion/core';
 import { useTheme } from '$lib/providers';
+import { GLOBAL_MARGIN } from '$lib/styles';
 import typography, { fonts, rhythm } from '$lib/typography';
 
 export const resetStyles = () => {
@@ -69,14 +70,11 @@ export const resetStyles = () => {
     }
 
     blockquote {
-      padding-left: 1rem;
+      padding-left: ${rhythm(GLOBAL_MARGIN / 2)};
+      font-weight: bold;
       margin-left: 0;
       margin-right: 0;
       font-style: italic;
-
-      p {
-        line-height: ${rhythm(2/3)};
-      }
     }
 
     [tabindex='-1']:focus {
@@ -128,7 +126,7 @@ export const resetStyles = () => {
 
     label {
       display: inline-block;
-      margin-bottom: ${rhythm(1/3)};
+      margin-bottom: ${rhythm(1 / 3)};
     }
 
     button:focus {

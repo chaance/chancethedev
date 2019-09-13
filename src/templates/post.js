@@ -7,11 +7,23 @@ export const pageQuery = graphql`
     site {
       ...site
     }
+    allAuthors {
+      edges {
+        node {
+          id
+          slug
+          name
+          image
+        }
+      }
+    }
     mdx(fields: { id: { eq: $id } }) {
+      timeToRead
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
         author
+        description
         banner {
           childImageSharp {
             fluid(maxWidth: 900) {

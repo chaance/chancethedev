@@ -53,8 +53,9 @@ export const globalStyles = (theme: Theme) => {
     hr {
       margin: ${rhythm(2)} 0;
       border: 0;
-      border-top: 1px solid ${theme.colors.gray};
+      border-top: 1px solid ${theme.colors.border};
       background: 0;
+      transition: border-color 400ms ease-out;
     }
 
     input {

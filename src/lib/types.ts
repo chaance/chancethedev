@@ -36,6 +36,7 @@ export interface SiteMetadata {
 }
 
 export interface Frontmatter {
+  author?: string;
   title: string;
   subtitle?: string;
   date: string;
@@ -46,6 +47,29 @@ export interface Frontmatter {
   keywords?: string[];
   published: boolean;
   slug?: string;
+}
+
+export type SiteNode = any; // TODO
+
+export interface AuthorNode {
+  id: string;
+  slug: string;
+  name: string;
+  email: string;
+  bio?: string;
+  image?: string;
+  children?: SiteNode[];
+  parent?: SiteNode;
+  internal: {
+    content?: any;
+    contentDigest: string;
+    description?: any;
+    fieldOwners?: any;
+    ignoreType?: any;
+    mediaType?: any;
+    owner: 'default-site-plugin';
+    type: 'Authors';
+  };
 }
 
 export type DeepPartial<T> = {

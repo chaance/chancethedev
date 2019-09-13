@@ -66,8 +66,6 @@ export const H3 = styled(H)`
 
 export const H4 = styled(H)`
   font-size: ${rem(16)};
-  letter-spacing: 0.5;
-  text-transform: uppercase;
   ${breakpoint('medium')} {
     font-size: ${rem(18)};
   }

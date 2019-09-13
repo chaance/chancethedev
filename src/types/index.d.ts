@@ -199,6 +199,7 @@ declare module '$src/../config' {
     name: string;
     email: string;
     bio?: string;
+    image?: string;
   };
   export interface Config {
     pathPrefix: string;

@@ -12,7 +12,6 @@ import { BlogPostExcerptProps } from './index';
 
 const PostExcerpt: React.FC<BlogPostExcerptProps> = ({
   banner,
-  className,
   title,
   slug,
   date,
@@ -44,13 +43,11 @@ const PostExcerpt: React.FC<BlogPostExcerptProps> = ({
         </header>
         <div>
           <Spoiler
-            className="PostExcerpt__spoiler"
             // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{ __html: spoiler }}
           />
-          <span className="PostExcerpt__more">
+          <span>
             <MoreLink
-              className="PostExcerpt__moreLink"
               to={leadingSlashIt(slug)}
               rel="bookmark"
             >
@@ -68,7 +65,7 @@ export default PostExcerpt;
 export const InnerWrapper = styled('div')``;
 
 export const BannerWrapper = styled.div`
-  margin: 0 0 ${rhythm(GLOBAL_MARGIN)};
+  margin: 0 0 ${rhythm(GLOBAL_MARGIN / 2)};
 `;
 
 export const FeaturedWrapper = styled('article')`
