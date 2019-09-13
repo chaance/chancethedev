@@ -2,8 +2,8 @@ import { css, jsx } from '@emotion/core';
 import { rhythm } from '$lib/typography';
 import { breakpoint } from '$lib/styles';
 
-export const GLOBAL_MARGIN = 1;
-export const SMALL_SCREEN_MULTIPLIER = 0.625;
+export const GLOBAL_MARGIN = 2;
+export const SMALL_SCREEN_MULTIPLIER = 0.5;
 export const MOBILE_NAV_WIDTH = 232;
 
 export const makeContentGrid = (col1: string, col2: string) => css`

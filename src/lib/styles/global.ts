@@ -7,16 +7,10 @@ import { rem } from 'polished';
 export const globalStyles = (theme: Theme) => {
   return css`
     html {
-      ${breakpoint('large')} {
+      font-size: 16px;
+
+      ${breakpoint('xxxlarge')} {
         font-size: 18px;
-      }
-
-      ${breakpoint('xlarge')} {
-        font-size: 20px;
-      }
-
-      ${breakpoint('xxlarge')} {
-        font-size: 22px;
       }
     }
 

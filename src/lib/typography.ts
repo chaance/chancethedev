@@ -6,8 +6,8 @@ export { fonts };
 
 const typography = new Typography({
   baseFontSize: '16px',
-  baseLineHeight: 2,
-  headerLineHeight: 1.4,
+  baseLineHeight: 1.6,
+  headerLineHeight: 1.3,
   headerFontFamily: fontLists.sans,
   bodyFontFamily: fontLists.serif,
   headerColor: colors.black,

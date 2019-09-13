@@ -12,6 +12,7 @@ const themes: Themes = {
     colors: {
       primary: colors.blue30,
       text: colors.black,
+      lightText: colors.gray50,
       bodyBg: colors.white,
       link: colors.gray50,
       linkHover: colors.blue30,
@@ -23,6 +24,7 @@ const themes: Themes = {
     colors: {
       primary: colors.blue20,
       text: colors.white,
+      lightText: colors.gray20,
       bodyBg: colors.black,
       link: colors.gray20,
       linkHover: colors.blue20,
@@ -107,6 +109,7 @@ export type ThemeNames = 'default' | 'dark';
 export interface Colors extends Partial<ColorMap> {
   primary: string;
   text: string;
+  lightText: string;
   bodyBg: string;
   link: string;
   linkHover: string;

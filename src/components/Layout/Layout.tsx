@@ -72,7 +72,7 @@ const Layout: React.FC<LayoutProps> = ({
   }, [isLargeScreen, navIsActive]);
 
   return (
-    <SiteContainer maxWidth={rhythm(38)} navIsActive={navIsActive}>
+    <SiteContainer maxWidth={rhythm(58)} navIsActive={navIsActive}>
       <GridWrapper>
         <Global styles={resetStyles()} />
         <Global styles={globalStyles(theme)} />
@@ -133,14 +133,25 @@ export const SiteContainer = styled(Container)<{ navIsActive: boolean }>`
   transform: translateX(
     ${({ navIsActive }) => (navIsActive ? rem(MOBILE_NAV_WIDTH * -1) : 0)}
   );
+
+  ${breakpoint('medium down')} {
+    max-width: ${rhythm(28)};
+  }
 `;
 
 export const GridWrapper = styled.div`
   width: 100%;
   max-width: calc(
-    100% - ${rhythm(GLOBAL_MARGIN * SMALL_SCREEN_MULTIPLIER * 2)}
+    100% - ${rhythm(GLOBAL_MARGIN / 2 * SMALL_SCREEN_MULTIPLIER * 2)}
   );
-  margin: ${rhythm(GLOBAL_MARGIN * SMALL_SCREEN_MULTIPLIER)} auto;
+  margin: ${rhythm(GLOBAL_MARGIN / 2 * SMALL_SCREEN_MULTIPLIER)} auto;
+
+  ${breakpoint(348)} {
+    max-width: calc(
+      100% - ${rhythm(GLOBAL_MARGIN * SMALL_SCREEN_MULTIPLIER * 2)}
+    );
+    margin: ${rhythm(GLOBAL_MARGIN * SMALL_SCREEN_MULTIPLIER)} auto;
+  }
 
   ${breakpoint('medium')} {
     max-width: calc(100% - ${rhythm(GLOBAL_MARGIN * 2)});

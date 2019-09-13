@@ -44,7 +44,7 @@ const Header: React.FC<HeaderProps> = ({
     <StyledHeader {...props}>
       <nav>
         <HomeLink to="/">Chance the Developer</HomeLink>
-        <MenuWrapper>
+        <MenuWrapper navIsActive={navIsActive}>
           <StyledMenu items={items} />
         </MenuWrapper>
       </nav>
@@ -173,7 +173,8 @@ export const HomeLink = styled(Link)<{ theme?: EmotionTheme }>`
   }
 `;
 
-export const MenuWrapper = styled('div')<{ theme?: EmotionTheme }>`
+type MenuWrapperProps = { theme?: EmotionTheme } & { navIsActive: boolean };
+export const MenuWrapper = styled('div')<MenuWrapperProps>`
   ${breakpoint('medium down')} {
     position: absolute;
     height: 100%;
@@ -181,6 +182,8 @@ export const MenuWrapper = styled('div')<{ theme?: EmotionTheme }>`
     top: 0;
     left: calc(100% + 1px);
     padding: 0 ${rhythm(GLOBAL_MARGIN)};
+    opacity: ${({ navIsActive }) => (navIsActive ? 1 : 0)};
+    transition: opacity 400ms ease-out;
 
     &:before {
       content: '';
