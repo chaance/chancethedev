@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "allowJs": true,
+    "checkJs": false,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "module": "commonjs",
+    "target": "esnext",
+    "jsx": "react",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "baseUrl": "./",
+    "paths": {
+      "react-helmet": ["src/components/Helmet"],
+      "$src/*": ["src/*"],
+      "$content/*": ["content/*"],
+      "$components/*": ["src/components/*"],
+      "$images/*": ["src/images/*"],
+      "$lib/*": ["src/lib/*"],
+      "$pages/*": ["src/pages/*"],
+      "$providers/*": ["src/lib/providers/*"],
+      "$templates/*": ["src/templates/*"]
+    }
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "public"]
+}

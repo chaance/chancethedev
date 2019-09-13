@@ -1,0 +1,20 @@
+.DS_Store
+logs
+*.log
+.env
+.env.*
+!.env.example
+pids
+*.pid
+*.seed
+lib-cov
+coverage
+node_modules
+.gatsby-context.js
+.sass-cache/
+.cache/
+.DS_Store
+public
+
+#yarn'd it
+package-lock.json
