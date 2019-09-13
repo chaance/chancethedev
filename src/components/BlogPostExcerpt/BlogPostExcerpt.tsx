@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import cx from 'classnames';
 import Img from 'gatsby-image';
-import { rem, rgba } from 'polished';
+import { rem } from 'polished';
 import Link from '$components/Link';
 import SRT from '$components/SRT';
+import { HT, H2 } from '$components/Heading';
 import { leadingSlashIt } from '$lib/utils';
 import { EmotionTheme } from '$lib/providers';
 import { breakpoint, GLOBAL_MARGIN } from '$lib/styles';
@@ -23,7 +23,7 @@ const PostExcerpt: React.FC<BlogPostExcerptProps> = ({
   ...props
 }) => {
   const W = isFeatured ? FeaturedWrapper : Wrapper;
-  const H = isFeatured ? 'h3' : Heading;
+  const H = isFeatured ? FeaturedHeading : Heading;
   return (
     <W {...props}>
       {isFeatured && banner ? (
@@ -89,15 +89,19 @@ export const FeaturedWrapper = styled('article')<{ theme?: EmotionTheme }>`
   }
 `;
 
-export const Heading = styled('h3')`
-  margin: ${rhythm(1/2)} 0;
+export const FeaturedHeading = styled(HT)`
+  margin-top: 0;
+`;
+
+export const Heading = styled(H2)`
+  margin: ${rhythm(1 / 2)} 0;
 `;
 
 export const Wrapper = styled('article')<{ theme?: EmotionTheme }>``;
 
 export const PostInfo = styled('span')<{ theme?: EmotionTheme }>`
   display: block;
-  margin: ${rhythm(1/2)} 0;
+  margin: ${rhythm(1 / 2)} 0;
   font-family: ${fonts.sans};
   font-size: ${rem(14)};
   color: ${({ theme }) => theme.colors.lightText};
@@ -106,14 +110,14 @@ export const PostInfo = styled('span')<{ theme?: EmotionTheme }>`
 export const Spoiler = styled('p')<{ theme?: EmotionTheme }>`
   font-family: ${fonts.sans};
   color: ${({ theme }) => theme.colors.lightText};
-  margin: ${rhythm(1/2)} 0;
+  margin: ${rhythm(1 / 2)} 0;
 `;
 
 export const MoreLink = styled(Link)<{ theme?: EmotionTheme }>`
   display: block;
   font-family: ${fonts.sans};
   font-weight: bold;
-  margin-top: ${rhythm(1/2)};
+  margin-top: ${rhythm(1 / 2)};
   color: ${({ theme }) => theme.colors.primary};
   text-transform: uppercase;
   letter-spacing: 0.5;

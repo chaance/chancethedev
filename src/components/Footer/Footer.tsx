@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 import { rem } from 'polished';
 import Link from '$components/Link';
 import { MenuItemData } from '$components/Menu';
-import { breakpoint } from '$lib/styles';
+import { EmotionTheme } from '$lib/providers';
+import { breakpoint, GLOBAL_MARGIN } from '$lib/styles';
 import { fonts, rhythm } from '$src/lib/typography';
 import config from '$src/../config';
 import { FooterProps } from './index';
@@ -19,9 +20,9 @@ const Footer: React.FC<FooterProps> = ({ ...props }) => (
         ))}
       </Menu>
     </nav>
-    <div>
+    <Copyright>
       {`\u00A9 ${new Date().getFullYear()}`}. Built with React and GatsbyJS.
-    </div>
+    </Copyright>
   </StyledFooter>
 );
 
@@ -54,6 +55,7 @@ const MENU_ITEMS: MenuItemData[] = [
 // STYLES
 ////////////////////////////////////////////////////////////////////////////////
 export const StyledFooter = styled.footer`
+  padding-top: ${rhythm(GLOBAL_MARGIN / 2)};
   font-size: ${rem(14)};
   font-family: ${fonts.sans};
   font-weight: bold;
@@ -79,10 +81,14 @@ export const Menu = styled.ul`
 `;
 
 export const MenuItem = styled.li`
-  margin: 0;
   ${breakpoint('medium')} {
+    margin: 0;
     &:not(:last-child) {
       margin-right: 1rem;
     }
   }
+`;
+
+export const Copyright = styled('div')<{ theme?: EmotionTheme }>`
+  color: ${({ theme }) => theme.colors.link};
 `;

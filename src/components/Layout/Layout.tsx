@@ -161,11 +161,10 @@ export const GridWrapper = styled.div`
   ${breakpoint('large')} {
     display: grid;
     column-gap: ${rhythm(GLOBAL_MARGIN)};
-    row-gap: ${rhythm(GLOBAL_MARGIN / 2)};
     max-width: calc(${rhythm(22)} - ${rhythm(GLOBAL_MARGIN * 2)});
     grid-template:
       'header body' fit-content(100%)
-      'header footer' ${rhythm(GLOBAL_MARGIN)} / 198px 1fr;
+      'header footer' 1fr / 198px 1fr;
 
     @supports (display: grid) {
       max-width: calc(100% - ${rhythm(GLOBAL_MARGIN * 2)});
@@ -191,8 +190,6 @@ export const StyledHeader = styled(Header)`
 `;
 
 export const StyledFooter = styled(Footer)`
-  display: flex;
-  align-items: flex-end;
   grid-area: footer;
 `;
 

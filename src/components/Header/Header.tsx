@@ -140,7 +140,7 @@ const topLevelMenuStyles = css({
   lineHeight: 1.15,
 });
 
-export const StyledHeader = styled('header')`
+export const StyledHeader = styled('header')<{ theme?: EmotionTheme }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -149,6 +149,7 @@ export const StyledHeader = styled('header')`
     ${breakpoint('large')} {
       align-items: flex-start;
       flex-direction: column;
+      border-right: 1px solid ${({ theme }) => theme.colors.border};
     }
   }
 `;

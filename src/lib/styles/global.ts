@@ -41,15 +41,7 @@ export const globalStyles = (theme: Theme) => {
     h5,
     h6 {
       color: inherit;
-
-      a {
-        color: inherit;
-
-        &:hover,
-        &:focus {
-          color: ${theme.colors.link};
-        }
-      }
+      font-size: inherit;
     }
 
     hr {
