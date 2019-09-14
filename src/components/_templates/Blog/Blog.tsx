@@ -13,7 +13,7 @@ import { BlogProps } from './index';
 
 const Blog: React.FC<BlogProps> = ({
   data: { site, allMdx },
-  pageContext: { pagination },
+  pageContext: { pagination, contentType },
 }) => {
   const { page, nextPagePath, previousPagePath } = pagination;
 
@@ -46,6 +46,7 @@ const Blog: React.FC<BlogProps> = ({
               date={firstPost.frontmatter.date}
               timeToRead={formatReadingTime(firstPost.timeToRead)}
               spoiler={firstPost.frontmatter.description}
+              contentType={contentType}
             />
           </Section>
         </Section>
@@ -69,6 +70,7 @@ const Blog: React.FC<BlogProps> = ({
                   date={post.frontmatter.date}
                   timeToRead={formatReadingTime(post.timeToRead)}
                   spoiler={post.frontmatter.description}
+                  contentType={contentType}
                 />
               )
             );

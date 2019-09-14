@@ -8,6 +8,16 @@ const PAGINATION_OFFSET = 6;
 exports.createPages = ({ actions, graphql }) =>
   graphql(`
     query {
+      allSimplecastPodcastEpisode(
+        sort: { order: DESC, fields: [publishedAt] }
+      ) {
+        edges {
+          node {
+            id
+            slug
+          }
+        }
+      }
       allMdx(
         filter: { frontmatter: { published: { ne: false } } }
         sort: { order: DESC, fields: [frontmatter___date] }
@@ -40,10 +50,23 @@ exports.createPages = ({ actions, graphql }) =>
       return Promise.reject('There are no posts!');
     }
 
-    const { edges } = data.allMdx;
+    const {
+      allMdx: { edges: mdxPosts },
+      allSimplecastPodcastEpisode: { edges: podcastEpisodes },
+    } = data;
+
     const { createRedirect, createPage } = actions;
-    createPosts(createPage, createRedirect, edges);
-    createPaginatedPages(actions.createPage, edges, {
+
+    createPosts(createPage, createRedirect, mdxPosts, 'infer');
+    createPosts(createPage, createRedirect, podcastEpisodes, 'podcast');
+
+    createPage({
+      path: 'podcast',
+      component: path.resolve(`src/templates/podcast.js`),
+      context: {},
+    });
+
+    createPaginatedPages(actions.createPage, mdxPosts, {
       categories: [],
     });
   });
@@ -202,14 +225,27 @@ function fileExists(filePath) {
   return false;
 }
 
-function createPosts(createPage, createRedirect, edges) {
+function createPosts(createPage, createRedirect, edges, pathPrefix = null) {
   edges.forEach(({ node }, i) => {
+    let realPathPrefix = pathPrefix;
+    if (!node.fields && !node.slug) {
+      return;
+    }
+
+    const contentType = node.parent ? node.parent.sourceInstanceName : null;
+    if (pathPrefix === 'infer') {
+      realPathPrefix = contentType || pathPrefix;
+    }
+
+    const { fields = {}, slug } = node;
     const prev = i === 0 ? null : edges[i - 1].node;
     const next = i === edges.length - 1 ? null : edges[i + 1].node;
-    const pagePath = node.fields.slug;
+    const pagePath = realPathPrefix
+      ? `${realPathPrefix}/${fields.slug || slug}`
+      : fields.slug || slug;
 
-    if (node.fields.redirects) {
-      node.fields.redirects.forEach(fromPath => {
+    if (fields.redirects) {
+      fields.redirects.forEach(fromPath => {
         createRedirect({
           fromPath,
           toPath: pagePath,
@@ -219,13 +255,25 @@ function createPosts(createPage, createRedirect, edges) {
       });
     }
 
+    let template;
+    switch (realPathPrefix) {
+      case 'podcast':
+        template = 'episode';
+        break;
+      default:
+        template = 'post';
+        break;
+    }
+
     createPage({
       path: pagePath,
-      component: path.resolve(`./src/templates/post.js`),
+      component: path.resolve(`./src/templates/${template}.js`),
       context: {
         id: node.id,
         prev,
         next,
+        contentType,
+        template,
       },
     });
   });
@@ -277,6 +325,7 @@ function createPaginatedPages(createPage, edges, context) {
         path: index > 0 ? `${pathPrefix}/${index}` : `${pathPrefix}`,
         component,
         context: {
+          contentType,
           pagination: {
             page,
             nextPagePath: index === 0 ? null : nextPagePath,

@@ -1,55 +1,51 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Img from 'gatsby-image';
-import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { rem, rgba } from 'polished';
 import Layout from '$components/Layout';
 import SEO from '$components/SEO';
 import { HT } from '$components/Heading';
-import Pagination from '$components/Pagination';
 import PostMeta from '$components/PostMeta';
-import config from '$src/../config';
 import {
   breakpoint,
   makeContentGrid,
   GLOBAL_MARGIN,
   // GLOBAL_MARGIN,
 } from '$lib/styles';
-import { Frontmatter } from '$lib/types';
 import { rhythm, fonts } from '$lib/typography';
-import { formatReadingTime } from '$lib/utils';
-import { BlogPostProps } from './index';
+import { formatListenTime } from '$lib/utils';
+import { EpisodeProps } from './index';
 
-const BlogPost: React.FC<BlogPostProps> = ({
+const Episode: React.FC<EpisodeProps> = ({
   data: {
     site,
-    mdx,
-    allAuthors: { edges: authors },
+    simplecastPodcastEpisode: {
+      id,
+      slug,
+      number,
+      publishedAt: date,
+      enclosureUrl,
+      description,
+      title,
+      status,
+    },
   },
-  pageContext: { next, prev },
 }) => {
-  const frontmatter = mdx.frontmatter;
-  const timeToRead = mdx.timeToRead;
-  const { author: authorSlug, date, title, banner, description } = frontmatter;
-  const authorNode = authors.find(
-    ({ node }) => node.slug === (authorSlug || config.author.id)
-  );
-  console.log({ next, prev });
-  const authorObject = authorNode ? authorNode.node : null;
   return (
-    <Layout frontmatter={mdx.frontmatter}>
-      <SEO frontmatter={mdx.frontmatter} isBlogPost />
+    <Layout>
+      <SEO />
       <PostWrapper>
         <Header>
           <HeaderInner>
-            {banner && (
-              <BannerWrapper>
-                <Img
-                  sizes={banner.childImageSharp.fluid}
-                  alt={site.siteMetadata.keywords.join(', ')}
-                />
-              </BannerWrapper>
-            )}
+            {/* banner && (
+            <BannerWrapper>
+              <Img
+                sizes={banner.childImageSharp.fluid}
+                alt={site.siteMetadata.keywords.join(', ')}
+              />
+            </BannerWrapper>
+          ) */}
+            IMG PLACEHOLDER
             <PostTitle level={1}>{title}</PostTitle>
             {description ? (
               <Description
@@ -57,24 +53,16 @@ const BlogPost: React.FC<BlogPostProps> = ({
                 dangerouslySetInnerHTML={{ __html: description }}
               />
             ) : null}
-            {authorObject && (
-              <StyledPostMeta
-                author={authorObject}
-                date={date}
-                append={[formatReadingTime(timeToRead)]}
-              />
-            )}
+            <StyledPostMeta date={date} append={['57 minutes']} />
           </HeaderInner>
         </Header>
-        <ContentArea>
-          <MDXRenderer>{mdx.body}</MDXRenderer>
-        </ContentArea>
+        <ContentArea>Full shownotes will go here</ContentArea>
       </PostWrapper>
     </Layout>
   );
 };
 
-export default BlogPost;
+export default Episode;
 
 ////////////////////////////////////////////////////////////////////////////////
 // STYLES

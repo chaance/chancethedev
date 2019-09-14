@@ -2,7 +2,7 @@ import { Element, AuthorNode } from '$lib/types';
 export { default } from './PostMeta';
 
 export interface PostMetaProps extends Element<'div'> {
-  author: AuthorNode;
+  author?: AuthorNode;
   date?: string;
-  timeToRead?: string;
+  append?: React.ReactNode[];
 }

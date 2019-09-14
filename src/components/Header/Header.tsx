@@ -40,16 +40,21 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <StyledHeader {...props}>
-      <nav>
-        <HomeLink to="/">Chance the Developer</HomeLink>
-        <MenuWrapper navIsActive={navIsActive}>
-          <StyledMenu items={items} />
-        </MenuWrapper>
-      </nav>
-      <ButtonGroup>
-        <ThemeToggle />
-        <NavToggle navIsActive={navIsActive} setNavIsActive={setNavIsActive} />
-      </ButtonGroup>
+      <HeaderInner>
+        <nav>
+          <HomeLink to="/">Chance the Developer</HomeLink>
+          <MenuWrapper navIsActive={navIsActive}>
+            <StyledMenu items={items} />
+          </MenuWrapper>
+        </nav>
+        <ButtonGroup>
+          <ThemeToggle />
+          <NavToggle
+            navIsActive={navIsActive}
+            setNavIsActive={setNavIsActive}
+          />
+        </ButtonGroup>
+      </HeaderInner>
     </StyledHeader>
   );
 };
@@ -109,7 +114,7 @@ function getLinks(siteTitle: string): MenuItemData[] {
         {
           id: 3.7,
           label: 'Become a Sponsor',
-          to: '/sponsor',
+          to: '/podcast/sponsor',
         },
       ],
     },
@@ -139,12 +144,19 @@ const topLevelMenuStyles = css({
 });
 
 export const StyledHeader = styled('header')`
+  position: relative;
+`;
+
+export const HeaderInner = styled('div')`
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   @supports (display: grid) {
     ${breakpoint('large')} {
+      position: sticky;
+      top: ${rhythm(GLOBAL_MARGIN)};
+      height: calc(100vh - ${rhythm(GLOBAL_MARGIN * 2)});
       align-items: flex-start;
       flex-direction: column;
       border-right: 1px solid ${({ theme }) => theme.colors.border};

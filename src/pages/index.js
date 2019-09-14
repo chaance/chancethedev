@@ -15,9 +15,9 @@ export const pageQuery = graphql`
         node {
           id
           slug
-          enclosure_url
+          enclosureUrl
           number
-          published_at(formatString: "MMMM D, Y")
+          publishedAt(formatString: "MMMM D, Y")
           title
           description
         }

@@ -9,6 +9,10 @@ export function formatReadingTime(minutes: number | string) {
   return `${minutes} minute read`;
 }
 
+export function formatListenTime(minutes: number | string) {
+  return `${minutes} minute listen`;
+}
+
 export function unSlashIt(str: string) {
   return str.replace(/^(\/*)|(\/*)$/g, '');
 }

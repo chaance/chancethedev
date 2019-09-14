@@ -9,10 +9,9 @@ export const resetStyles = () => {
   return css`
     html {
       text-rendering: optimizeLegibility;
-      overflow-x: hidden;
-      overflow-y: auto !important;
+      /* overflow-x: hidden;
+      overflow-y: auto !important; */
       box-sizing: border-box;
-      -ms-overflow-style: scrollbar;
       -webkit-tap-highlight-color: ${theme.colors.blue30};
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;

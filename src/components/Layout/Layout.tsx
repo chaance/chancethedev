@@ -142,9 +142,9 @@ export const SiteContainer = styled(Container)<{ navIsActive: boolean }>`
 export const GridWrapper = styled.div`
   width: 100%;
   max-width: calc(
-    100% - ${rhythm(GLOBAL_MARGIN / 2 * SMALL_SCREEN_MULTIPLIER * 2)}
+    100% - ${rhythm((GLOBAL_MARGIN / 2) * SMALL_SCREEN_MULTIPLIER * 2)}
   );
-  margin: ${rhythm(GLOBAL_MARGIN / 2 * SMALL_SCREEN_MULTIPLIER)} auto;
+  margin: ${rhythm((GLOBAL_MARGIN / 2) * SMALL_SCREEN_MULTIPLIER)} auto;
 
   ${breakpoint(348)} {
     max-width: calc(
@@ -159,30 +159,23 @@ export const GridWrapper = styled.div`
   }
 
   ${breakpoint('large')} {
-    display: grid;
-    column-gap: ${rhythm(GLOBAL_MARGIN)};
     max-width: calc(${rhythm(22)} - ${rhythm(GLOBAL_MARGIN * 2)});
-    grid-template:
-      'header body' 1fr
-      'header footer' fit-content(100%) / 198px 1fr;
 
     @supports (display: grid) {
+      display: grid;
+      grid-template:
+        'header body' 1fr
+        'header footer' fit-content(100%) / 198px 1fr;
+      column-gap: ${rhythm(GLOBAL_MARGIN)};
       max-width: calc(100% - ${rhythm(GLOBAL_MARGIN * 2)});
-      height: calc(100vh - ${rhythm(GLOBAL_MARGIN * 2)});
-      min-height: ${rhythm(12)};
+      margin-bottom: 0;
+      min-height: calc(100vh - ${rhythm(GLOBAL_MARGIN)});
     }
   }
 `;
 
 export const Body = styled.div`
   grid-area: body;
-
-  ${breakpoint('large')} {
-    @supports (display: grid) {
-      max-height: 100%;
-      overflow-y: auto;
-    }
-  }
 `;
 
 export const StyledHeader = styled(Header)`
@@ -191,6 +184,16 @@ export const StyledHeader = styled(Header)`
 
 export const StyledFooter = styled(Footer)`
   grid-area: footer;
+  ${breakpoint('large')} {
+    @supports (display: grid) {
+      position: sticky;
+      bottom: 0;
+      background: ${({ theme }) => theme.colors.bodyBg};
+      padding-bottom: ${rhythm(GLOBAL_MARGIN)};
+      transition: background 400ms ease-out, box-shadow 400ms ease-out;
+      /* box-shadow: 0 -10px 20px 20px ${({ theme }) => theme.colors.bodyBg}; */
+    }
+  }
 `;
 
 ////////////////////////////////////////////////////////////////////////////////

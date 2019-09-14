@@ -5,30 +5,29 @@ import { rem } from 'polished';
 import Link from '$components/Link';
 import SRT from '$components/SRT';
 import { HT, H2 } from '$components/Heading';
-import { unSlashIt } from '$lib/utils';
+import { leadingSlashIt, unSlashIt } from '$lib/utils';
 import { breakpoint, GLOBAL_MARGIN } from '$lib/styles';
 import { rhythm, fonts } from '$lib/typography';
-import { BlogPostExcerptProps } from './index';
+import { PodcastExcerptProps } from './index';
 
-const PostExcerpt: React.FC<BlogPostExcerptProps> = ({
+const PodcastExcerpt: React.FC<PodcastExcerptProps> = ({
   banner,
   title,
   slug,
   date,
-  timeToRead,
-  spoiler,
+  timeToListen,
+  description,
   isFeatured,
-  contentType = 'blog',
   ...props
 }) => {
   const W = isFeatured ? FeaturedWrapper : Wrapper;
   const H = isFeatured ? FeaturedHeading : Heading;
-  const permalink = `/${contentType}/${unSlashIt(slug)}`;
+  const permalink = `/podcast/${unSlashIt(slug)}`;
   return (
     <W {...props}>
       {isFeatured && banner ? (
         <BannerWrapper>
-          <Link aria-label={`Read "${title}"`} to={permalink}>
+          <Link aria-label={`Listen to "${title}"`} to={permalink}>
             <Img sizes={banner.childImageSharp.fluid} />
           </Link>
         </BannerWrapper>
@@ -38,20 +37,23 @@ const PostExcerpt: React.FC<BlogPostExcerptProps> = ({
           <H>
             <Link to={permalink}>{title}</Link>
           </H>
-          <PostInfo>
+          <EpisodeInfo>
             {date}
-            {` • ${timeToRead}`}
-          </PostInfo>
+            {` • ${timeToListen}`}
+          </EpisodeInfo>
         </header>
         <div>
-          <Spoiler
+          <Desc
             // eslint-disable-next-line react/no-danger
-            dangerouslySetInnerHTML={{ __html: spoiler }}
+            dangerouslySetInnerHTML={{ __html: description }}
           />
           <span>
-            <MoreLink to={permalink} rel="bookmark">
-              Read More<SRT> from {`"${title}"`}</SRT>
-            </MoreLink>
+            <ListenLink
+              to={permalink}
+              rel="bookmark"
+            >
+              Listen Now<SRT> to {`"${title}"`}</SRT>
+            </ListenLink>
           </span>
         </div>
       </InnerWrapper>
@@ -59,7 +61,7 @@ const PostExcerpt: React.FC<BlogPostExcerptProps> = ({
   );
 };
 
-export default PostExcerpt;
+export default PodcastExcerpt;
 
 export const InnerWrapper = styled('div')``;
 
@@ -94,7 +96,7 @@ export const Heading = styled(H2)`
 
 export const Wrapper = styled('article')``;
 
-export const PostInfo = styled('span')`
+export const EpisodeInfo = styled('span')`
   display: block;
   margin: ${rhythm(1 / 2)} 0;
   font-family: ${fonts.sans};
@@ -102,13 +104,13 @@ export const PostInfo = styled('span')`
   color: ${({ theme }) => theme.colors.lightText};
 `;
 
-export const Spoiler = styled('p')`
+export const Desc = styled('p')`
   font-family: ${fonts.sans};
   color: ${({ theme }) => theme.colors.lightText};
   margin: ${rhythm(1 / 2)} 0;
 `;
 
-export const MoreLink = styled(Link)`
+export const ListenLink = styled(Link)`
   display: block;
   font-family: ${fonts.sans};
   font-weight: bold;

@@ -4,30 +4,35 @@ import { rem } from 'polished';
 import { H4 } from '$components/Heading';
 import { TwitterIcon } from '$components/Icons';
 import Link from '$components/Link';
+import SRT from '$components/SRT';
 import { breakpoint, GLOBAL_MARGIN } from '$lib/styles';
 import { rhythm, fonts } from '$lib/typography';
-import { PostMetaProps } from './index';
+import { leadingSlashIt } from '$lib/utils';
 import config from '$src/../config';
-import SRT from '../SRT';
+import { PostMetaProps } from './index';
 
 const PostMeta: React.FC<PostMetaProps> = ({
   author,
   date,
-  timeToRead,
+  append,
   ...props
 }) => {
   return (
     <Wrapper {...props}>
-      {author.image && (
+      {author && author.image && (
         <ImageWrapper>
-          <img src={author.image} alt={`${author.name} bio`} />
+          <img src={leadingSlashIt(author.image)} alt={`${author.name} bio`} />
         </ImageWrapper>
       )}
       <div>
-        <AuthorName>{author.name}</AuthorName>
+        {author && <AuthorName>{author.name}</AuthorName>}
         <PostInfo>
           {date && <InfoItem>{date}</InfoItem>}
-          {timeToRead && <InfoItem>{timeToRead}</InfoItem>}
+          {append
+            ? append.map((item, index) => (
+                <InfoItem key={index}>{item}</InfoItem>
+              ))
+            : null}
           <InfoItem>
             <Link target="_blank" rel="noopener noreferrer" to={config.twitter}>
               <SRT>Twitter</SRT>

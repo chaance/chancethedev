@@ -5,18 +5,19 @@ import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 
 interface CodeProps {
   children: string;
-  codeString?: string;
-  language: Language;
+  className: string;
+  //language: Language;
   'react-live'?: boolean;
 }
 
 const Code: React.FC<CodeProps> = ({
   children,
-  codeString,
-  language,
+  className,
+  'react-live': live,
   ...props
 }) => {
-  if (props['react-live']) {
+  const language = className.replace(/language-/, '') as Language;
+  if (live) {
     return (
       <LiveProvider code={children.trim()} theme={theme}>
         <LiveEditor />
@@ -32,8 +33,14 @@ const Code: React.FC<CodeProps> = ({
       language={language}
       theme={theme}
     >
-      {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre className={className} style={style}>
+      {({
+        className: childClass,
+        style,
+        tokens,
+        getLineProps,
+        getTokenProps,
+      }) => (
+        <pre className={childClass} style={style}>
           {tokens.map((line, i) => (
             <div key={i} {...getLineProps({ line, key: i })}>
               {line.map((token, key) => (

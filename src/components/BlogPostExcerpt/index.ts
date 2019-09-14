@@ -10,4 +10,5 @@ export interface BlogPostExcerptProps extends Element<'article'> {
   date: string;
   timeToRead: string;
   spoiler: string;
+  contentType?: string;
 }
