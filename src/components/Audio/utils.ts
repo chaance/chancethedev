@@ -38,14 +38,16 @@ export function getPointerPosition(
   let evtPageY = 0;
   let evtPageX = 0;
 
-  if (event instanceof MouseEvent) {
-    evtPageY = event.pageY;
-    evtPageX = event.pageX;
+  // event instanceof MouseEvent
+  if ((event as any).pageY) {
+    evtPageY = (event as any).pageY;
+    evtPageX = (event as any).pageX;
   }
 
-  if (event instanceof TouchEvent) {
-    evtPageX = event.changedTouches[0].pageX;
-    evtPageY = event.changedTouches[0].pageY;
+  // event instanceof TouchEvent
+  if ((event as any).changedTouches) {
+    evtPageX = (event as any).changedTouches[0].pageX;
+    evtPageY = (event as any).changedTouches[0].pageY;
   }
 
   return {
@@ -54,16 +56,23 @@ export function getPointerPosition(
   };
 }
 
-export function prettyTime(time: number | string) {
+/* export function prettyTime(time: number | string) {
   if (typeof time === 'string') {
     time = parseFloat(time);
   }
-  const hours = Math.floor(time / 3600);
-  let mins = `0${Math.floor((time % 3600) / 60)}`;
-  let secs = `0${Math.floor(time % 60)}`;
+  let hours: number | string = Math.floor(time / 3600);
+  let mins: number | string = Math.floor((time / 60) % 60);
+  let secs: number | string = Math.floor(time % 60);
 
-  mins = mins.substr(mins.length - 2);
-  secs = secs.substr(secs.length - 2);
+  // handle invalid times
+  if (isNaN(time) || time === Infinity) {
+    hours = '-';
+    mins = '-';
+    secs = '-';
+  }
+
+  mins = `${hours && mins < 10 ? `0${mins}` : mins}:`;
+  secs = secs < 10 ? `0${secs}` : secs;
 
   if (!isNaN(secs as any)) {
     if (hours) {
@@ -71,7 +80,34 @@ export function prettyTime(time: number | string) {
     }
     return `${mins.indexOf('0') === 0 ? mins.substr(1, 1) : mins}:${secs}`;
   }
-  return '00:00';
+  return '0:00';
+} */
+
+export function formatTime(time: number | string = 0, guide = time) {
+  if (typeof time === 'string') {
+    time = parseFloat(time);
+  }
+  if (typeof guide === 'string') {
+    guide = parseFloat(guide);
+  }
+  let secs: number | string = Math.floor(time % 60);
+  let mins: number | string = Math.floor((time / 60) % 60);
+  let hours: number | string = Math.floor(time / 3600);
+  const gm = Math.floor((guide / 60) % 60);
+  const gh = Math.floor(guide / 3600);
+
+  // handle invalid times
+  if (isNaN(time) || time === Infinity) {
+    hours = '-';
+    mins = '-';
+    secs = '-';
+  }
+
+  hours = hours > 0 || gh > 0 ? `${hours}:` : '';
+  mins = `${(hours || gm >= 10) && mins < 10 ? `0${mins}` : mins}:`;
+  secs = secs < 10 ? `0${secs}` : secs;
+
+  return hours + mins + secs;
 }
 
 export function blurElement(element: any) {

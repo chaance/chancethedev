@@ -86,7 +86,7 @@ const reducer = (
 };
 
 const AudioPlayer = withCustomAudio(({ className, ...props }: any) => {
-  const { streamUrl } = props;
+  // const { streamUrl } = props;
   return (
     <Container className={className}>
       <StyledPlayButton {...props} />

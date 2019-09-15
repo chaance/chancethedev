@@ -22,22 +22,13 @@ export default function withSoundCloudAudio(WrappedComponent) {
     constructor(props, context) {
       super(props, context);
 
-      if (!props.clientId && !props.audioTrack && !props.streamUrl) {
-        /* console.warn(
-          `You need to get a clientId from SoundCloud,
-          pass in an instance of SoundCloudAudio
-          or use streamUrl with audio source instead
-          https://github.com/soundblogs/react-soundplayer#examples`
-        ); */
-      }
-
       // Don't create a SoundCloudAudio instance
       // if there is no `window`
       if ('undefined' !== typeof window) {
         if (props.audioTrack) {
           this.audioTrack = props.audioTrack;
         } else {
-          this.audioTrack = new SoundCloudAudio(props.clientId);
+          this.audioTrack = new SoundCloudAudio();
         }
       }
 
@@ -68,23 +59,10 @@ export default function withSoundCloudAudio(WrappedComponent) {
 
     requestAudio() {
       const { audioTrack } = this;
-      const { resolveUrl, streamUrl, preloadType, onReady } = this.props;
+      const { streamUrl, preloadType } = this.props;
 
       if (streamUrl) {
         audioTrack.preload(streamUrl, preloadType);
-      } else if (resolveUrl) {
-        audioTrack.resolve(resolveUrl, data => {
-          if (!this.mounted) {
-            return;
-          }
-
-          this.setState(
-            {
-              [data.tracks ? 'playlist' : 'track']: data,
-            },
-            () => onReady && onReady()
-          );
-        });
       }
     }
 

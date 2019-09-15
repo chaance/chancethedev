@@ -1,154 +1,14 @@
-/* eslint-disable camelcase */
-const SOUNDCLOUD_API_URL = 'https://api.soundcloud.com';
-
-let anchor;
-const keys = 'protocol hostname host pathname port search hash href'.split(' ');
-function _parseURL(url) {
-  if (!anchor) {
-    anchor = document.createElement('a');
-  }
-
-  const result = {};
-
-  anchor.href = url || '';
-
-  for (let i = 0, len = keys.length; i < len; i++) {
-    const key = keys[i];
-    result[key] = anchor[key];
-  }
-
-  return result;
-}
-
-function _appendQueryParam(url, param, value) {
-  const U = _parseURL(url);
-  const regex = /\?(?:.*)$/;
-  const chr = regex.test(U.search) ? '&' : '?';
-  const result =
-    U.protocol +
-    '//' +
-    U.host +
-    U.port +
-    U.pathname +
-    U.search +
-    chr +
-    param +
-    '=' +
-    value +
-    U.hash;
-
-  return result;
-}
-
-function SoundCloud(clientId, apiUrl) {
+function SoundCloud() {
   if (!(this instanceof SoundCloud)) {
-    return new SoundCloud(clientId, apiUrl);
-  }
-
-  if (!clientId && !apiUrl) {
-    //console.info('SoundCloud API requires clientId or custom apiUrl');
+    return new SoundCloud();
   }
 
   this._events = {};
-
-  this._clientId = clientId;
-  this._baseUrl = apiUrl || SOUNDCLOUD_API_URL;
-
   this.playing = false;
   this.duration = 0;
 
   this.audio = document.createElement('audio');
 }
-
-SoundCloud.prototype.resolve = function(url, callback) {
-  let resolveUrl =
-    this._baseUrl + '/resolve.json?url=' + encodeURIComponent(url);
-
-  if (this._clientId) {
-    resolveUrl = _appendQueryParam(resolveUrl, 'client_id', this._clientId);
-  }
-
-  this._json(
-    resolveUrl,
-    function(data) {
-      this.cleanData();
-
-      if (Array.isArray(data)) {
-        data = { tracks: data };
-      }
-
-      if (data.tracks) {
-        data.tracks = data.tracks.map(this._transformTrack.bind(this));
-        this._playlist = data;
-      } else {
-        this._track = this._transformTrack(data);
-
-        // save timings
-        const U = _parseURL(url);
-        this._track.stream_url += U.hash;
-      }
-
-      this.duration =
-        data.duration && !isNaN(data.duration)
-          ? data.duration / 1000 // convert to seconds
-          : 0; // no duration is zero
-
-      callback(data);
-    }.bind(this)
-  );
-};
-
-// deprecated
-SoundCloud.prototype._jsonp = function(url, callback) {
-  const target = document.getElementsByTagName('script')[0] || document.head;
-  const script = document.createElement('script');
-  const id =
-    'jsonp_callback_' + new Date().valueOf() + Math.floor(Math.random() * 1000);
-
-  window[id] = function(data) {
-    if (script.parentNode) {
-      script.parentNode.removeChild(script);
-    }
-    window[id] = function() {};
-    callback(data);
-  };
-
-  script.src = _appendQueryParam(url, 'callback', id);
-  target.parentNode.insertBefore(script, target);
-};
-
-SoundCloud.prototype._json = function(url, callback) {
-  const xhr = new XMLHttpRequest();
-
-  xhr.open('GET', url);
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
-        let resp = {};
-        try {
-          resp = JSON.parse(xhr.responseText);
-        } catch (err) {
-          // fail silently
-        }
-        callback(resp);
-      }
-    }
-  };
-
-  xhr.send(null);
-};
-
-SoundCloud.prototype._transformTrack = function(track) {
-  if (this._baseUrl !== SOUNDCLOUD_API_URL) {
-    track.original_stream_url = track.stream_url;
-    track.stream_url = track.stream_url.replace(
-      SOUNDCLOUD_API_URL,
-      this._baseUrl
-    );
-  }
-
-  return track;
-};
 
 SoundCloud.prototype.on = function(e, fn) {
   this._events[e] = fn;
@@ -170,15 +30,13 @@ SoundCloud.prototype.unbindAll = function() {
 };
 
 SoundCloud.prototype.preload = function(streamUrl, preloadType) {
-  this._track = { stream_url: streamUrl };
+  this._track = { streamUrl };
 
   if (preloadType) {
     this.audio.preload = preloadType;
   }
 
-  this.audio.src = this._clientId
-    ? _appendQueryParam(streamUrl, 'client_id', this._clientId)
-    : streamUrl;
+  this.audio.src = streamUrl;
 };
 
 SoundCloud.prototype.play = function(options) {
@@ -187,36 +45,14 @@ SoundCloud.prototype.play = function(options) {
 
   if (options.streamUrl) {
     src = options.streamUrl;
-  } else if (this._playlist) {
-    const length = this._playlist.tracks.length;
-
-    if (length) {
-      if (options.playlistIndex === undefined) {
-        this._playlistIndex = this._playlistIndex || 0;
-      } else {
-        this._playlistIndex = options.playlistIndex;
-      }
-
-      // be silent if index is out of range
-      if (this._playlistIndex >= length || this._playlistIndex < 0) {
-        this._playlistIndex = 0;
-        return;
-      }
-
-      src = this._playlist.tracks[this._playlistIndex].stream_url;
-    }
   } else if (this._track) {
-    src = this._track.stream_url;
+    src = this._track.streamUrl;
   }
 
   if (!src) {
     throw new Error(
-      'There is no tracks to play, use `streamUrl` option or `load` method'
+      'There are no tracks to play. Use `streamUrl` option or the `load` method.'
     );
-  }
-
-  if (this._clientId) {
-    src = _appendQueryParam(src, 'client_id', this._clientId);
   }
 
   if (src !== this.audio.src) {
@@ -239,33 +75,6 @@ SoundCloud.prototype.stop = function() {
   this.playing = false;
 };
 
-SoundCloud.prototype.next = function(options) {
-  options = options || {};
-  const tracksLength = this._playlist.tracks.length;
-
-  if (this._playlistIndex >= tracksLength - 1) {
-    if (options.loop) {
-      this._playlistIndex = -1;
-    } else {
-      return;
-    }
-  }
-
-  if (this._playlist && tracksLength) {
-    return this.play({ playlistIndex: ++this._playlistIndex });
-  }
-};
-
-SoundCloud.prototype.previous = function() {
-  if (this._playlistIndex <= 0) {
-    return;
-  }
-
-  if (this._playlist && this._playlist.tracks.length) {
-    return this.play({ playlistIndex: --this._playlistIndex });
-  }
-};
-
 SoundCloud.prototype.seek = function(e) {
   if (!this.audio.readyState) {
     return false;
@@ -280,7 +89,6 @@ SoundCloud.prototype.seek = function(e) {
 
 SoundCloud.prototype.cleanData = function() {
   this._track = void 0;
-  this._playlist = void 0;
 };
 
 SoundCloud.prototype.setVolume = function(volumePercentage) {

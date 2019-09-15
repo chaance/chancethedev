@@ -20,7 +20,7 @@ export const Timer: React.FC<TimerProps> = ({
 
   return (
     <div {...props}>
-      {formatTime(currentTime)} / {formatTime(duration)}
+      {/* formatTime(currentTime)} / {formatTime(duration) */}
     </div>
   );
 };
