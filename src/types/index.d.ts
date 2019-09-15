@@ -1,3 +1,4 @@
+/* eslint-disable no-duplicate-imports */
 /* eslint-disable no-undef */
 declare module 'gatsby-plugin-transition-link' {
   // TODO: Add real type declarations. We're just stopping errors for now

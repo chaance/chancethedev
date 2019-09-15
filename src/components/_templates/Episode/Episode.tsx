@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import Img from 'gatsby-image';
 import { rem, rgba } from 'polished';
 import Layout from '$components/Layout';
+import Audio from '$components/Audio';
 import SEO from '$components/SEO';
 import { HT } from '$components/Heading';
 import PostMeta from '$components/PostMeta';
@@ -46,7 +47,7 @@ const Episode: React.FC<EpisodeProps> = ({
             </BannerWrapper>
           ) */}
             IMG PLACEHOLDER
-            <PostTitle level={1}>{title}</PostTitle>
+            <PostTitle level={1}>{title.replace(/^E(\d|,)+:\s/, '')}</PostTitle>
             {description ? (
               <Description
                 // eslint-disable-next-line react/no-danger
@@ -54,6 +55,7 @@ const Episode: React.FC<EpisodeProps> = ({
               />
             ) : null}
             <StyledPostMeta date={date} append={['57 minutes']} />
+            <Audio streamUrl={enclosureUrl} />
           </HeaderInner>
         </Header>
         <ContentArea>Full shownotes will go here</ContentArea>
@@ -82,7 +84,7 @@ export const Header = styled.header`
        * prevent the top margin from being pushed up when the user scrolls to
        * the bottom of the post.
        */
-      height: calc(100% + ${rhythm(GLOBAL_MARGIN)});
+      min-height: calc(100% + ${rhythm(GLOBAL_MARGIN)});
     }
   }
 `;

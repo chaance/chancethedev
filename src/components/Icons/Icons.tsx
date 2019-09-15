@@ -49,7 +49,7 @@ export const GithubIcon: React.FC<IconProps> = ({
     <SVG
       width={size}
       height={size}
-      viewBox={`0 0 ${size} ${size}`}
+      viewBox="0 0 20 20"
       title={title}
       {...props}
     >
@@ -58,5 +58,188 @@ export const GithubIcon: React.FC<IconProps> = ({
         d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"
       />
     </SVG>
+  );
+};
+
+export const PlayIcon: React.FC<IconProps> = ({
+  size = 20,
+  title = 'Play',
+  ...props
+}) => {
+  return (
+    <SVG
+      width={size}
+      height={size}
+      viewBox="0 0 29 40"
+      title={title}
+      {...props}
+    >
+      <polygon points="0,40 29,20 0,0 " />
+    </SVG>
+  );
+};
+
+// || Pause
+export const PauseIcon: React.FC<IconProps> = ({
+  size = 20,
+  title = 'Pause',
+  ...props
+}) => {
+  return (
+    <SVG
+      width={size}
+      height={size}
+      viewBox="0 0 32 32"
+      title={title}
+      {...props}
+    >
+      <path d="M0 0 H12 V32 H0 z M20 0 H32 V32 H20 z" />
+    </SVG>
+  );
+};
+
+// |>| Next
+export const NextIcon: React.FC<IconProps> = ({
+  size = 20,
+  title = 'Next',
+  ...props
+}) => {
+  return (
+    <SVG
+      width={size}
+      height={size}
+      viewBox="0 0 32 32"
+      title={title}
+      {...props}
+    >
+      <path d="M4 4 L24 14 V4 H28 V28 H24 V18 L4 28 z " />
+    </SVG>
+  );
+};
+
+// |<| Prev
+export const PrevIcon: React.FC<IconProps> = ({
+  size = 20,
+  title = 'Previous',
+  ...props
+}) => {
+  return (
+    <SVG
+      width={size}
+      height={size}
+      viewBox="0 0 32 32"
+      title={title}
+      {...props}
+    >
+      <path d="M4 4 H8 V14 L28 4 V28 L8 18 V28 H4 z " />
+    </SVG>
+  );
+};
+
+// Download
+export const DownloadIcon: React.FC<IconProps> = ({
+  size = 20,
+  title = 'Download',
+  ...props
+}) => {
+  return (
+    <SVG
+      width={size}
+      height={size}
+      viewBox="0 0 32 32"
+      title={title}
+      {...props}
+    >
+      <rect x="1" y="24" width="30" height="5" />
+      <polygon points="32.05 3 16.02 20 0 3 32.05 3" />
+    </SVG>
+  );
+};
+
+// Loading
+export const LoadingIcon: React.FC<IconProps> = ({
+  size = 20,
+  title = 'Loading',
+  ...props
+}) => {
+  return (
+    <SVG
+      width={size}
+      height={size}
+      viewBox="0 0 32 32"
+      title={title}
+      {...props}
+    >
+      <circle cx="5.5" cy="16" r="2.5" />
+      <circle cx="26.5" cy="16" r="2.5" />
+      <circle cx="16" cy="16" r="2.5" />
+    </SVG>
+  );
+};
+
+// Volume
+export const VolumeIcon: React.FC<IconProps> = ({
+  size = 20,
+  title = 'Volume',
+  ...props
+}) => {
+  return (
+    <SVG
+      width={size}
+      height={size}
+      viewBox="0 0 75 75"
+      title={title}
+      fill="currentColor"
+      stroke="currentColor"
+      {...props}
+    >
+      {props.children}
+    </SVG>
+  );
+};
+
+export const VolumeIconLoud = ({ title = 'Volume Loud', ...props }) => {
+  return (
+    <VolumeIcon title={title} {...props}>
+      <polygon
+        points="39.389,13.769 22.235,28.606 6,28.606 6,47.699 21.989,47.699 39.389,62.75 39.389,13.769"
+        style={{ strokeWidth: 5, strokeLinejoin: 'round' }}
+      />
+      <path
+        d="M 48.128,49.03 C 50.057,45.934 51.19,42.291 51.19,38.377 C 51.19,34.399 50.026,30.703 48.043,27.577"
+        style={{ fill: 'none', strokeWidth: 5, strokeLinecap: 'round' }}
+      />
+      <path
+        d="M 55.082,20.537 C 58.777,25.523 60.966,31.694 60.966,38.377 C 60.966,44.998 58.815,51.115 55.178,56.076"
+        style={{ fill: 'none', strokeWidth: 5, strokeLinecap: 'round' }}
+      />
+      <path
+        d="M 61.71,62.611 C 66.977,55.945 70.128,47.531 70.128,38.378 C 70.128,29.161 66.936,20.696 61.609,14.01"
+        style={{ fill: 'none', strokeWidth: 5, strokeLinecap: 'round' }}
+      />
+    </VolumeIcon>
+  );
+};
+
+export const VolumeIconMute = ({ title = 'Volume Mute', ...props }) => {
+  return (
+    <VolumeIcon title={title} {...props}>
+      <polygon
+        points="39.389,13.769 22.235,28.606 6,28.606 6,47.699 21.989,47.699 39.389,62.75 39.389,13.769"
+        style={{
+          stroke: 'currentColor',
+          strokeWidth: 5,
+          strokeLinejoin: 'round',
+        }}
+      />
+      <path
+        d="M 48.651772,50.269646 69.395223,25.971024"
+        style={{ fill: 'none', strokeWidth: 5, strokeLinecap: 'round' }}
+      />
+      <path
+        d="M 69.395223,50.269646 48.651772,25.971024"
+        style={{ fill: 'none', strokeWidth: 5, strokeLinecap: 'round' }}
+      />
+    </VolumeIcon>
   );
 };

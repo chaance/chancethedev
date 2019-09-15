@@ -18,6 +18,7 @@ const Podcast: React.FC<PodcastProps> = ({
 }) => {
   // Only the first page will have a featured (lastest) blog post
   const firstEpisode = episodes[0].node;
+  const formatTitle = (title: string) => title.replace(/^E(\d|,)+:\s/, '');
 
   return (
     <Layout>
@@ -29,7 +30,7 @@ const Podcast: React.FC<PodcastProps> = ({
           <PodcastExcerpt
             isFeatured={true}
             banner={firstEpisode.banner}
-            title={firstEpisode.title}
+            title={formatTitle(firstEpisode.title)}
             slug={firstEpisode.slug}
             date={firstEpisode.publishedAt}
             //timeToListen={formatListenTime(firstEpisode.timeToListen)}
@@ -50,7 +51,7 @@ const Podcast: React.FC<PodcastProps> = ({
               index !== 0 && (
                 <PodcastExcerpt
                   key={episode.id}
-                  title={episode.title}
+                  title={formatTitle(episode.title)}
                   slug={episode.slug}
                   date={episode.publishedAt}
                   // GET TIMESTAMP

@@ -94,7 +94,7 @@ export const Header = styled.header`
        * prevent the top margin from being pushed up when the user scrolls to
        * the bottom of the post.
        */
-      height: calc(100% + ${rhythm(GLOBAL_MARGIN)});
+      min-height: calc(100% + ${rhythm(GLOBAL_MARGIN)});
     }
   }
 `;
