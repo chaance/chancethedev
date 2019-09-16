@@ -11,8 +11,8 @@ import {
   VolumeButton,
   VolumeRange,
 } from './components';
-import { breakpoint } from '$lib/styles';
 import { fonts } from '$lib/typography';
+import { useForceUpdate } from '$lib/hooks';
 import { Element } from '$lib/types';
 
 // TODO: Still working out some bugs in this component; refactoring as we go.
@@ -85,16 +85,20 @@ const reducer = (
 };
 
 interface AudioPlayerProps extends Element<'div'> {
-  src: string;
+  src?: string;
   preload?: string;
+  crossOrigin?: string;
+  audioId?: string;
 }
 
 const AudioPlayer: React.FC<AudioPlayerProps> = ({
   src,
   preload,
+  crossOrigin,
+  audioId,
   ...props
 }) => {
-
+  const forceUpdate = useForceUpdate();
   const audioRef = useRef<HTMLAudioElement>(null);
 
   // TODO: Replace with useReducer
@@ -117,16 +121,12 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   function handleSeekTrack(newTime: number, event?: any) {
     const { current: audioElement } = audioRef;
     if (audioElement != null) {
+      setSeeking(true);
       audioElement.currentTime = newTime;
     }
   }
 
-  function onSeekingTrack() {
-    const { current: audioElement } = audioRef;
-    if (audioElement != null) {
-      setSeeking(true);
-    }
-  }
+  function onSeekingTrack() {}
 
   function onSeekedTrack() {
     const { current: audioElement } = audioRef;
@@ -206,6 +206,65 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     [volume, isMuted]
   );
 
+  ///////// NEW FUNCS
+  function handlePlaying() {}
+
+  function handleEnded() {}
+
+  function handleSeeked() {}
+
+  function handleSeeking() {}
+
+  function handleTimeUpdate() {}
+
+  function handleLoadedMetaData() {}
+
+  function handlePause() {}
+
+  // function handleVolumeChange() {}
+
+  function handleLoadStart() {}
+
+  function handleWaiting() {}
+
+  function handleCanPlay() {}
+
+  function handleCanPlayThrough() {}
+
+  function handlePlay() {}
+
+  function handleProgress() {}
+
+  function handleDurationChange() {}
+
+  function handleError() {}
+
+  function handleSuspend() {}
+
+  function handleAbort() {}
+
+  function handleEmptied() {}
+
+  function handleStalled() {}
+
+  function handleLoadedData() {}
+
+  function handleRateChange() {}
+
+  function handleTextTrackChange() {
+    // TODO
+  }
+
+  useEffect(() => {
+    forceUpdate();
+    if (audioRef && audioRef.current && audioRef.current.textTracks) {
+      audioRef.current.textTracks.onaddtrack = handleTextTrackChange;
+      (audioRef.current
+        .textTracks as any).onremovetrack = handleTextTrackChange;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Container {...props}>
       <StyledPlayButton
@@ -227,6 +286,8 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
       <StyledProgress
         togglePlay={togglePlay}
         handleSeekTrack={handleSeekTrack}
+        setSeeking={setSeeking}
+        seeking={seeking}
         duration={duration}
         currentTime={currentTime}
       />
@@ -242,19 +303,57 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
         <SRT>Download the episode</SRT>
       </StyledDownloadLink> */}
       <audio
-        ref={audioRef}
         hidden
+        ref={audioRef}
+        crossOrigin={crossOrigin}
+        id={audioId}
         controls={false}
         preload={preload}
         src={src}
+        tabIndex={-1}
+        // TODO
         onPlaying={onAudioStarted}
-        onTimeUpdate={getCurrentTime}
-        onLoadedMetadata={getDuration}
-        onSeeking={onSeekingTrack}
-        onSeeked={onSeekedTrack}
-        onPause={onAudioPaused}
+        // onPlaying={handlePlaying}
+
         onEnded={onAudioEnded}
+        // onEnded={handleEnded}
+
+        onSeeked={onSeekedTrack}
+        // onSeeked={handleSeeked}
+
+        onSeeking={onSeekingTrack}
+        // onSeeking={handleSeeking}
+
+        onTimeUpdate={getCurrentTime}
+        // onTimeUpdate={handleTimeUpdate}
+
+        onLoadedMetadata={getDuration}
+        // onLoadedMetadata={handleLoadedMetaData}
+
+        onPause={onAudioPaused}
+        // onPause={handlePause}
+
         onVolumeChange={onVolumeChange}
+        // onVolumeChange={handleVolumeChange}
+
+        // muted={muted}
+        // loop={loop}
+        // playsInline={playsInline}
+        // autoPlay={autoPlay}
+        // onLoadStart={handleLoadStart}
+        // onWaiting={handleWaiting}
+        // onCanPlay={handleCanPlay}
+        // onCanPlayThrough={handleCanPlayThrough}
+        // onPlay={handlePlay}
+        // onProgress={handleProgress}
+        // onDurationChange={handleDurationChange}
+        // onError={handleError}
+        // onSuspend={handleSuspend}
+        // onAbort={handleAbort}
+        // onEmptied={handleEmptied}
+        // onStalled={handleStalled}
+        // onLoadedData={handleLoadedData}
+        // onRateChange={handleRateChange}
       />
     </Container>
   );
@@ -325,7 +424,7 @@ export const Container = styled.div`
 export const StyledProgress = styled(Progress)`
   width: 100%;
   height: 10px;
-  margin: 0;
+  margin: 0 0.5rem;
   background: ${({ theme }) => rgba(theme.colors.text, 0.2)};
   cursor: pointer;
 
@@ -343,12 +442,6 @@ export const StyledVolume: any = styled.div`
 export const StyledTimer: any = styled(Timer)`
   font-size: 0.75rem;
   white-space: nowrap;
-  min-width: ${rem(86)};
-  text-align: right;
-
-  ${breakpoint('small down')} {
-    display: none;
-  }
 `;
 
 export const StyledPlayButton = styled(PlayButton)`
