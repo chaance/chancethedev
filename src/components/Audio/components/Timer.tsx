@@ -18,9 +18,11 @@ export const Timer: React.FC<TimerProps> = ({
     duration = audioTrack.duration;
   }
 
+  // TODO: Flex container moves a bit as the timestamp changes. Fix plz.
+
   return (
     <div {...props}>
-      {/* formatTime(currentTime)} / {formatTime(duration) */}
+      {`${formatTime(currentTime)} / ${formatTime(duration)}`}
     </div>
   );
 };

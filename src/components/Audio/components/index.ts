@@ -1,5 +1,4 @@
 export * from './VolumeButton';
-export * from './VolumeControl';
 export * from './VolumeRange';
 export * from './PlayButton';
 export * from './NextButton';

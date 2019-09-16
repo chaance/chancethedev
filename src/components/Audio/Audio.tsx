@@ -1,22 +1,20 @@
-import React from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { rgba, rem } from 'polished';
-import SRT from '$components/SRT';
-import { DownloadIcon } from '$components/Icons';
-import { withCustomAudio } from './react-soundplayer/addons';
+// import { DownloadIcon } from '$components/Icons';
 import { EmotionTheme } from '$providers/theme';
 import {
   PlayButton,
   Progress,
   Timer,
   VolumeButton,
-  VolumeControl,
   VolumeRange,
 } from './components';
 import { fonts } from '$lib/typography';
+import { Element } from '$lib/types';
 
-// TODO: Lots of bugs in this component; refactoring as we go.
+// TODO: Still working out some bugs in this component; refactoring as we go.
 
 interface AudioPlayerState {
   duration: number;
@@ -85,33 +83,155 @@ const reducer = (
   }
 };
 
-const AudioPlayer = withCustomAudio(({ className, ...props }: any) => {
-  // const { streamUrl } = props;
+interface AudioPlayerProps extends Element<'div'> {
+  src: string;
+  preload?: string;
+}
+
+const AudioPlayer: React.FC<AudioPlayerProps> = ({
+  src,
+  preload,
+  ...props
+}) => {
+
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  // TODO: Replace with useReducer
+  const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [seeking, setSeeking] = useState(false);
+  const [playing, setPlaying] = useState(false);
+  const [playReady, setPlayReady] = useState(true);
+  const [volume, setVolume] = useState(1);
+  const [isMuted, setMuted] = useState(false);
+
+  function togglePlay(event: any) {
+    const { current: audioElement } = audioRef;
+    if (!playReady) return;
+    if (audioElement) {
+      !playing ? audioElement.play() : audioElement.pause();
+    }
+  }
+
+  function handleSeekTrack(newTime: number, event?: any) {
+    const { current: audioElement } = audioRef;
+    if (audioElement != null) {
+      audioElement.currentTime = newTime;
+    }
+  }
+
+  function onSeekingTrack() {
+    const { current: audioElement } = audioRef;
+    if (audioElement != null) {
+      setSeeking(true);
+    }
+  }
+
+  function onSeekedTrack() {
+    const { current: audioElement } = audioRef;
+    if (audioElement != null) {
+      setSeeking(false);
+    }
+  }
+
+  function onAudioStarted() {
+    const { current: audioElement } = audioRef;
+    if (audioElement != null) {
+      setPlaying(true);
+    }
+  }
+
+  function onAudioPaused() {
+    const { current: audioElement } = audioRef;
+    if (audioElement != null) {
+      setPlaying(false);
+    }
+  }
+
+  function onAudioEnded() {
+    const { current: audioElement } = audioRef;
+    if (audioElement != null) {
+      setPlaying(false);
+    }
+  }
+
+  function onVolumeChange() {
+    const { current: audioElement } = audioRef;
+    if (audioElement != null) {
+      setVolume(audioElement.volume);
+      setMuted(audioElement.muted);
+    }
+  }
+
+  function getCurrentTime() {
+    const { current: audioElement } = audioRef;
+    if (audioElement != null) {
+      setCurrentTime(audioElement.currentTime);
+    }
+  }
+
+  function getDuration() {
+    const { current: audioElement } = audioRef;
+    if (audioElement != null) {
+      setPlayReady(true);
+      setDuration(audioElement.duration);
+    }
+  }
+
+  function handleVolumeChange(event: React.SyntheticEvent<any, Event>) {
+    const { current: audioElement } = audioRef;
+    if (audioElement != null) {
+      try {
+        const xPos = parseFloat((event.target as HTMLInputElement).value) / 100;
+        const mute = xPos <= 0 && !isMuted;
+
+        audioElement.volume = xPos;
+        audioElement.muted = mute;
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }
+
+  function handleMute(event: React.MouseEvent) {
+    const { current: audioElement } = audioRef;
+    if (audioElement != null) {
+      audioElement.muted = !audioElement.muted;
+    }
+  }
+
+  const volumeValue = useMemo(
+    () => (isMuted ? 0 : Math.max(Math.min(volume * 100, 100), 0)),
+    [volume, isMuted]
+  );
+
   return (
-    <Container className={className}>
-      <StyledPlayButton {...props} />
-      <StyledVolume {...props}>
-        {({ handleMute, isMuted, volume, value, handleVolumeChange }: any) => (
-          <React.Fragment>
-            <StyledVolumeButton
-              onClick={handleMute}
-              isMuted={isMuted}
-              volume={volume}
-            />
-            <StyledRangeContainer>
-              <StyledRange
-                className=""
-                onChange={handleVolumeChange}
-                value={value}
-              />
-            </StyledRangeContainer>
-          </React.Fragment>
-        )}
+    <Container {...props}>
+      <StyledPlayButton
+        playing={playing}
+        seeking={false}
+        playReady={playReady}
+        onClick={togglePlay}
+      />
+      <StyledVolume>
+        <StyledVolumeButton
+          onClick={handleMute}
+          isMuted={isMuted}
+          volume={volume}
+        />
+        <StyledRangeContainer>
+          <StyledRange onChange={handleVolumeChange} value={volumeValue} />
+        </StyledRangeContainer>
       </StyledVolume>
-      <StyledProgress {...props} />
-      <StyledTimer {...props} />
+      <StyledProgress
+        togglePlay={togglePlay}
+        handleSeekTrack={handleSeekTrack}
+        duration={duration}
+        currentTime={currentTime}
+      />
+      <StyledTimer currentTime={currentTime} duration={duration} />
       {/* <StyledDownloadLink
-        href={streamUrl}
+        href={src}
         target="_blank"
         rel="noreferrer noopener"
         tabIndex={0}
@@ -120,9 +240,24 @@ const AudioPlayer = withCustomAudio(({ className, ...props }: any) => {
         <DownloadIcon fill="currentColor" aria-hidden />
         <SRT>Download the episode</SRT>
       </StyledDownloadLink> */}
+      <audio
+        ref={audioRef}
+        hidden
+        controls={false}
+        preload={preload}
+        src={src}
+        onPlaying={onAudioStarted}
+        onTimeUpdate={getCurrentTime}
+        onLoadedMetadata={getDuration}
+        onSeeking={onSeekingTrack}
+        onSeeked={onSeekedTrack}
+        onPause={onAudioPaused}
+        onEnded={onAudioEnded}
+        onVolumeChange={onVolumeChange}
+      />
     </Container>
   );
-});
+};
 
 export default AudioPlayer;
 
@@ -199,7 +334,7 @@ export const StyledProgress = styled(Progress)`
   }
 `;
 
-export const StyledVolume: any = styled(VolumeControl)`
+export const StyledVolume: any = styled.div`
   display: flex;
   align-items: center;
 `;

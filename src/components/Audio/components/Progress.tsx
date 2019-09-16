@@ -3,24 +3,22 @@ import { Element } from '$lib/types';
 import { getPointerPosition } from '../utils';
 
 interface ProgressProps extends Element<'div'> {
-  onSeekTrack: Function;
-  audioTrack: any;
   currentTime?: number;
   duration?: number;
   value?: number;
+  handleSeekTrack: Function;
+  togglePlay: Function;
 }
 
 export const Progress: React.FC<ProgressProps> = ({
-  onSeekTrack,
-  audioTrack,
+  handleSeekTrack,
   duration = 0,
   currentTime = 0,
   value = 0,
+  togglePlay,
   ...props
 }) => {
-  const [seeking, setSeeking] = useState(false);
   const ref = useRef(null);
-  console.log(props)
 
   const cleanup = () => {
     document.removeEventListener('mousemove', handleMouseMove as any, true);
@@ -49,12 +47,10 @@ export const Progress: React.FC<ProgressProps> = ({
   function handleMouseDown(event: any) {
     // event.preventDefault();
     // event.stopPropagation();
-
     document.addEventListener('mousemove', handleMouseMove as any, true);
     document.addEventListener('mouseup', handleMouseUp as any, true);
     document.addEventListener('touchmove', handleMouseMove as any, true);
     document.addEventListener('touchend', handleMouseUp as any, true);
-    setSeeking(true);
     handleMouseMove(event);
   }
 
@@ -67,7 +63,6 @@ export const Progress: React.FC<ProgressProps> = ({
     event.preventDefault();
     const newTime = getNewTime(event);
     handleSeekTrack(newTime, event);
-    setSeeking(false);
     cleanup();
   }
 
@@ -78,30 +73,26 @@ export const Progress: React.FC<ProgressProps> = ({
     }
   }
 
-  function handleSeekTrack(newTime: number, event?: any) {
-    if (audioTrack && !isNaN(audioTrack.audio.duration)) {
-      audioTrack.audio.currentTime = newTime;
-    }
-    onSeekTrack && onSeekTrack(newTime, event);
-  }
-
   function stepForward(step: number = 1) {
     const multiplier = 100 / duration;
     const advance = step * multiplier * 100;
-    console.log({ currentTime, advance });
     handleSeekTrack(Math.min(duration - 0.1, currentTime + advance));
   }
 
   function stepBack(step: number = 1) {
     const multiplier = 100 / duration;
     const rewind = step * multiplier * 100;
-    console.log({ currentTime, rewind });
     handleSeekTrack(Math.max(0, currentTime - rewind));
   }
 
   function handleKeyDown(event: any) {
     let flag = false;
     switch (event.key) {
+      case 'Enter':
+      case ' ':
+        flag = true;
+        togglePlay();
+        break;
       case 'ArrowRight':
       case 'ArrowUp':
         flag = true;
@@ -159,15 +150,6 @@ export const Progress: React.FC<ProgressProps> = ({
       {...props}
     >
       <div className="inner" style={{ width: `${width}%` }} />
-      {/* <input
-          type="range"
-          step="any"
-          min={0}
-          max={duration}
-          onChange={e => console.log(e)}
-          value={currentTime}
-          aria-valuetext={prettyTime(currentTime || 0).toString()}
-        /> */}
     </div>
   );
 };

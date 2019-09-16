@@ -55,7 +55,7 @@ const Episode: React.FC<EpisodeProps> = ({
               />
             ) : null}
             <StyledPostMeta date={date} append={['57 minutes']} />
-            <Audio streamUrl={enclosureUrl} />
+            <Audio src={enclosureUrl} />
           </HeaderInner>
         </Header>
         <ContentArea>Full shownotes will go here</ContentArea>

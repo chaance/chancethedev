@@ -34,7 +34,6 @@ const BlogPost: React.FC<BlogPostProps> = ({
   const authorNode = authors.find(
     ({ node }) => node.slug === (authorSlug || config.author.id)
   );
-  console.log({ next, prev });
   const authorObject = authorNode ? authorNode.node : null;
   return (
     <Layout frontmatter={mdx.frontmatter}>

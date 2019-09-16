@@ -56,33 +56,6 @@ export function getPointerPosition(
   };
 }
 
-/* export function prettyTime(time: number | string) {
-  if (typeof time === 'string') {
-    time = parseFloat(time);
-  }
-  let hours: number | string = Math.floor(time / 3600);
-  let mins: number | string = Math.floor((time / 60) % 60);
-  let secs: number | string = Math.floor(time % 60);
-
-  // handle invalid times
-  if (isNaN(time) || time === Infinity) {
-    hours = '-';
-    mins = '-';
-    secs = '-';
-  }
-
-  mins = `${hours && mins < 10 ? `0${mins}` : mins}:`;
-  secs = secs < 10 ? `0${secs}` : secs;
-
-  if (!isNaN(secs as any)) {
-    if (hours) {
-      return `${hours}:${mins}:${secs}`;
-    }
-    return `${mins.indexOf('0') === 0 ? mins.substr(1, 1) : mins}:${secs}`;
-  }
-  return '0:00';
-} */
-
 export function formatTime(time: number | string = 0, guide = time) {
   if (typeof time === 'string') {
     time = parseFloat(time);
@@ -108,16 +81,4 @@ export function formatTime(time: number | string = 0, guide = time) {
   secs = secs < 10 ? `0${secs}` : secs;
 
   return hours + mins + secs;
-}
-
-export function blurElement(element: any) {
-  if (element && typeof element.blur === 'function') {
-    element.blur();
-  }
-}
-
-export function focusElement(element: any) {
-  if (element && typeof element.focus === 'function') {
-    element.focus();
-  }
 }
