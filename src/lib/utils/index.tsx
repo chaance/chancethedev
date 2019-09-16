@@ -29,3 +29,20 @@ export function trailingSlashIt(str: string) {
 export function doubleSlashIt(str: string) {
   return '/' + unSlashIt(str) + '/';
 }
+
+export function assignRef(ref: any, value: any) {
+  if (ref == null) return;
+  if (typeof ref === 'function') {
+    ref(value);
+  } else {
+    try {
+      ref.current = value;
+    } catch (error) {
+      throw new Error(`Cannot assign value "${value}" to ref "${ref}"`);
+    }
+  }
+}
+
+export function mergeRefs(refs: any[], value: any) {
+  refs.forEach(ref => assignRef(ref, value));
+}

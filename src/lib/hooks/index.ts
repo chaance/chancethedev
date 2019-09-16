@@ -1,5 +1,7 @@
 export * from './useAnimationEndListener';
 export * from './useBreakpoint';
+export * from './useDimensions';
+export * from './useForceUpdate';
 export * from './useId';
 export * from './useInterval';
 export * from './usePrevious';
