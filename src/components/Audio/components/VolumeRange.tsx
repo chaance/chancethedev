@@ -14,6 +14,7 @@ import { rgba, rem } from 'polished';
 import { Element } from '$lib/types';
 import '@reach/slider/styles.css';
 
+// TODO: Remove Omit hack after reach is updated
 interface VolumeRangeProps extends Omit<SliderInputProps, 'ref' | 'children'> {}
 
 export const VolumeRange: React.FC<VolumeRangeProps> = ({
