@@ -4,14 +4,15 @@ export interface EpisodeProps {
   data: {
     site: any;
     simplecastPodcastEpisode: {
+      description: string;
+      enclosureUrl: string;
       id: string;
-      slug: string;
       number: number;
       publishedAt: string;
-      enclosureUrl: string;
-      description: string;
-      title: string;
+      simplecastId: string;
+      slug: string;
       status: string;
+      title: string;
     };
   };
 }

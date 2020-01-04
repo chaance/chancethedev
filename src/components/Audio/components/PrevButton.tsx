@@ -1,6 +1,6 @@
 import React from 'react';
 import { PrevIcon } from '$components/Icons';
-import SRT from '$components/SRT';
+import VH from '@reach/visually-hidden';
 import { Element } from '$lib/types';
 
 interface PrevButtonProps extends Element<'button'> {
@@ -20,7 +20,7 @@ export const PrevButton: React.FC<PrevButtonProps> = ({ audioTrack, onPrevClick,
       {...props}
     >
       <PrevIcon fill="currentColor" aria-hidden />
-      <SRT>Previous Track</SRT>
+      <VH>Previous Track</VH>
     </button>
   );
 };

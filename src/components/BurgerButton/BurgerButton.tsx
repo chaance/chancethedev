@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import SRT from '$components/SRT';
+import VH from '@reach/visually-hidden';
 import { BurgerButtonProps } from './index';
 
 // Values are in pixels.
@@ -36,7 +36,7 @@ const BurgerButton: React.FC<BurgerButtonProps> = ({
       setActive={setActive}
       active={active}
     >
-      <SRT>{children}</SRT>
+      <VH>{children}</VH>
       <span className="line" aria-hidden />
     </Button>
   );

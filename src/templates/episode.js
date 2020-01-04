@@ -8,14 +8,15 @@ export const pageQuery = graphql`
       ...site
     }
     simplecastPodcastEpisode(id: { eq: $id }) {
+      description
+      enclosureUrl
       id
-      slug
       number
       publishedAt(formatString: "MMMM DD, YYYY")
-      enclosureUrl
-      description
-      title
+      simplecastId
+      slug
       status
+      title
     }
   }
 `;

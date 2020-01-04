@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import VH from '@reach/visually-hidden';
 import { VolumeIconLoud, VolumeIconMute } from '$components/Icons';
 import { Element } from '$lib/types';
 
@@ -20,9 +21,15 @@ export const VolumeButton: React.FC<VolumeButtonProps> = ({
   return (
     <button type="button" {...props}>
       {isMuted ? (
-        <VolumeIconMute aria-hidden />
+        <Fragment>
+          <VH>Unmute</VH>
+          <VolumeIconMute title="" aria-hidden />
+        </Fragment>
       ) : (
-        <VolumeIconLoud aria-hidden />
+        <Fragment>
+          <VH>Mute</VH>
+          <VolumeIconLoud title="" aria-hidden />
+        </Fragment>
       )}
     </button>
   );

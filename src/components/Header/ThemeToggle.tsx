@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import SRT from '$components/SRT';
+import VH from '@reach/visually-hidden';
 import { useTheme } from '$lib/providers';
 import { breakpoint, GLOBAL_MARGIN } from '$lib/styles';
 import { rhythm } from '$lib/typography';
@@ -10,9 +10,9 @@ const ThemeToggle: React.FC<ThemeToggleProps> = props => {
   const [_, { themeName, toggleDarkMode }] = useTheme();
   return (
     <StyledButton {...props} onClick={toggleDarkMode}>
-      <SRT>
+      <VH>
         {themeName === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-      </SRT>
+      </VH>
       <ButtonInner aria-hidden>
         <ThemeGraphic />
       </ButtonInner>

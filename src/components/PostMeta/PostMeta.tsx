@@ -4,7 +4,7 @@ import { rem } from 'polished';
 import { H4 } from '$components/Heading';
 import { TwitterIcon } from '$components/Icons';
 import Link from '$components/Link';
-import SRT from '$components/SRT';
+import VH from '@reach/visually-hidden';
 import { breakpoint, GLOBAL_MARGIN } from '$lib/styles';
 import { rhythm, fonts } from '$lib/typography';
 import { leadingSlashIt } from '$lib/utils';
@@ -35,7 +35,7 @@ const PostMeta: React.FC<PostMetaProps> = ({
             : null}
           <InfoItem>
             <Link target="_blank" rel="noopener noreferrer" to={config.twitter}>
-              <SRT>Twitter</SRT>
+              <VH>Twitter</VH>
               <TwitterIcon aria-hidden />
             </Link>
           </InfoItem>
@@ -101,11 +101,11 @@ export const InfoItem = styled.li`
     margin-left: 0.5em;
   }
 
-  &:first-child {
+  &:first-of-type {
     margin-left: 0;
   }
 
-  &:last-child {
+  &:last-of-type {
     margin-right: 0;
 
     &::after {

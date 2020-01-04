@@ -14,7 +14,8 @@ import {
   MOBILE_NAV_WIDTH,
 } from '$lib/styles';
 import { Element } from '$lib/types';
-import { fonts, rhythm } from '$src/lib/typography';
+import { fonts, rhythm } from '$lib/typography';
+import { useBreakpoint } from '$lib/hooks';
 
 import ThemeToggle from './ThemeToggle';
 import NavToggle from './NavToggle';
@@ -38,11 +39,15 @@ const Header: React.FC<HeaderProps> = ({
     data,
   ]);
 
+  const isTinyScreen = !useBreakpoint(320);
+
   return (
     <StyledHeader {...props}>
       <HeaderInner>
         <nav>
-          <HomeLink to="/">Chance the Developer</HomeLink>
+          <HomeLink to="/">
+            {isTinyScreen ? 'Chance' : 'Chance the Developer'}
+          </HomeLink>
           <MenuWrapper navIsActive={navIsActive}>
             <StyledMenu items={items} />
           </MenuWrapper>
@@ -63,26 +68,26 @@ export default Header;
 
 function getLinks(siteTitle: string): MenuItemData[] {
   return [
-    {
+    /* {
       id: 1,
       label: 'Talks',
       to: '/talks',
-    },
-    {
+    }, */
+    /* {
       id: 2,
       label: 'Workshops',
       to: '/workshops',
-    },
+    }, */
     {
       id: 3,
       label: 'Podcast',
       to: '/podcast',
       children: [
-        {
+        /* {
           id: 3.1,
           label: 'RSS',
           to: '/rss',
-        },
+        }, */
         {
           id: 3.2,
           label: 'Google Play',
@@ -111,11 +116,11 @@ function getLinks(siteTitle: string): MenuItemData[] {
           to:
             'https://open.spotify.com/show/50hIkzVe6SHWEOc32wI6yd?si=f7XBveIkSIiti1E1OsnBBA',
         },
-        {
+        /* {
           id: 3.7,
           label: 'Become a Sponsor',
           to: '/podcast/sponsor',
-        },
+        }, */
       ],
     },
     {
@@ -123,11 +128,11 @@ function getLinks(siteTitle: string): MenuItemData[] {
       label: 'Blog',
       to: '/blog',
     },
-    {
+    /* {
       id: 5,
       label: 'About',
       to: '/about',
-    },
+    }, */
   ];
 }
 
@@ -145,6 +150,10 @@ const topLevelMenuStyles = css({
 
 export const StyledHeader = styled('header')`
   position: relative;
+  margin-bottom: ${rhythm(GLOBAL_MARGIN / 2)};
+  ${breakpoint('large')} {
+    margin-bottom: 0;
+  }
 `;
 
 export const HeaderInner = styled('div')`

@@ -1,6 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
-import SRT from '$components/SRT';
+import VH from '@reach/visually-hidden';
 import Link from '$components/Link';
 import {
   MenuItemData,
@@ -73,7 +73,7 @@ export const Menu: React.FC<MenuProps> = ({
             onClick={onClick}
             redirect={redirect}
             to={to}
-            label={hideLabel ? <SRT>{item.label}</SRT> : item.label}
+            label={hideLabel ? <VH>{item.label}</VH> : item.label}
             target={target}
             tabIndex={togglable && !toggleActive ? -1 : 0}
             {...linkProps}

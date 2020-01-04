@@ -94,10 +94,9 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   preload,
   ...props
 }) => {
-
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // TODO: Replace with useReducer
+  // TODO: Replace with state machine
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [seeking, setSeeking] = useState(false);
@@ -179,18 +178,13 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     }
   }
 
-  function handleVolumeChange(event: React.SyntheticEvent<any, Event>) {
+  function handleVolumeChange(value: number) {
     const { current: audioElement } = audioRef;
     if (audioElement != null) {
-      try {
-        const xPos = parseFloat((event.target as HTMLInputElement).value) / 100;
-        const mute = xPos <= 0 && !isMuted;
-
-        audioElement.volume = xPos;
-        audioElement.muted = mute;
-      } catch (e) {
-        console.error(e);
-      }
+      const xPos = value / 100;
+      const mute = xPos <= 0 && !isMuted;
+      audioElement.volume = xPos;
+      audioElement.muted = mute;
     }
   }
 
@@ -239,7 +233,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
         role="button"
       >
         <DownloadIcon fill="currentColor" aria-hidden />
-        <SRT>Download the episode</SRT>
+        <VH>Download the episode</VH>
       </StyledDownloadLink> */}
       <audio
         ref={audioRef}
@@ -265,24 +259,6 @@ export default AudioPlayer;
 ////////////////////////////////////////////////////////////////////////////////
 // STYLES
 ////////////////////////////////////////////////////////////////////////////////
-export const trackStyles = (theme: EmotionTheme) =>
-  css({
-    background: rgba(theme.colors.text, 0.2),
-    height: `0.5em`,
-    borderRadius: '0.25em',
-  });
-
-export const thumbStyles = (theme: EmotionTheme) =>
-  css({
-    height: '1em',
-    width: '1em',
-    border: 0,
-    borderRadius: '0.5em',
-    background: theme.colors.primary,
-    cursor: 'pointer',
-    appearance: 'none',
-    marginTop: '-0.25em',
-  });
 
 export const buttonStyles = css({
   display: 'flex',
@@ -378,36 +354,8 @@ export const StyledVolumeButton = styled(VolumeButton)`
 `;
 
 export const StyledRange = styled(VolumeRange)`
-  border: 0;
-  background: 0;
-  user-select: none !important;
-  cursor: default;
-  appearance: none;
-  width: 98%;
-
-  &::-ms-track {
-    ${({ theme }) => trackStyles(theme)};
-  }
-
-  &::-webkit-slider-runnable-track {
-    ${({ theme }) => trackStyles(theme)};
-  }
-
-  &::-moz-range-track {
-    ${({ theme }) => trackStyles(theme)};
-  }
-
-  &::-webkit-slider-thumb {
-    ${({ theme }) => thumbStyles(theme)};
-  }
-
-  &::-moz-range-thumb {
-    ${({ theme }) => thumbStyles(theme)};
-  }
-
-  &::-ms-thumb {
-    ${({ theme }) => thumbStyles(theme)};
-  }
+  padding-right: 1rem;
+  padding-left: 0.125rem;
 `;
 
 export const StyledRangeContainer = styled.div`

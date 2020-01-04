@@ -300,7 +300,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
         role="button"
       >
         <DownloadIcon fill="currentColor" aria-hidden />
-        <SRT>Download the episode</SRT>
+        <VH>Download the episode</VH>
       </StyledDownloadLink> */}
       <audio
         hidden

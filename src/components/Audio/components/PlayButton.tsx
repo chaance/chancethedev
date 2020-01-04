@@ -1,7 +1,14 @@
 import React from 'react';
+import IconButton from '$components/IconButton';
 import { PlayIcon, PauseIcon, LoadingIcon } from '$components/Icons';
-import SRT from '$components/SRT';
 import { Element } from '$lib/types';
+
+enum PlayerStates {
+  Loading = 'LOADING',
+  Seeking = 'SEEKING',
+  Playing = 'PLAYING',
+  Stopped = 'STOPPED',
+}
 
 interface PlayButtonProps extends Element<'button'> {
   playing?: boolean;
@@ -20,79 +27,48 @@ export const PlayButton: React.FC<PlayButtonProps> = ({
   seekingIcon,
   ...props
 }) => {
-  let iconNode: React.ReactNode;
-  let label;
-  const disabled = !!(seeking && seekingIcon);
+  let iconNode: JSX.Element;
+  let label: string;
+  let state: PlayerStates = !playReady
+    ? PlayerStates.Loading
+    : seeking && seekingIcon
+    ? PlayerStates.Seeking
+    : playing
+    ? PlayerStates.Playing
+    : PlayerStates.Stopped;
+  let disabled = !!(seeking && seekingIcon);
+  let iconProps = { fill: 'currentColor' };
 
-  if (!playReady) {
-    iconNode = <LoadingIcon fill="currentColor" aria-hidden />;
-    label = 'Loading Audio';
-  } else if (seeking && seekingIcon) {
-    iconNode = React.cloneElement(seekingIcon);
-    label = 'Seeking';
-  } else if (playing) {
-    iconNode = <PauseIcon fill="currentColor" aria-hidden />;
-    label = 'Pause';
-  } else {
-    iconNode = <PlayIcon fill="currentColor" aria-hidden />;
-    label = 'Play';
+  switch (state) {
+    case PlayerStates.Loading:
+      iconNode = <LoadingIcon {...iconProps} />;
+      label = 'Loading Audio';
+      break;
+    case PlayerStates.Seeking:
+      iconNode = React.cloneElement(seekingIcon!, iconProps);
+      label = 'Seeking';
+      break;
+    case PlayerStates.Playing:
+      iconNode = <PauseIcon {...iconProps} />;
+      label = 'Pause';
+      break;
+    case PlayerStates.Stopped:
+    default:
+      iconNode = <PlayIcon {...iconProps} />;
+      label = 'Play';
+      break;
   }
 
-  /* function handleKeyDown(event: any) {
-    let flag = false;
-    switch (event.key) {
-      case 'Enter':
-      case ' ':
-        flag = true;
-        togglePlay();
-        break;
-      case 'ArrowRight':
-      case 'ArrowUp':
-        flag = true;
-        stepForward();
-        break;
-      case 'ArrowLeft':
-      case 'ArrowDown':
-        flag = true;
-        stepBack();
-        break;
-      case 'PageDown':
-        flag = true;
-        stepBack(10);
-        break;
-      case 'PageUp':
-        flag = true;
-        stepForward(10);
-        break;
-      case 'Home':
-        flag = true;
-        handleSeekTrack(0);
-        break;
-      case 'End':
-        flag = true;
-        handleSeekTrack(duration - 0.1);
-        break;
-      default:
-        return;
-    }
-
-    if (flag) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-  } */
-
   return (
-    <button
-      type="button"
+    <IconButton
       onClick={onClick}
       disabled={disabled}
-      aria-disabled={disabled}
+      icon={iconNode}
       {...props}
     >
       {iconNode}
-      <SRT>{label}</SRT>
-    </button>
+      {label}
+    </IconButton>
   );
 };
 

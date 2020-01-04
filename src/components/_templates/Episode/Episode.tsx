@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Img from 'gatsby-image';
 import { rem, rgba } from 'polished';
@@ -7,31 +7,51 @@ import Audio from '$components/Audio';
 import SEO from '$components/SEO';
 import { HT } from '$components/Heading';
 import PostMeta from '$components/PostMeta';
-import {
-  breakpoint,
-  makeContentGrid,
-  GLOBAL_MARGIN,
-  // GLOBAL_MARGIN,
-} from '$lib/styles';
+import { breakpoint, makeContentGrid, GLOBAL_MARGIN } from '$lib/styles';
 import { rhythm, fonts } from '$lib/typography';
-import { formatListenTime } from '$lib/utils';
 import { EpisodeProps } from './index';
 
 const Episode: React.FC<EpisodeProps> = ({
   data: {
-    site,
     simplecastPodcastEpisode: {
-      id,
-      slug,
-      number,
+      simplecastId: episodeId,
       publishedAt: date,
       enclosureUrl,
       description,
       title,
-      status,
     },
   },
 }) => {
+  /*
+  TODO: Replace with state machine and do some proper data fetching, gross
+
+  TODO: Consider replacing with markdown source and just copy/pasta the
+        friggen shownotes, this extra API call is probs not worth it
+  */
+  let [shownotes, setShownotes] = useState<string | null>(null);
+  let [error, setError] = useState<string | null>(null);
+  useEffect(() => {
+    fetch(`https://api.simplecast.com/episodes/${episodeId}`)
+      .then(res => {
+        setError(null);
+        switch (res.status) {
+          case 200:
+            return res.json();
+          default:
+            throw Error(res.statusText);
+        }
+      })
+      .then(info => {
+        if (info.long_description) {
+          setShownotes(info.long_description);
+        } else {
+          throw Error(`Shownotes not found :(`);
+        }
+      })
+      .catch((err: Error) => {
+        setError(err.message);
+      });
+  }, [episodeId]);
   return (
     <Layout>
       <SEO />
@@ -46,7 +66,6 @@ const Episode: React.FC<EpisodeProps> = ({
               />
             </BannerWrapper>
           ) */}
-            IMG PLACEHOLDER
             <PostTitle level={1}>{title.replace(/^E(\d|,)+:\s/, '')}</PostTitle>
             {description ? (
               <Description
@@ -58,7 +77,19 @@ const Episode: React.FC<EpisodeProps> = ({
             <Audio src={enclosureUrl} />
           </HeaderInner>
         </Header>
-        <ContentArea>Full shownotes will go here</ContentArea>
+        <ContentArea
+          // eslint-disable-next-line react/no-danger
+          // @ts-ignore
+          dangerouslySetInnerHTML={
+            shownotes ? { __html: shownotes } : undefined
+          }
+        >
+          {!shownotes
+            ? error
+              ? `An error has occurred: ${error}`
+              : 'Loading…'
+            : null}
+        </ContentArea>
       </PostWrapper>
     </Layout>
   );
@@ -77,12 +108,12 @@ export const Header = styled.header`
   grid-area: header;
   position: relative;
 
-  ${breakpoint('large')} {
+  ${breakpoint('xxlarge')} {
     @supports (display: grid) {
       /*
-       * We need to offset the header by the width of the global margin to
-       * prevent the top margin from being pushed up when the user scrolls to
-       * the bottom of the post.
+       We need to offset the header by the width of the global margin to
+       prevent the top margin from being pushed up when the user scrolls to the
+       bottom of the post.
        */
       min-height: calc(100% + ${rhythm(GLOBAL_MARGIN)});
     }
@@ -91,7 +122,7 @@ export const Header = styled.header`
 
 export const HeaderInner = styled.div`
   @supports (display: grid) {
-    ${breakpoint('large')} {
+    ${breakpoint('xxlarge')} {
       position: sticky;
       top: ${rhythm(GLOBAL_MARGIN)};
       height: calc(100vh - ${rhythm(GLOBAL_MARGIN * 2)});
@@ -101,6 +132,7 @@ export const HeaderInner = styled.div`
 
 export const ContentArea = styled.div`
   grid-area: content;
+  margin-top: ${rhythm(GLOBAL_MARGIN / 2)};
 
   ${breakpoint('medium')} {
     font-size: ${rem(18)};
@@ -108,6 +140,10 @@ export const ContentArea = styled.div`
 
   ${breakpoint('large')} {
     font-size: ${rem(20)};
+  }
+
+  ${breakpoint('xxlarge')} {
+    margin-top: 0;
   }
 `;
 

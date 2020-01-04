@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import Img from 'gatsby-image';
 import { rem } from 'polished';
 import Link from '$components/Link';
-import SRT from '$components/SRT';
+import VH from '@reach/visually-hidden';
 import { HT, H2 } from '$components/Heading';
 import { unSlashIt } from '$lib/utils';
 import { breakpoint, GLOBAL_MARGIN } from '$lib/styles';
@@ -50,7 +50,7 @@ const PostExcerpt: React.FC<BlogPostExcerptProps> = ({
           />
           <span>
             <MoreLink to={permalink} rel="bookmark">
-              Read More<SRT> from {`"${title}"`}</SRT>
+              Read More<VH> from {`"${title}"`}</VH>
             </MoreLink>
           </span>
         </div>

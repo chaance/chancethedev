@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import Img from 'gatsby-image';
 import { rem } from 'polished';
 import Link from '$components/Link';
-import SRT from '$components/SRT';
+import VH from '@reach/visually-hidden';
 import { HT, H2 } from '$components/Heading';
 import { leadingSlashIt, unSlashIt } from '$lib/utils';
 import { breakpoint, GLOBAL_MARGIN } from '$lib/styles';
@@ -52,7 +52,7 @@ const PodcastExcerpt: React.FC<PodcastExcerptProps> = ({
               to={permalink}
               rel="bookmark"
             >
-              Listen Now<SRT> to {`"${title}"`}</SRT>
+              Listen Now<VH> to {`"${title}"`}</VH>
             </ListenLink>
           </span>
         </div>

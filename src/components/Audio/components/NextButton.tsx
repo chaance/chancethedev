@@ -1,6 +1,6 @@
 import React from 'react';
+import VH from '@reach/visually-hidden';
 import { NextIcon } from '$components/Icons';
-import SRT from '$components/SRT';
 import { Element } from '$lib/types';
 
 interface NextButtonProps extends Element<'button'> {
@@ -20,7 +20,7 @@ export const NextButton: React.FC<NextButtonProps> = ({
   return (
     <button type="button" onClick={handleClick} {...props}>
       <NextIcon fill="currentColor" aria-hidden />
-      <SRT>Next Track</SRT>
+      <VH>Next Track</VH>
     </button>
   );
 };
