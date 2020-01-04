@@ -1,9 +1,13 @@
 /* eslint-disable camelcase */
+const fs = require('fs');
+const path = require('path');
 const config = require('./config');
 const pathPrefix = config.pathPrefix === '/' ? '' : config.pathPrefix;
 
+const envFile = `.env.${process.env.NODE_ENV}`;
+
 require('dotenv').config({
-  path: `.env.${process.env.NODE_ENV}`,
+  path: fs.existsSync(path.resolve(__dirname, envFile)) ? envFile : `.env`,
 });
 
 module.exports = {
