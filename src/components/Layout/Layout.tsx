@@ -133,33 +133,31 @@ export const SiteContainer = styled(Container)<{ navIsActive: boolean }>`
   transform: translateX(
     ${({ navIsActive }) => (navIsActive ? rem(MOBILE_NAV_WIDTH * -1) : 0)}
   );
+  padding: ${rhythm((GLOBAL_MARGIN / 2) * SMALL_SCREEN_MULTIPLIER)};
+
+  ${breakpoint(348)} {
+    padding: ${rhythm(GLOBAL_MARGIN * SMALL_SCREEN_MULTIPLIER)};
+  }
 
   ${breakpoint('medium down')} {
     max-width: ${rhythm(28)};
+  }
+
+  ${breakpoint('medium')} {
+    padding: ${rhythm(GLOBAL_MARGIN)};
+  }
+
+  ${breakpoint('large')} {
+    @supports (display: grid) {
+      padding-bottom: 0;
+    }
   }
 `;
 
 export const GridWrapper = styled.div`
   width: 100%;
-  max-width: calc(
-    100% - ${rhythm((GLOBAL_MARGIN / 2) * SMALL_SCREEN_MULTIPLIER * 2)}
-  );
-  margin: ${rhythm((GLOBAL_MARGIN / 2) * SMALL_SCREEN_MULTIPLIER)} auto;
-
-  ${breakpoint(348)} {
-    max-width: calc(
-      100% - ${rhythm(GLOBAL_MARGIN * SMALL_SCREEN_MULTIPLIER * 2)}
-    );
-    margin: ${rhythm(GLOBAL_MARGIN * SMALL_SCREEN_MULTIPLIER)} auto;
-  }
-
-  ${breakpoint('medium')} {
-    max-width: calc(100% - ${rhythm(GLOBAL_MARGIN * 2)});
-    margin: ${rhythm(GLOBAL_MARGIN)} auto;
-  }
 
   ${breakpoint('large')} {
-    max-width: calc(${rhythm(22)} - ${rhythm(GLOBAL_MARGIN * 2)});
 
     @supports (display: grid) {
       display: grid;
@@ -167,15 +165,15 @@ export const GridWrapper = styled.div`
         'header body' 1fr
         'header footer' fit-content(100%) / 198px 1fr;
       column-gap: ${rhythm(GLOBAL_MARGIN)};
-      max-width: calc(100% - ${rhythm(GLOBAL_MARGIN * 2)});
-      margin-bottom: 0;
       min-height: calc(100vh - ${rhythm(GLOBAL_MARGIN)});
+      margin-bottom: 0;
     }
   }
 `;
 
 export const Body = styled.div`
   grid-area: body;
+  padding-bottom: ${rhythm(GLOBAL_MARGIN / 2)};
 `;
 
 export const StyledHeader = styled(Header)`
@@ -190,7 +188,10 @@ export const StyledFooter = styled(Footer)`
       bottom: 0;
       background: ${({ theme }) => theme.colors.bodyBg};
       padding-bottom: ${rhythm(GLOBAL_MARGIN)};
-      transition: background 400ms ease-out, box-shadow 400ms ease-out;
+      transition:
+        color 400ms ease-out,
+        background 400ms ease-out,
+        box-shadow 400ms ease-out;
       /* box-shadow: 0 -10px 20px 20px ${({ theme }) => theme.colors.bodyBg}; */
     }
   }

@@ -28,15 +28,15 @@ const PostExcerpt: React.FC<BlogPostExcerptProps> = ({
     <W {...props}>
       {isFeatured && banner ? (
         <BannerWrapper>
-          <Link aria-label={`Read "${title}"`} to={permalink}>
+          <StyledLink aria-label={`Read "${title}"`} to={permalink} tabIndex={-1}>
             <Img sizes={banner.childImageSharp.fluid} />
-          </Link>
+          </StyledLink>
         </BannerWrapper>
       ) : null}
       <InnerWrapper>
         <header>
           <H>
-            <Link to={permalink}>{title}</Link>
+            <StyledLink to={permalink}>{title}</StyledLink>
           </H>
           <PostInfo>
             {date}
@@ -49,7 +49,7 @@ const PostExcerpt: React.FC<BlogPostExcerptProps> = ({
             dangerouslySetInnerHTML={{ __html: spoiler }}
           />
           <span>
-            <MoreLink to={permalink} rel="bookmark">
+            <MoreLink to={permalink} rel="bookmark" tabIndex={-1}>
               Read More<VH> from {`"${title}"`}</VH>
             </MoreLink>
           </span>
@@ -58,6 +58,10 @@ const PostExcerpt: React.FC<BlogPostExcerptProps> = ({
     </W>
   );
 };
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
 
 export default PostExcerpt;
 
@@ -108,7 +112,7 @@ export const Spoiler = styled('p')`
   margin: ${rhythm(1 / 2)} 0;
 `;
 
-export const MoreLink = styled(Link)`
+export const MoreLink = styled(StyledLink)`
   display: block;
   font-family: ${fonts.sans};
   font-weight: bold;

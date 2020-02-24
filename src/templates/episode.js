@@ -7,15 +7,19 @@ export const pageQuery = graphql`
     site {
       ...site
     }
-    simplecastPodcastEpisode(id: { eq: $id }) {
+    buzzsproutPodcastEpisode(id: { eq: $id }) {
       description
-      enclosureUrl
+      audio_url
+      artwork_url
       id
-      number
-      publishedAt(formatString: "MMMM DD, YYYY")
-      simplecastId
+      episode_number
+      published_at(formatString: "MMMM DD, YYYY")
+      id
       slug
-      status
+      fields {
+        formattedSlug
+      }
+      summary
       title
     }
   }

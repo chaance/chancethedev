@@ -10,16 +10,21 @@ export const pageQuery = graphql`
         title
       }
     }
-    allSimplecastPodcastEpisode {
+    allBuzzsproutPodcastEpisode {
       edges {
         node {
           id
           slug
-          enclosureUrl
-          number
-          publishedAt(formatString: "MMMM D, Y")
+          fields {
+            formattedSlug
+          }
+          audio_url
+          artwork_url
+          episode_number
+          published_at(formatString: "MMMM D, Y")
           title
           description
+          summary
         }
       }
     }
@@ -30,6 +35,7 @@ export const pageQuery = graphql`
     ) {
       edges {
         node {
+          timeToRead
           excerpt(pruneLength: 190)
           id
           fields {

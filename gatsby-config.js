@@ -83,10 +83,10 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-source-simplecast',
+      resolve: 'gatsby-source-buzzsprout',
       options: {
-        podcastId: config.podcastID,
-        token: process.env.SIMPLECAST_API_KEY,
+        token: process.env.BUZZSPROUT_TOKEN,
+        podcastId: '153232',
       },
     },
     'gatsby-plugin-sharp',

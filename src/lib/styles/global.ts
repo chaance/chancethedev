@@ -2,12 +2,16 @@ import { css } from '@emotion/core';
 import { Theme } from '$src/lib/providers/theme';
 import { fonts, rhythm } from '$lib/typography';
 import { breakpoint } from './breakpoints';
-import { rem } from 'polished';
+import { rem, lighten, darken } from 'polished';
+import { applyKeyboardFocusStyles } from './utils';
 
 export const globalStyles = (theme: Theme) => {
   return css`
     html {
       font-size: 16px;
+
+      ${breakpoint('medium')} {
+      }
 
       ${breakpoint('xxxlarge')} {
         font-size: 18px;
@@ -23,6 +27,7 @@ export const globalStyles = (theme: Theme) => {
       ${breakpoint('large')} {
         @supports (display: grid) {
           overflow-x: initial;
+          scroll-padding-bottom: ${rem(100)};
         }
       }
     }
@@ -34,11 +39,27 @@ export const globalStyles = (theme: Theme) => {
 
     a {
       color: ${theme.colors.link};
+      text-decoration-color: ${theme.colors.lightText};
 
-      &:hover,
-      &:focus {
+      &:hover {
         color: ${theme.colors.linkHover};
       }
+    }
+
+    a,
+    button,
+    audio,
+    video,
+    input,
+    select,
+    textarea,
+    iframe,
+    embed,
+    object,
+    [tabindex='0'],
+    [contenteditable],
+    [focusable] {
+      ${applyKeyboardFocusStyles(theme)}
     }
 
     h1,
@@ -105,6 +126,10 @@ export const globalStyles = (theme: Theme) => {
     ul,
     ol {
       font-size: inherit;
+    }
+
+    .twitter-tweet {
+      margin: ${rhythm(1)} 0 !important;
     }
   `;
 };

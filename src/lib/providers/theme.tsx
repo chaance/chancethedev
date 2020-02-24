@@ -1,11 +1,10 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { ThemeProvider as EmotionThemeProvider } from 'emotion-theming';
+import useDarkMode from 'use-dark-mode';
 import deepmerge from 'deepmerge';
 // import { lighten, darken } from 'polished';
 import colors, { ColorMap } from '$lib/colors';
 import { DeepPartial } from '$lib/types';
-
-const THEME_KEY = 'chance_the_dev_theme';
 
 const themes: Themes = {
   default: {
@@ -37,45 +36,30 @@ const themes: Themes = {
 const themeInitialState: ThemeContextProps = {
   theme: themes.default,
   themeName: 'default',
-  setTheme: (arg: any) => ({}),
   toggleDarkMode: () => ({}),
 };
 
 const ThemeContext = createContext<ThemeContextProps>(themeInitialState);
 
 const ThemeProvider: React.FC = ({ children }) => {
-  const initializeTheme = (): ThemeNames => {
-    if (typeof window !== 'undefined') {
-      return window.localStorage.getItem(THEME_KEY) ||
-        window.matchMedia('(prefers-color-scheme: dark)').matches === true
-        ? 'dark'
-        : 'default';
-    }
-    return 'default';
-  };
-  const [themeName, setTheme] = useState<ThemeNames>(initializeTheme);
-  const theme = themes[themeName];
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.localStorage.setItem(THEME_KEY, themeName);
-    }
-  }, [themeName]);
-
-  const toggleDarkMode = () =>
-    setTheme(themeName === 'dark' ? 'default' : 'dark');
+  let darkMode = useDarkMode(false);
+  let themeName: ThemeNames = darkMode.value ? 'dark' : 'default';
+  let theme = themes[darkMode.value ? 'dark' : 'default'];
 
   return (
     <ThemeContext.Provider
       value={{
         themeName,
         theme,
-        setTheme,
-        toggleDarkMode,
+        toggleDarkMode: darkMode.toggle,
       }}
     >
       <EmotionThemeProvider
-        theme={{ activeTheme: themeName, themes, ...theme }}
+        theme={{
+          activeTheme: themeName,
+          themes,
+          ...theme,
+        }}
       >
         {children}
       </EmotionThemeProvider>
@@ -137,7 +121,6 @@ export interface EmotionTheme extends Theme {
 }
 
 export interface ThemeContextProps extends ThemeState {
-  setTheme(arg: ThemeNames): any;
   toggleDarkMode(): any;
 }
 

@@ -5,7 +5,7 @@ export { default } from './Podcast';
 ////////////////////////////////////////////////////////////////////////////////
 export interface PodcastProps {
   data: {
-    allSimplecastPodcastEpisode: {
+    allBuzzsproutPodcastEpisode: {
       edges: any[]
     },
   };

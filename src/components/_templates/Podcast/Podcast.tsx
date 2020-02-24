@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import VH from '@reach/visually-hidden';
 import styled from '@emotion/styled';
 import PodcastExcerpt from '$components/PodcastExcerpt';
 import { Section, H1, H2 } from '$components/Heading';
@@ -13,7 +14,7 @@ import { PodcastProps } from './index';
 
 const Podcast: React.FC<PodcastProps> = ({
   data: {
-    allSimplecastPodcastEpisode: { edges: episodes },
+    allBuzzsproutPodcastEpisode: { edges: episodes },
   },
 }) => {
   // Only the first page will have a featured (lastest) blog post
@@ -29,13 +30,19 @@ const Podcast: React.FC<PodcastProps> = ({
         <Section>
           <PodcastExcerpt
             isFeatured={true}
-            banner={firstEpisode.banner}
+            banner={firstEpisode.artwork_url}
             title={formatTitle(firstEpisode.title)}
-            slug={firstEpisode.slug}
-            date={firstEpisode.publishedAt}
+            slug={firstEpisode.fields.formattedSlug}
+            date={firstEpisode.published_at}
             //timeToListen={formatListenTime(firstEpisode.timeToListen)}
             timeToListen="57 minute listen"
-            description={firstEpisode.description}
+            description={firstEpisode.summary}
+            listenLinkText={title => (
+              <Fragment>
+                See the Shownotes<VH> for {`"${title}"`}</VH>
+              </Fragment>
+            )}
+            audioUrl={firstEpisode.audio_url}
           />
         </Section>
       </Section>
@@ -52,12 +59,12 @@ const Podcast: React.FC<PodcastProps> = ({
                 <PodcastExcerpt
                   key={episode.id}
                   title={formatTitle(episode.title)}
-                  slug={episode.slug}
-                  date={episode.publishedAt}
+                  slug={episode.fields.formattedSlug}
+                  date={episode.published_at}
                   // GET TIMESTAMP
                   // timeToListen={formatListenTime(episode.timeToListen)}
                   timeToListen="57 minute listen"
-                  description={episode.description}
+                  description={episode.summary}
                 />
               )
             );

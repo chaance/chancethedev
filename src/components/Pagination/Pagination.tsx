@@ -52,7 +52,6 @@ export const Wrapper = styled('nav')`
   padding: ${rhythm(GLOBAL_MARGIN / 2)} 0 0;
   font-family: ${fonts.sans};
   font-weight: bold;
-  border-top: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
 export const PageList = styled.ul`

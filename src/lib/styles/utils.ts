@@ -1,6 +1,7 @@
 import { css, jsx } from '@emotion/core';
 import { rhythm } from '$lib/typography';
 import { breakpoint } from '$lib/styles';
+import { Theme } from '$src/lib/providers/theme';
 
 export const GLOBAL_MARGIN = 2;
 export const SMALL_SCREEN_MULTIPLIER = 0.5;
@@ -19,5 +20,12 @@ export const makeContentGrid = (col1: string, col2: string) => css`
       column-gap: ${rhythm(GLOBAL_MARGIN)};
       height: 100%;
     }
+  }
+`;
+
+export const applyKeyboardFocusStyles = (theme: Theme) => css`
+  [data-whatinput='keyboard'] &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px ${theme.colors.primary};
   }
 `;

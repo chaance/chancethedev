@@ -50,7 +50,6 @@ export const resetStyles = () => {
     a {
       transition-duration: 100ms;
       transition-timing-function: ease-out;
-      text-decoration: none;
     }
 
     a:not([href]):not([tabindex]) {
@@ -61,10 +60,6 @@ export const resetStyles = () => {
       &:focus {
         color: inherit;
         text-decoration: none;
-      }
-
-      &:focus {
-        outline: 0;
       }
     }
 
@@ -126,11 +121,6 @@ export const resetStyles = () => {
     label {
       display: inline-block;
       margin-bottom: ${rhythm(1 / 3)};
-    }
-
-    button:focus {
-      outline: 1px dotted;
-      outline: 5px auto -webkit-focus-ring-color;
     }
 
     input,

@@ -7,17 +7,21 @@ export const pageQuery = graphql`
     site {
       ...site
     }
-    allSimplecastPodcastEpisode(sort: { order: DESC, fields: [publishedAt] }) {
+    allBuzzsproutPodcastEpisode(sort: { order: DESC, fields: [published_at] }) {
       edges {
         node {
           id
           slug
-          publishedAt(formatString: "MMMM DD, YYYY")
-          enclosureUrl
+          fields {
+            formattedSlug
+          }
+          published_at(formatString: "MMMM DD, YYYY")
+          audio_url
+          artwork_url,
           description
-          number
+          summary
+          episode_number
           title
-          status
         }
       }
     }

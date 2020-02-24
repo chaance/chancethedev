@@ -1,9 +1,12 @@
+export * from './canUseDOM';
 export * from './invariant';
 export * from './inViewport';
 export * from './isValidUrl';
-export * from './resolvePromise';
 export * from './json2mq';
+export * from './resolvePromise';
 export * from './wrapEvent';
+export * from './whatInput';
+
 export { default as keyCodeMap } from './keyCodeMap';
 
 export function formatReadingTime(minutes: number | string) {

@@ -8,13 +8,16 @@ const PAGINATION_OFFSET = 6;
 exports.createPages = ({ actions, graphql }) =>
   graphql(`
     query {
-      allSimplecastPodcastEpisode(
-        sort: { order: DESC, fields: [publishedAt] }
+      allBuzzsproutPodcastEpisode(
+        sort: { order: DESC, fields: [published_at] }
       ) {
         edges {
           node {
             id
             slug
+            fields {
+              formattedSlug
+            }
           }
         }
       }
@@ -52,7 +55,7 @@ exports.createPages = ({ actions, graphql }) =>
 
     const {
       allMdx: { edges: mdxPosts },
-      allSimplecastPodcastEpisode: { edges: podcastEpisodes },
+      allBuzzsproutPodcastEpisode: { edges: podcastEpisodes },
     } = data;
 
     const { createRedirect, createPage } = actions;
@@ -99,6 +102,14 @@ exports.onCreateNode = ({
   createContentDigest,
 }) => {
   const { createNodeField, createNode, createParentChildLink } = actions;
+
+  if (node.internal.type === 'BuzzsproutPodcastEpisode') {
+    createNodeField({
+      name: 'formattedSlug',
+      node,
+      value: removeEpisodeNumberFromSlug(node.slug),
+    });
+  }
 
   // Create GraphQL query for site authors
   if (
@@ -228,8 +239,14 @@ function fileExists(filePath) {
 function createPosts(createPage, createRedirect, edges, pathPrefix = null) {
   edges.forEach(({ node }, i) => {
     let realPathPrefix = pathPrefix;
-    if (!node.fields && !node.slug) {
+    let { fields = {}, slug } = node;
+
+    if (!node.fields && !slug) {
       return;
+    }
+
+    if (node.fields.formattedSlug) {
+      slug = node.fields.formattedSlug;
     }
 
     const contentType = node.parent ? node.parent.sourceInstanceName : null;
@@ -237,7 +254,6 @@ function createPosts(createPage, createRedirect, edges, pathPrefix = null) {
       realPathPrefix = contentType || pathPrefix;
     }
 
-    const { fields = {}, slug } = node;
     const prev = i === 0 ? null : edges[i - 1].node;
     const next = i === edges.length - 1 ? null : edges[i + 1].node;
     const pagePath = realPathPrefix
@@ -339,4 +355,13 @@ function createPaginatedPages(createPage, edges, context) {
       });
     });
   });
+}
+
+/**
+ * Total hack. I was silly and started prepending my episode slugs with
+ * e[episode number]-*, but I don't want those in the URL.
+ * @param {string} slug
+ */
+function removeEpisodeNumberFromSlug(slug) {
+  return slug.replace(/^e\d+-/g, '');
 }

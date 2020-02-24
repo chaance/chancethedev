@@ -25,7 +25,7 @@ Seeking out and selling my services for work that I haven't yet conquered is not
 and do work that I didn't have complete confidence in completing. But the deadline and your first solo paycheck are really great motivators, and a bit of tenacity is a hell of a tool.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">There is no better feeling than attempting something that is way out of your depth, being persistent, and then pulling it off on the basis of sheer will</p>
-<cite><span>PATAGUCCI MANE (@ken_wheeler) <a href="https://twitter.com/ken_wheeler/status/1143568121531424769?ref_src=twsrc%5Etfw">June 25, 2019</a></span></cite></blockquote>
+<cite><span>Ken Wheeler (@ken_wheeler) <a href="https://twitter.com/ken_wheeler/status/1143568121531424769?ref_src=twsrc%5Etfw">June 25, 2019</a></span></cite></blockquote>
 
 **TLDR:** Don't feel trapped by your current knowledge, and actively chase work that makes you uncomfortable. If you don't try new things--especially the ones that push the limits of your capabilities--the years of experience later won't matter as much as you might expect.
 

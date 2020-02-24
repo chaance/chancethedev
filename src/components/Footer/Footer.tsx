@@ -20,7 +20,7 @@ const Footer: React.FC<FooterProps> = ({ ...props }) => (
       </Menu>
     </nav>
     <Copyright>
-      {`\u00A9 ${new Date().getFullYear()}`}. Built with React and GatsbyJS.
+      {`\u00A9 ${new Date().getFullYear()}`} Zero Rights Reserved
     </Copyright>
   </StyledFooter>
 );
@@ -59,6 +59,7 @@ export const StyledFooter = styled.footer`
   font-family: ${fonts.sans};
   font-weight: bold;
   line-height: 1;
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
 
   ${breakpoint('medium')} {
     display: flex;

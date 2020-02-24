@@ -3,15 +3,15 @@ export { default } from './Episode';
 export interface EpisodeProps {
   data: {
     site: any;
-    simplecastPodcastEpisode: {
+    buzzsproutPodcastEpisode: {
       description: string;
-      enclosureUrl: string;
+      summary: string;
+      audio_url: string;
+      artwork_url: string;
       id: string;
       number: number;
-      publishedAt: string;
-      simplecastId: string;
+      published_at: string;
       slug: string;
-      status: string;
       title: string;
     };
   };

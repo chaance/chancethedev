@@ -7,7 +7,7 @@ import { rhythm } from '$lib/typography';
 import { ThemeToggleProps, ThemeGraphicProps } from './index';
 
 const ThemeToggle: React.FC<ThemeToggleProps> = props => {
-  const [_, { themeName, toggleDarkMode }] = useTheme();
+  const [, { themeName, toggleDarkMode }] = useTheme();
   return (
     <StyledButton {...props} onClick={toggleDarkMode}>
       <VH>
@@ -78,11 +78,13 @@ const StyledButton = styled.button`
   appearance: none;
   background: transparent;
   border: 0;
+  border-radius: 8px;
   box-shadow: none;
   width: 16px;
   height: 16px;
 
   ${breakpoint('large')} {
+    border-radius: ${rhythm(GLOBAL_MARGIN / 4)};
     width: ${rhythm(GLOBAL_MARGIN / 2)};
     height: ${rhythm(GLOBAL_MARGIN / 2)};
   }

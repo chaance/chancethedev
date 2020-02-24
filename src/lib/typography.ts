@@ -9,7 +9,7 @@ const typography = new Typography({
   baseLineHeight: 1.6,
   headerLineHeight: 1.3,
   headerFontFamily: fontLists.sans,
-  bodyFontFamily: fontLists.serif,
+  bodyFontFamily: fontLists.sans,
   headerColor: colors.black,
   bodyColor: colors.black,
   scaleRatio: 2,

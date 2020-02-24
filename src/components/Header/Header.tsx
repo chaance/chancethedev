@@ -168,7 +168,6 @@ export const HeaderInner = styled('div')`
       height: calc(100vh - ${rhythm(GLOBAL_MARGIN * 2)});
       align-items: flex-start;
       flex-direction: column;
-      border-right: 1px solid ${({ theme }) => theme.colors.border};
     }
   }
 `;
@@ -176,6 +175,7 @@ export const HeaderInner = styled('div')`
 export const HomeLink = styled(Link)`
   display: block;
   color: ${({ theme }) => theme.colors.primary};
+  text-decoration: none;
   ${topLevelMenuStyles}
 
   ${breakpoint('medium down')} {
@@ -228,6 +228,10 @@ export const StyledMenu = styled(Menu)`
     list-style: none;
     margin: 0;
     padding: 0;
+  }
+
+  a {
+    text-decoration: none;
   }
 
   /* sub-menu */
