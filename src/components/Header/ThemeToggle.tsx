@@ -8,6 +8,7 @@ import { ThemeToggleProps, ThemeGraphicProps } from './index';
 
 const ThemeToggle: React.FC<ThemeToggleProps> = props => {
   const [, { themeName, toggleDarkMode }] = useTheme();
+  console.log('FROM TOGGLE', { themeName });
   return (
     <StyledButton {...props} onClick={toggleDarkMode}>
       <VH>
@@ -22,6 +23,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = props => {
 
 const ThemeGraphic: React.FC<ThemeGraphicProps> = props => {
   const [_, { themeName }] = useTheme();
+  console.log('FROM GRAPHIC', { themeName });
   return (
     <svg
       {...props}
