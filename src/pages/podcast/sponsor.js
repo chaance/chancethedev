@@ -1,3 +1,5 @@
 import { graphql } from 'gatsby';
 
-export { default } from '$components/_pages/Sponsor';
+import Sponsor from '$components/_pages/Sponsor';
+
+export default Sponsor;

@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby';
 
-export { default } from '$components/_pages/Homepage';
+import Homepage from '$components/_pages/Homepage';
 
 export const pageQuery = graphql`
   query {
@@ -67,3 +67,5 @@ export const pageQuery = graphql`
     }
   }
 `;
+
+export default Homepage;

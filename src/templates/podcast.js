@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby';
 
-export { default } from '$components/_templates/Podcast';
+import Podcast from '$components/_templates/Podcast';
 
 export const pageQuery = graphql`
   query {
@@ -17,7 +17,7 @@ export const pageQuery = graphql`
           }
           published_at(formatString: "MMMM DD, YYYY")
           audio_url
-          artwork_url,
+          artwork_url
           description
           summary
           episode_number
@@ -27,3 +27,5 @@ export const pageQuery = graphql`
     }
   }
 `;
+
+export default Podcast;

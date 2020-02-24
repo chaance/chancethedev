@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby';
 
-export { default } from '$components/_templates/Blog';
+import Blog from '$components/_templates/Blog';
 
 export const pageQuery = graphql`
   query {
@@ -51,3 +51,5 @@ export const pageQuery = graphql`
     }
   }
 `;
+
+export default Blog;

@@ -1,3 +1,5 @@
 import { graphql } from 'gatsby';
 
-export { default } from '$components/_pages/About';
+import About from '$components/_pages/About';
+
+export default About;
