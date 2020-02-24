@@ -3,6 +3,7 @@ import FontFaceObserver from 'fontfaceobserver';
 import { kebabCase } from 'lodash';
 import { usePromise, PromiseStates } from '$lib/hooks/usePromise';
 import config from '$src/../config';
+import { canUseDOM } from '$lib//utils';
 
 const typekitStylesheet = `https://use.typekit.net/${config.typekitId}.css`;
 
@@ -44,6 +45,14 @@ export const fonts: Fonts = Object.entries(fontLists)
   );
 
 const loadFonts = async () => {
+  // For SSR, bail
+  if (!canUseDOM()) {
+    return {
+      loaded: false,
+      fonts: Object.keys(webFonts),
+    };
+  }
+
   const _fonts = Object.keys(webFonts).map(async key => {
     const font = new FontFaceObserver(key);
     const fontName = kebabCase(key);

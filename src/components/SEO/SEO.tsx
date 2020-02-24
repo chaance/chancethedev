@@ -1,6 +1,6 @@
 import path from 'path';
 import React from 'react';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import { graphql, useStaticQuery } from 'gatsby';
 import SchemaOrg from './SchemaOrg';
 import { Frontmatter } from '$lib/types';

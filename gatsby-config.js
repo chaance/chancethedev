@@ -17,16 +17,12 @@ module.exports = {
     title: config.siteTitle,
     twitterHandle: config.twitterHandle,
     description: config.siteDescription,
-    keywords: ['Video Blogger'],
+    keywords: config.keywords,
     canonicalUrl: config.siteUrl,
     image: config.siteLogo,
     author: {
       name: config.author.name,
-      minibio: `
-        Integer tristique porttitor porta auctor nullam fames aliquet maecenas,
-        volutpat curabitur nostra elementum aliquam senectus lectus mauris,
-        sociosqu dui dictum iaculis tempus feugiat sit.
-      `,
+      minibio: ``,
     },
     organization: {
       name: config.organization,
@@ -68,7 +64,7 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-mdx`,
+      resolve: 'gatsby-plugin-mdx',
       options: {
         extensions: ['.mdx', '.md', '.markdown'],
         gatsbyRemarkPlugins: [
@@ -89,12 +85,14 @@ module.exports = {
         podcastId: '153232',
       },
     },
-    'gatsby-plugin-sharp',
-    'gatsby-transformer-sharp',
-    'gatsby-plugin-emotion',
     'gatsby-plugin-catch-links',
+    'gatsby-plugin-emotion',
+    'gatsby-plugin-react-helmet',
+    'gatsby-plugin-sharp',
     'gatsby-plugin-twitter',
     'gatsby-plugin-typescript',
+    'gatsby-transformer-json',
+    'gatsby-transformer-sharp',
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
@@ -120,13 +118,13 @@ module.exports = {
       },
     },
     /* {
-      resolve: `gatsby-plugin-layout`,
+      resolve: 'gatsby-plugin-layout',
       options: {
         component: require.resolve(`./src/components/Layout/Layout.tsx`),
       },
     }, */
     {
-      resolve: `gatsby-plugin-feed`,
+      resolve: 'gatsby-plugin-feed',
       options: {
         query: `
           {
@@ -181,9 +179,9 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-typography`,
+      resolve: 'gatsby-plugin-typography',
       options: {
-        pathToConfigModule: `src/lib/typography`,
+        pathToConfigModule: 'src/lib/typography',
       },
     },
     'gatsby-plugin-offline',

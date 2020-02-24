@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { MDXProvider } from '@mdx-js/react';
 import cx from 'classnames';
 import { graphql, useStaticQuery } from 'gatsby';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 
 import mdxComponents from '$components/mdx';
 import Header from '$components/Header';

@@ -1,6 +1,4 @@
 import React from 'react';
-// import Helmet from 'react-helmet';
-// import cx from 'classnames';
 import { whatInput } from './src/lib/utils';
 import { FontProvider, ThemeProvider } from './src/lib/providers';
 

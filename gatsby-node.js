@@ -77,9 +77,8 @@ exports.createPages = ({ actions, graphql }) =>
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
     resolve: {
-      modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+      // modules: [path.resolve(__dirname, 'src'), 'node_modules'],
       alias: {
-        'react-helmet': path.join(__dirname, './src/components/Helmet'),
         'react-dom': '@hot-loader/react-dom',
         $src: path.join(__dirname, './src'),
         $content: path.join(__dirname, './content'),
