@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { ThemeProvider as EmotionThemeProvider } from 'emotion-theming';
 import useDarkMode from 'use-dark-mode';
 import deepmerge from 'deepmerge';
@@ -68,16 +68,10 @@ const ThemeProvider: React.FC = ({ children }) => {
   );
 };
 
-const useTheme = (overrides?: DeepPartial<Themes>): UseThemeContext => {
-  const theme = React.useContext(ThemeContext);
-  const result = React.useMemo<ThemeContextProps>(
-    () =>
-      theme && overrides ? deepmerge(theme, overrides) : theme || overrides,
-    [theme, overrides]
-  );
-  const { theme: _theme, ...rest } = result;
+function useTheme(): UseThemeContext {
+  const { theme: _theme, ...rest } = useContext(ThemeContext);
   return [_theme, rest];
-};
+}
 
 export {
   ThemeProvider,
