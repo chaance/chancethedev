@@ -64,12 +64,7 @@ const Header = styled.header`
 
   ${breakpoint('xxlarge')} {
     @supports (display: grid) {
-      /*
-      We need to offset the header by the width of the global margin to
-      prevent the top margin from being pushed up when the user scrolls to the
-      bottom of the post.
-       */
-      min-height: calc(100% + ${rhythm(GLOBAL_MARGIN)});
+      margin-bottom: ${rhythm(GLOBAL_MARGIN)};
     }
   }
 `;
@@ -79,7 +74,6 @@ const HeaderInner = styled.div`
     ${breakpoint('xxlarge')} {
       position: sticky;
       top: ${rhythm(GLOBAL_MARGIN)};
-      height: calc(100vh - ${rhythm(GLOBAL_MARGIN * 2)});
     }
   }
 `;

@@ -42,8 +42,9 @@ const themeInitialState: ThemeContextProps = {
 const ThemeContext = createContext<ThemeContextProps>(themeInitialState);
 
 const ThemeProvider: React.FC = ({ children }) => {
-  let darkMode = useDarkMode(false);
+  let darkMode = useDarkMode();
   let themeName: ThemeNames = darkMode.value ? 'dark' : 'default';
+  console.log({ themeName });
   let theme = themes[darkMode.value ? 'dark' : 'default'];
 
   return (

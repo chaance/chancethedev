@@ -91,6 +91,7 @@ module.exports = {
     'gatsby-plugin-sharp',
     'gatsby-plugin-twitter',
     'gatsby-plugin-typescript',
+    'gatsby-plugin-use-dark-mode',
     'gatsby-transformer-json',
     'gatsby-transformer-sharp',
     {
