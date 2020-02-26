@@ -1,0 +1,164 @@
+html {
+  text-rendering: optimizeLegibility;
+  /* overflow-x: hidden;
+  overflow-y: auto !important; */
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: var(--color-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  font-style: normal;
+  padding: 0;
+  margin: 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+form {
+  margin: 0;
+}
+
+ul,
+ol {
+  list-style-position: inside;
+  margin-left: 0;
+  font-size: inherit;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+a {
+  transition-duration: 100ms;
+  transition-timing-function: ease-out;
+}
+
+a:not([href]):not([tabindex]) {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+blockquote {
+  padding-left: rhythm($global-margin / 2);
+  font-weight: bold;
+  margin-left: 0;
+  margin-right: 0;
+  font-style: italic;
+}
+
+[tabindex='-1']:focus {
+  outline: none !important;
+}
+
+pre {
+  overflow: auto;
+}
+
+figure {
+  margin: 0 0 rhythm(1) 0;
+  img {
+    vertical-align: middle;
+  }
+}
+
+button,
+[role='button'] {
+  cursor: pointer;
+}
+
+a,
+area,
+button,
+[role='button'],
+input,
+label,
+select,
+summary,
+textarea {
+  touch-action: manipulation;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+caption {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  text-align: center;
+  caption-side: bottom;
+}
+
+th {
+  text-align: left;
+}
+
+label {
+  display: inline-block;
+  margin-bottom: rhythm(1 / 3);
+}
+
+input,
+button,
+select,
+textarea {
+  line-height: inherit;
+}
+
+input[type='date'],
+input[type='time'],
+input[type='datetime-local'],
+input[type='month'] {
+  -webkit-appearance: listbox;
+}
+
+textarea {
+  resize: vertical;
+}
+
+fieldset {
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+legend {
+  display: block;
+  width: 100%;
+  padding: 0;
+  line-height: inherit;
+}
+
+input[type='search'] {
+  -webkit-appearance: none;
+}
+
+output {
+  display: inline-block;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+[hidden] {
+  display: none !important;
+}

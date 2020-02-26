@@ -1,8 +1,5 @@
 import React, { createContext, useContext } from 'react';
-import styled from '@emotion/styled';
-import { rem } from 'polished';
-import { breakpoint } from '$lib/styles';
-import { fonts } from '$lib/typography';
+import cx from 'classnames';
 import { SectionProps, HProps, HLevel } from './index';
 
 export const LevelContext = createContext<HLevel>(1);
@@ -33,52 +30,30 @@ export const H: React.FC<HProps> = ({ level: levelProp, ...props }) => {
 ////////////////////////////////////////////////////////////////////////////////
 // STYLES
 ////////////////////////////////////////////////////////////////////////////////
-export const HT = styled(H)`
-  font-size: ${rem(22)};
-  font-family: ${fonts.serif};
-  font-weight: normal;
-  ${breakpoint('medium')} {
-    font-size: ${rem(36)};
-  }
-`;
+export const HT: React.FC<HProps> = ({ className, ...props }) => (
+  <H className={cx(className, 'h-title')} {...props} />
+);
 
-export const H1 = styled(H)`
-  font-size: ${rem(20)};
-  font-weight: bold;
-  ${breakpoint('medium')} {
-    font-size: ${rem(32)};
-  }
-`;
+export const H1: React.FC<HProps> = ({ className, ...props }) => (
+  <H className={cx(className, 'h1')} {...props} />
+);
 
-export const H2 = styled(H)`
-  font-size: ${rem(18)};
-  ${breakpoint('medium')} {
-    font-size: ${rem(24)};
-  }
-`;
+export const H2: React.FC<HProps> = ({ className, ...props }) => (
+  <H className={cx(className, 'h2')} {...props} />
+);
 
-export const H3 = styled(H)`
-  font-size: ${rem(16)};
-  ${breakpoint('medium')} {
-    font-size: ${rem(20)};
-  }
-`;
+export const H3: React.FC<HProps> = ({ className, ...props }) => (
+  <H className={cx(className, 'h3')} {...props} />
+);
 
-export const H4 = styled(H)`
-  font-size: ${rem(16)};
-  ${breakpoint('medium')} {
-    font-size: ${rem(18)};
-  }
-`;
+export const H4: React.FC<HProps> = ({ className, ...props }) => (
+  <H className={cx(className, 'h4')} {...props} />
+);
 
-export const H5 = styled(H)`
-  font-size: ${rem(16)};
-  letter-spacing: 0.5;
-  text-transform: uppercase;
-`;
+export const H5: React.FC<HProps> = ({ className, ...props }) => (
+  <H className={cx(className, 'h5')} {...props} />
+);
 
-export const H6 = styled(H)`
-  font-size: ${rem(14)};
-  letter-spacing: 0.5;
-  text-transform: uppercase;
-`;
+export const H6: React.FC<HProps> = ({ className, ...props }) => (
+  <H className={cx(className, 'h6')} {...props} />
+);

@@ -1,37 +1,33 @@
 import React from 'react';
-import styled from '@emotion/styled';
 import BurgerButton from '$components/BurgerButton';
-import { breakpoint, GLOBAL_MARGIN } from '$lib/styles';
-import { rhythm } from '$src/lib/typography';
+import { getBem } from '$lib/utils';
+import './NavToggle.scss';
+import { Element } from '$lib/types';
+
+let bem = getBem('NavToggle');
 
 const NavToggle: React.FC<NavToggleProps> = ({
+  className,
   navIsActive,
   setNavIsActive,
 }) => {
   return (
-    <StyledButton setActive={setNavIsActive} active={navIsActive}>
+    <BurgerButton
+      className={bem(className)}
+      setActive={setNavIsActive}
+      active={navIsActive}
+    >
       {navIsActive ? 'Close site navigation' : 'Open site navigation'}
-    </StyledButton>
+    </BurgerButton>
   );
 };
 
 export default NavToggle;
 
 ////////////////////////////////////////////////////////////////////////////////
-// STYLES
-////////////////////////////////////////////////////////////////////////////////
-export const StyledButton = styled(BurgerButton)`
-  margin-left: ${rhythm(GLOBAL_MARGIN / 2)};
-
-  ${breakpoint('large')} {
-    display: none;
-  }
-`;
-
-////////////////////////////////////////////////////////////////////////////////
 // TYPES
 ////////////////////////////////////////////////////////////////////////////////
-export interface NavToggleProps {
+export interface NavToggleProps extends Element<'button'> {
   navIsActive: boolean;
   setNavIsActive: React.Dispatch<React.SetStateAction<boolean>>;
 }

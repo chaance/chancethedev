@@ -1,0 +1,16 @@
+@import '@chancethedev/colors/scss/mixins';
+
+@include chancethedev--colors();
+
+$global-margin: 2;
+$small-screen-multiplier: 0.5;
+$mobile-nav-width: 232;
+
+$breakpoints: (
+  small: 0,
+  medium: 640,
+  large: 924,
+  xlarge: 1200,
+  xxlarge: 1440,
+  xxxlarge: 1600,
+);

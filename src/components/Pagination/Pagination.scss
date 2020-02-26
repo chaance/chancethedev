@@ -1,0 +1,22 @@
+.Pagination {
+  margin: #{rhythm($global-margin)} 0 0;
+  padding: #{rhythm($global-margin / 2)} 0 0;
+  font-family: var(--font-sans);
+  font-weight: bold;
+
+  &__page-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @include breakpoint(medium) {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &__page {
+    margin: 0;
+    padding: 0;
+  }
+}

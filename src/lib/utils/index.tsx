@@ -1,4 +1,5 @@
 export * from './canUseDOM';
+export * from './getBem';
 export * from './invariant';
 export * from './inViewport';
 export * from './isValidUrl';

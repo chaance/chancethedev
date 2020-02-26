@@ -1,15 +1,14 @@
 import React from 'react';
-import styled from '@emotion/styled';
 import BlogPostExcerpt from '$components/BlogPostExcerpt';
 import { Section, H1, H2 } from '$components/Heading';
 import Layout from '$components/Layout';
-import Link from '$components/Link';
 import Pagination from '$components/Pagination';
 import SEO from '$components/SEO';
-import { breakpoint, GLOBAL_MARGIN } from '$lib/styles';
-import { rhythm } from '$lib/typography';
-import { formatReadingTime } from '$lib/utils';
+import { formatReadingTime, getBem } from '$lib/utils';
 import { BlogProps } from './index';
+import './Blog.scss';
+
+let bem = getBem('BlogTemplate');
 
 const Blog: React.FC<BlogProps> = ({
   data: { site, allMdx },
@@ -31,12 +30,12 @@ const Blog: React.FC<BlogProps> = ({
   const firstPost = posts[0].node;
 
   return (
-    <Layout>
+    <Layout className={bem()}>
       <SEO />
 
       {hasFeaturedPost && (
         <Section wrap={true}>
-          <SectionHeading>Latest Post</SectionHeading>
+          <H1 className={bem({ el: 'section-heading' })}>Latest Post</H1>
           <Section>
             <BlogPostExcerpt
               isFeatured={true}
@@ -52,11 +51,11 @@ const Blog: React.FC<BlogProps> = ({
         </Section>
       )}
 
-      <PostGrid wrap={true}>
+      <Section className={bem({ el: 'post-grid' })} wrap={true}>
         {hasFeaturedPost && (
-          <SectionHeading style={{ marginTop: rhythm(GLOBAL_MARGIN) }}>
+          <H1 className={bem({ el: 'section-heading', featured: true })}>
             Older Posts
-          </SectionHeading>
+          </H1>
         )}
         <Section>
           {posts.map(({ node: post }: any, index) => {
@@ -76,7 +75,7 @@ const Blog: React.FC<BlogProps> = ({
             );
           })}
         </Section>
-      </PostGrid>
+      </Section>
 
       {previousPagePath || nextPagePath ? (
         <Pagination
@@ -89,35 +88,3 @@ const Blog: React.FC<BlogProps> = ({
 };
 
 export default Blog;
-
-////////////////////////////////////////////////////////////////////////////////
-// STYLES
-////////////////////////////////////////////////////////////////////////////////
-export const PostWrapper = styled.div``;
-
-export const Banner = styled.div`
-  margin: ${rhythm(2)} 0;
-`;
-
-export const PostTitle = styled.h2``;
-
-export const PostGrid = styled(Section)`
-  display: grid;
-  gap: ${rhythm(GLOBAL_MARGIN)};
-  grid-template: auto / auto;
-  ${breakpoint('medium')} {
-    grid-template: auto / repeat(2, 1fr);
-  }
-  ${breakpoint('xlarge')} {
-    grid-template: auto / repeat(3, 1fr);
-  }
-`;
-
-export const SectionHeading = styled(H1)`
-  ${breakpoint('medium')} {
-    grid-column: 1 / 3;
-  }
-  ${breakpoint('xlarge')} {
-    grid-column: 1 / 4;
-  }
-`;

@@ -1,28 +1,28 @@
 import React from 'react';
-import styled from '@emotion/styled';
-import { rem } from 'polished';
 import Link from '$components/Link';
 import { MenuItemData } from '$components/Menu';
-import { breakpoint, GLOBAL_MARGIN } from '$lib/styles';
-import { fonts, rhythm } from '$src/lib/typography';
+import { getBem } from '$lib/utils';
 import config from '$src/../config';
 import { FooterProps } from './index';
+import './Footer.scss';
 
-const Footer: React.FC<FooterProps> = ({ ...props }) => (
-  <StyledFooter {...props}>
+let bem = getBem('Footer');
+
+const Footer: React.FC<FooterProps> = ({ className, ...props }) => (
+  <footer className={bem(className)} {...props}>
     <nav>
-      <Menu>
+      <ul className={bem({ el: 'menu' })}>
         {MENU_ITEMS.map(({ id, to, label }) => (
-          <MenuItem key={id}>
+          <li key={id} className={bem({ el: 'menu-item' })}>
             <Link to={to}>{label}</Link>
-          </MenuItem>
+          </li>
         ))}
-      </Menu>
+      </ul>
     </nav>
-    <Copyright>
+    <div className={bem({ el: 'copyright' })}>
       {`\u00A9 ${new Date().getFullYear()}`} Zero Rights Reserved
-    </Copyright>
-  </StyledFooter>
+    </div>
+  </footer>
 );
 
 export default Footer;
@@ -49,46 +49,3 @@ const MENU_ITEMS: MenuItemData[] = [
     to: config.linkedin,
   },
 ];
-
-////////////////////////////////////////////////////////////////////////////////
-// STYLES
-////////////////////////////////////////////////////////////////////////////////
-export const StyledFooter = styled.footer`
-  padding-top: ${rhythm(GLOBAL_MARGIN / 2)};
-  font-size: ${rem(14)};
-  font-family: ${fonts.sans};
-  font-weight: bold;
-  line-height: 1;
-  border-top: 1px solid ${({ theme }) => theme.colors.border};
-
-  ${breakpoint('medium')} {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-  }
-`;
-
-export const Menu = styled.ul`
-  display: flex;
-  flex-direction: column;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
-  ${breakpoint('medium')} {
-    flex-direction: row;
-  }
-`;
-
-export const MenuItem = styled.li`
-  ${breakpoint('medium')} {
-    margin: 0;
-    &:not(:last-child) {
-      margin-right: 1rem;
-    }
-  }
-`;
-
-export const Copyright = styled('div')`
-  color: ${({ theme }) => theme.colors.link};
-`;

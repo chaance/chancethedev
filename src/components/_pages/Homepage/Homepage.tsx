@@ -1,11 +1,13 @@
 import React, { Fragment } from 'react';
 import VH from '@reach/visually-hidden';
-import styled from '@emotion/styled';
 import Layout from '$components/Layout';
 import SEO from '$components/SEO';
 import { Section, H1 } from '$components/Heading';
 import PodcastExcerpt from '$components/PodcastExcerpt';
-import { breakpoint } from '$lib/styles';
+import { getBem } from '$lib/utils';
+import './Homepage.scss';
+
+let bem = getBem('Homepage');
 
 const Homepage: React.FC<any> = ({
   data: {
@@ -18,11 +20,11 @@ const Homepage: React.FC<any> = ({
   const formatTitle = (title: string) => title.replace(/^E(\d|,)+:\s/, '');
 
   return (
-    <Layout>
+    <Layout className={bem()}>
       <SEO />
 
       <Section wrap={true}>
-        <SectionHeading>Latest Episode</SectionHeading>
+        <H1 className={bem({ el: 'section-heading' })}>Latest Episode</H1>
         <Section>
           <PodcastExcerpt
             isFeatured={true}
@@ -46,14 +48,5 @@ const Homepage: React.FC<any> = ({
     </Layout>
   );
 };
-
-export const SectionHeading = styled(H1)`
-  ${breakpoint('medium')} {
-    grid-column: 1 / 3;
-  }
-  ${breakpoint('xlarge')} {
-    grid-column: 1 / 4;
-  }
-`;
 
 export default Homepage;

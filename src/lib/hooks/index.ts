@@ -4,6 +4,7 @@ export * from './useDimensions';
 export * from './useForceUpdate';
 export * from './useId';
 export * from './useHTMLMedia';
+export * from './useIsomorphicLayoutEffect';
 export * from './useInterval';
 export * from './usePrevious';
 export * from './useMeasure';

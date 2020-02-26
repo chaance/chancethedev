@@ -1,0 +1,44 @@
+@mixin make-root-css-variables() {
+  @each $color-key, $value-map in $chancethedev--colors {
+    @each $variant, $value in $value-map {
+      --color-#{$color-key}-#{$variant}: #{$value};
+    }
+  }
+}
+
+:root {
+  // fonts
+  --font-serif: 'ivyjournal', georgia, serif;
+  --font-sans: 'ivystyle-sans', helvetica, arial, sans-serif;
+  --font-mono: 'ibm-plex-mono', 'Consolas', 'Menlo', 'Monaco', 'Andale Mono',
+    'Ubuntu Mono', monospace;
+
+  // spacing
+  --line-height-base: 1.6;
+  --line-height-heading: 1.3;
+  --rhythm: calc(1rem * var(--line-height-base));
+
+  // colors
+  --color-primary: #{$chancethedev--blue-30};
+  --color-text: #{$chancethedev--black-100};
+  --color-light-text: #{$chancethedev--gray-50};
+  --color-body-bg: #{$chancethedev--white-0};
+  --color-link: #{$chancethedev--gray-50};
+  --color-link-hover: #{$chancethedev--blue-30};
+  --color-border: #{$chancethedev--gray-20};
+  --color-black: #{$chancethedev--black-100};
+  --color-white: #{$chancethedev--white-0};
+  @include make-root-css-variables();
+}
+
+.theme-dark {
+  --color-primary: #{$chancethedev--blue-20};
+  --color-text: #{$chancethedev--white-0};
+  --color-light-text: #{$chancethedev--gray-20};
+  --color-body-bg: #{$chancethedev--black-100};
+  --color-link: #{$chancethedev--gray-20};
+  --color-link-hover: #{$chancethedev--blue-20};
+  --color-border: #{$chancethedev--gray-60};
+  --color-black: #{$chancethedev--white-0};
+  --color-white: #{$chancethedev--black-100};
+}

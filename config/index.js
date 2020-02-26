@@ -1,4 +1,5 @@
 const authors = require('./authors');
+const { blue30, black100 } = require('@chancethedev/colors');
 
 module.exports = {
   pathPrefix: '/',
@@ -25,8 +26,8 @@ module.exports = {
   podcastID: 'be80c501-3fbc-4cd2-9e9b-b11d13e4925e',
 
   // Manifest and Progress color
-  themeColor: '#558ca3',
-  backgroundColor: '#1f1f1f',
+  themeColor: blue30,
+  backgroundColor: black100,
 
   // Social component
   twitter: 'https://twitter.com/chancethedev/',

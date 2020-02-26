@@ -33,12 +33,13 @@ export interface MenuItemData {
 }
 
 interface IMenuProps extends Element<'ul'> {
+  toggle?(): void;
   togglable?: boolean;
   toggleActive?: boolean;
   items: MenuItemData[];
 }
 
-interface IMenuItemProps {
+interface IMenuItemProps extends Element<'li'> {
   className?: string;
   children: React.ReactNode;
   hasChildren: boolean;

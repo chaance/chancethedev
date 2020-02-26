@@ -1,6 +1,8 @@
 import { Element } from '$lib/types';
 
+import * as Headings from './Heading';
 export * from './Heading';
+export default Headings;
 
 ////////////////////////////////////////////////////////////////////////////////
 // TYPES

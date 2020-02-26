@@ -1,0 +1,7 @@
+.NavToggle {
+  margin-left: rhythm($global-margin / 2);
+
+  @include breakpoint(large) {
+    display: none;
+  }
+}

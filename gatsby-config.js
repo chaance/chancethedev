@@ -85,13 +85,27 @@ module.exports = {
         podcastId: '153232',
       },
     },
+    {
+      resolve: 'gatsby-plugin-sass',
+      options: {
+        data: `@import "${__dirname}/src/lib/styles/utils";`,
+        postCssPlugins: [
+          require(`postcss-preset-env`)({
+            stage: 2,
+            features: {
+              'custom-properties': true,
+              'custom-media-queries': true,
+              'custom-selectors': true,
+            },
+          }),
+        ],
+      },
+    },
     'gatsby-plugin-catch-links',
-    'gatsby-plugin-emotion',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-sharp',
     'gatsby-plugin-twitter',
     'gatsby-plugin-typescript',
-    'gatsby-plugin-use-dark-mode',
     'gatsby-transformer-json',
     'gatsby-transformer-sharp',
     {

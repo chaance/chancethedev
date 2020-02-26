@@ -1,12 +1,13 @@
 import React from 'react';
-import styled from '@emotion/styled';
 import Link from '$components/Link';
-import { breakpoint, GLOBAL_MARGIN } from '$lib/styles';
-import { rhythm, fonts } from '$lib/typography';
-import { leadingSlashIt } from '$lib/utils';
+import { leadingSlashIt, getBem } from '$lib/utils';
 import { PaginationProps } from './index';
+import './Pagination.scss';
+
+let bem = getBem('Pagination');
 
 const Pagination: React.FC<PaginationProps> = ({
+  className,
   previousPagePath,
   previousAriaLabel,
   previousLabel = 'Older Posts',
@@ -15,57 +16,31 @@ const Pagination: React.FC<PaginationProps> = ({
   nextLabel = 'Newer Posts',
 }) => {
   return (
-    <Wrapper aria-label="Post navigation">
-      <PageList>
+    <nav className={bem(className)} aria-label="Post navigation">
+      <ul className={bem({el: 'page-list'})}>
         {previousPagePath && (
-          <Page>
+          <li className={bem({el: 'page'})}>
             <Link
               to={leadingSlashIt(previousPagePath)}
               aria-label={previousAriaLabel || `See ${previousLabel}`}
             >
               {previousLabel}
             </Link>
-          </Page>
+          </li>
         )}
         {nextPagePath && (
-          <Page>
+          <li className={bem({el: 'page'})}>
             <Link
               to={leadingSlashIt(nextPagePath)}
               aria-label={nextAriaLabel || `See ${nextLabel}`}
             >
               {nextLabel}
             </Link>
-          </Page>
+          </li>
         )}
-      </PageList>
-    </Wrapper>
+      </ul>
+    </nav>
   );
 };
 
 export default Pagination;
-
-////////////////////////////////////////////////////////////////////////////////
-// STYLES
-////////////////////////////////////////////////////////////////////////////////
-export const Wrapper = styled('nav')`
-  margin: ${rhythm(GLOBAL_MARGIN)} 0 0;
-  padding: ${rhythm(GLOBAL_MARGIN / 2)} 0 0;
-  font-family: ${fonts.sans};
-  font-weight: bold;
-`;
-
-export const PageList = styled.ul`
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
-  ${breakpoint('medium')} {
-    display: flex;
-    justify-content: space-between;
-  }
-`;
-
-export const Page = styled.li`
-  margin: 0;
-  padding: 0;
-`;

@@ -1,0 +1,94 @@
+@import 'rem';
+
+@function rhythm($multiplier: 1) {
+  @return unquote('calc(var(--rhythm) * (#{$multiplier}))');
+}
+
+/// Remove the unit of a length
+/// @param {Number} $number - Number to remove unit from
+/// @return {Number} - Unitless number
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+  @return $number;
+}
+
+/// Find the next key in a map.
+/// @param {Map} $map - Map to traverse.
+/// @param {Mixed} $key - Key to use as a starting point.
+/// @return {Mixed} The value for the key after `$key`, if `$key` was found.
+@function map-next($map, $key) {
+  // Store the keys of the map as a list
+  $values: map-keys($map);
+
+  $i: 0;
+
+  // If the Key Exists, Get the index of the key within the map and add 1 to it for the next breakpoint in the map
+  @if (map-has-key($map, $key)) {
+    $i: index($values, $key) + 1;
+  }
+
+  // If the key doesn't exist, or it's the last key in the map, return null
+  @if ($i > length($map) or $i == 0) {
+    @return null;
+  } @else {
+    @return map-get($map, nth($values, $i));
+  }
+}
+
+/// Casts a map into a list.
+/// @link http://hugogiraudel.com/2014/04/28/casting-map-into-list/
+/// @param {Map} $map - Map to pull a value from.
+/// @return {List} Depending on the flag, returns either $keys or $values or both.
+@function map-to-list($map, $keep: 'both') {
+  $keep: if(index('keys' 'values', $keep), $keep, 'both');
+
+  @if type-of($map) == 'map' {
+    $keys: ();
+    $values: ();
+
+    @each $key, $val in $map {
+      $keys: append($keys, $key);
+      $values: append($values, $val);
+    }
+
+    @if $keep == 'keys' {
+      @return $keys;
+    } @else if $keep == 'values' {
+      @return $values;
+    } @else {
+      @return zip($keys, $values);
+    }
+  }
+  @return if(type-of($map) != 'list', ($value), $map);
+}
+
+/// A collection of function for advanced type checking
+/// @author Hugo Giraudel
+/// @link https://css-tricks.com/snippets/sass/advanced-type-checking/
+
+@function is-number($value) {
+  @return type-of($value) == 'number';
+}
+
+@function is-time($value) {
+  @return is-number($value) and index('ms' 's', unit($value)) != null;
+}
+
+@function is-angle($value) {
+  @return is-number($value) and index('deg' 'rad' 'grad' 'turn', unit($value)) != null;
+}
+
+@function is-integer($value) {
+  @return is-number($value) and round($value) == $value;
+}
+
+@function is-percentage($value) {
+  @return is-number($value) and unit($value) == '%';
+}
+
+/// Generate  arrow SVG
+@function make-chevron($direction: down, $color: #fff) {
+  @return url('icons/icon-chevron-#{$direction}' param(--color $color));
+}

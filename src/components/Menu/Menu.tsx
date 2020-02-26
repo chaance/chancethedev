@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, useRef } from 'react';
 import cx from 'classnames';
 import VH from '@reach/visually-hidden';
 import Link from '$components/Link';
@@ -10,27 +10,36 @@ import {
   MenuProps,
 } from './index';
 
-const MenuList: React.FC<MenuListProps> = ({
-  children,
-  className,
-  active,
-  setActive,
-  setChildIsActive: _setChildIsActive,
-  childIsActive: _childIsActive,
-  ...props
-}) => {
-  const [childIsActive, setChildIsActive] = React.useState(false);
-  const clones = React.Children.map(
-    children as any,
-    (child: React.ReactElement<MenuItemProps>, index) =>
-      child && React.cloneElement(child, { setChildIsActive, childIsActive })
-  );
-  return (
-    <ul className={cx(className, { active: childIsActive })} {...props}>
-      {clones}
-    </ul>
-  );
-};
+const MenuList = forwardRef<HTMLUListElement, MenuListProps>(
+  (
+    {
+      children,
+      className,
+      active,
+      setActive,
+      setChildIsActive: _setChildIsActive,
+      childIsActive: _childIsActive,
+      ...props
+    },
+    ref
+  ) => {
+    const [childIsActive, setChildIsActive] = React.useState(false);
+    const clones = React.Children.map(
+      children as any,
+      (child: React.ReactElement<MenuItemProps>, index) =>
+        child && React.cloneElement(child, { setChildIsActive, childIsActive })
+    );
+    return (
+      <ul
+        ref={ref}
+        className={cx(className, { active: childIsActive })}
+        {...props}
+      >
+        {clones}
+      </ul>
+    );
+  }
+);
 
 export const Menu: React.FC<MenuProps> = ({
   items,
@@ -40,17 +49,23 @@ export const Menu: React.FC<MenuProps> = ({
   setActive,
   setChildIsActive,
   childIsActive,
+  toggle,
   ...props
 }) => {
+  const ref = useRef<HTMLUListElement>(null);
   const renderSubMenu = (subItems: MenuItemData[]) => {
     if (subItems && subItems.length) {
-      return <MenuList {...props}>{renderMenuItems(subItems)}</MenuList>;
+      return (
+        <MenuList ref={ref} {...props}>
+          {renderMenuItems(subItems)}
+        </MenuList>
+      );
     }
     return null;
   };
 
   const renderMenuItems = (nestedItems: MenuItemData[]) =>
-    nestedItems.map(item => {
+    nestedItems.map((item, index, arr) => {
       const {
         id,
         to,
@@ -68,6 +83,7 @@ export const Menu: React.FC<MenuProps> = ({
           key={id}
           className={cx(className, { active })}
           hasChildren={!!(children && children.length)}
+          tabIndex={-1}
         >
           <MenuLink
             onClick={onClick}
@@ -82,7 +98,25 @@ export const Menu: React.FC<MenuProps> = ({
         </MenuItem>
       );
     });
-  return <MenuList {...props}>{renderMenuItems(items)}</MenuList>;
+  return (
+    <MenuList
+      ref={ref}
+      onBlur={() => {
+        requestAnimationFrame(() => {
+          if (
+            toggle &&
+            ref.current &&
+            !ref.current.contains(document.activeElement)
+          ) {
+            toggle();
+          }
+        });
+      }}
+      {...props}
+    >
+      {renderMenuItems(items)}
+    </MenuList>
+  );
 };
 
 export const MenuLink: React.FC<MenuLinkProps> = ({
@@ -118,7 +152,13 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
   }
   if (to) {
     return (
-      <Link to={to} target={target} rel={rel} getProps={isPartiallyActive}>
+      <Link
+        to={to}
+        target={target}
+        rel={rel}
+        getProps={isPartiallyActive}
+        {...props}
+      >
         {label}
       </Link>
     );

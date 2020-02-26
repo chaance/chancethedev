@@ -1,0 +1,138 @@
+@mixin top-level-menu-styles {
+  font-size: rem(18);
+  font-family: var(--font-sans);
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: rhythm(1 / 3);
+  line-height: 1.15;
+}
+
+.Header {
+  position: relative;
+  margin-bottom: rhythm($global-margin / 2);
+  @include breakpoint(large) {
+    margin-bottom: 0;
+  }
+
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @supports (display: grid) {
+      @include breakpoint(large) {
+        position: sticky;
+        top: rhythm($global-margin);
+        height: calc(100vh - #{rhythm($global-margin * 2)});
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  }
+
+  &__home-link {
+    display: block;
+    color: var(--color-primary);
+    text-decoration: none;
+
+    @include top-level-menu-styles;
+
+    @include breakpoint(medium down) {
+      margin-bottom: 0;
+      line-height: 1;
+      /* height: 16px; */
+    }
+  }
+
+  &__menu-wrapper {
+    @include breakpoint(medium down) {
+      position: absolute;
+      height: 100%;
+      width: rem($mobile-nav-width);
+      top: 0;
+      left: calc(100% + 1px);
+      padding: 0 #{rhythm($global-margin)};
+      opacity: 0;
+      transition: opacity 400ms ease-out;
+
+      &--nav-active {
+        opacity: 1;
+      }
+
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        background-color: var(--color-border);
+        height: 100%;
+        width: 1px;
+        top: 0;
+        left: 0;
+      }
+    }
+
+    @include breakpoint(small down) {
+      padding: 0 #{rhythm($global-margin * $small-screen-multiplier)};
+    }
+  }
+
+  &__menu {
+    &,
+    ul,
+    li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    /* sub-menu */
+    & > li ul {
+      margin: #{rhythm(1 / 3)} 0 #{rhythm(1 / 1.5)};
+      display: none;
+    }
+    & > li.active ul,
+    & > li ul.active {
+      display: block;
+    }
+
+    /* top-level menu items */
+    & > li {
+      @include top-level-menu-styles;
+
+      > a {
+        color: var(--color-text);
+      }
+
+      > a:hover,
+      > a:focus {
+        color: var(--color-text);
+      }
+    }
+
+    /* sub- menu items */
+    & > li ul > li {
+      font-size: rem(14);
+      text-transform: none;
+      margin-bottom: rhythm(1 / 6);
+
+      > a {
+        color: var(--color-link);
+      }
+
+      > a:hover,
+      > a:focus {
+        color: var(--color-link-hover);
+      }
+    }
+  }
+
+  &__button-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

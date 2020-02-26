@@ -1,0 +1,26 @@
+@import 'variables';
+@import 'breakpoints';
+
+@mixin apply-keyboard-focus-styles {
+  [data-whatinput='keyboard'] &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-primary);
+  }
+}
+
+@mixin make-content-grid($col1, $col2) {
+  position: relative;
+  max-width: rhythm(26);
+
+  @include breakpoint(xxlarge) {
+    max-width: none;
+    @supports (display: grid) {
+      display: grid;
+      grid-template:
+        "#{'#{$col1} #{$col2}'}" fit-content(100%) / minmax(#{rhythm(12)}, 1.5fr)
+        1fr;
+      column-gap: rhythm($global-margin);
+      height: 100%;
+    }
+  }
+}

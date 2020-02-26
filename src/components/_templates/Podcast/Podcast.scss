@@ -1,0 +1,29 @@
+.PodcastTemplate {
+  &__section-heading {
+    @include breakpoint(medium) {
+      grid-column: 1 / 3;
+    }
+
+    @include breakpoint(xlarge) {
+      grid-column: 1 / 4;
+    }
+
+    &--featured {
+      margin-top: rhythm($global-margin);
+    }
+  }
+
+  &__post-grid {
+    display: grid;
+    gap: rhythm($global-margin);
+    grid-template: auto / auto;
+
+    @include breakpoint(medium) {
+      grid-template: auto / repeat(2, 1fr);
+    }
+
+    @include breakpoint(xlarge) {
+      grid-template: auto / repeat(3, 1fr);
+    }
+  }
+}

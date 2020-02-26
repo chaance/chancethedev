@@ -1,16 +1,14 @@
 import React, { Fragment } from 'react';
 import VH from '@reach/visually-hidden';
-import styled from '@emotion/styled';
 import PodcastExcerpt from '$components/PodcastExcerpt';
 import { Section, H1, H2 } from '$components/Heading';
 import Layout from '$components/Layout';
-import Link from '$components/Link';
-import Pagination from '$components/Pagination';
 import SEO from '$components/SEO';
-import { breakpoint, GLOBAL_MARGIN } from '$lib/styles';
-import { rhythm } from '$lib/typography';
-import { formatListenTime } from '$lib/utils';
+import { formatListenTime, getBem } from '$lib/utils';
 import { PodcastProps } from './index';
+import './Podcast.scss';
+
+let bem = getBem('PodcastTemplate');
 
 const Podcast: React.FC<PodcastProps> = ({
   data: {
@@ -22,11 +20,11 @@ const Podcast: React.FC<PodcastProps> = ({
   const formatTitle = (title: string) => title.replace(/^E(\d|,)+:\s/, '');
 
   return (
-    <Layout>
+    <Layout className={bem()}>
       <SEO />
 
       <Section wrap={true}>
-        <SectionHeading>Latest Episode</SectionHeading>
+        <H1 className={bem({ el: 'section-heading' })}>Latest Episode</H1>
         <Section>
           <PodcastExcerpt
             isFeatured={true}
@@ -47,10 +45,10 @@ const Podcast: React.FC<PodcastProps> = ({
         </Section>
       </Section>
 
-      <PostGrid wrap={true}>
-        <SectionHeading style={{ marginTop: rhythm(GLOBAL_MARGIN) }}>
+      <Section className={bem({ el: 'post-grid' })} wrap={true}>
+        <H1 className={bem({ el: 'section-heading', featured: true })}>
           Older Episodes
-        </SectionHeading>
+        </H1>
 
         <Section>
           {episodes.map(({ node: episode }: any, index) => {
@@ -70,41 +68,9 @@ const Podcast: React.FC<PodcastProps> = ({
             );
           })}
         </Section>
-      </PostGrid>
+      </Section>
     </Layout>
   );
 };
 
 export default Podcast;
-
-////////////////////////////////////////////////////////////////////////////////
-// STYLES
-////////////////////////////////////////////////////////////////////////////////
-export const PostWrapper = styled.div``;
-
-export const Banner = styled.div`
-  margin: ${rhythm(2)} 0;
-`;
-
-export const PostTitle = styled.h2``;
-
-export const PostGrid = styled(Section)`
-  display: grid;
-  gap: ${rhythm(GLOBAL_MARGIN)};
-  grid-template: auto / auto;
-  ${breakpoint('medium')} {
-    grid-template: auto / repeat(2, 1fr);
-  }
-  ${breakpoint('xlarge')} {
-    grid-template: auto / repeat(3, 1fr);
-  }
-`;
-
-export const SectionHeading = styled(H1)`
-  ${breakpoint('medium')} {
-    grid-column: 1 / 3;
-  }
-  ${breakpoint('xlarge')} {
-    grid-column: 1 / 4;
-  }
-`;
