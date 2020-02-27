@@ -52,7 +52,10 @@ const ThemeProvider: React.FC = ({ children }) => {
     }
   }, [theme]);
 
-  let mounted = useRef(false);
+  let [, forceUpdate] = useState();
+  useEffect(() => {
+    forceUpdate({});
+  }, []);
 
   useEffect(() => {
     let timeout = window.setTimeout(() => {

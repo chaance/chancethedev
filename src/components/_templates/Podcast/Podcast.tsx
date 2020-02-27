@@ -24,7 +24,9 @@ const Podcast: React.FC<PodcastProps> = ({
       <SEO />
 
       <Section wrap={true}>
-        <H1 className={bem({ el: 'section-heading' })}>Latest Episode</H1>
+        <H1 className={bem({ el: 'section-heading', featured: true })}>
+          Latest Episode
+        </H1>
         <Section>
           <PodcastExcerpt
             isFeatured={true}
@@ -46,7 +48,7 @@ const Podcast: React.FC<PodcastProps> = ({
       </Section>
 
       <Section className={bem({ el: 'post-grid' })} wrap={true}>
-        <H1 className={bem({ el: 'section-heading', featured: true })}>
+        <H1 className={bem({ el: 'section-heading', older: true })}>
           Older Episodes
         </H1>
 

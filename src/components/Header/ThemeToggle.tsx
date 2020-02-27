@@ -13,7 +13,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ className, ...props }) => {
   return (
     <button className={bem(className)} {...props} onClick={toggleDarkMode}>
       <VH>{label}</VH>
-      <span className={bem({ el: 'inner' })} aria-hidden>
+      <span className={bem({ el: 'inner', theme })} aria-hidden>
         <ThemeGraphic />
       </span>
     </button>

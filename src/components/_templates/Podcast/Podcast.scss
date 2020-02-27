@@ -1,24 +1,36 @@
 .PodcastTemplate {
   &__section-heading {
+    margin-bottom: rhythm($global-margin / 2);
+
     @include breakpoint(medium) {
       grid-column: 1 / 3;
+      margin-bottom: rhythm($global-margin);
     }
 
     @include breakpoint(xlarge) {
       grid-column: 1 / 4;
     }
 
-    &--featured {
-      margin-top: rhythm($global-margin);
+    &--older {
+      margin: rhythm($global-margin / 2) 0;
+
+      @include breakpoint(medium) {
+        margin: rhythm($global-margin) 0;
+      }
+
+      @supports (display: grid) {
+        margin-bottom: 0;
+      }
     }
   }
 
   &__post-grid {
     display: grid;
-    gap: rhythm($global-margin);
+    gap: rhythm($global-margin / 2);
     grid-template: auto / auto;
 
     @include breakpoint(medium) {
+      gap: rhythm($global-margin);
       grid-template: auto / repeat(2, 1fr);
     }
 

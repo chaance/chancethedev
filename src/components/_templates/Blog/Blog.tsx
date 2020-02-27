@@ -35,7 +35,9 @@ const Blog: React.FC<BlogProps> = ({
 
       {hasFeaturedPost && (
         <Section wrap={true}>
-          <H1 className={bem({ el: 'section-heading' })}>Latest Post</H1>
+          <H1 className={bem({ el: 'section-heading', featured: true })}>
+            Latest Post
+          </H1>
           <Section>
             <BlogPostExcerpt
               isFeatured={true}
@@ -53,9 +55,7 @@ const Blog: React.FC<BlogProps> = ({
 
       <Section className={bem({ el: 'post-grid' })} wrap={true}>
         {hasFeaturedPost && (
-          <H1 className={bem({ el: 'section-heading', featured: true })}>
-            Older Posts
-          </H1>
+          <H1 className={bem({ el: 'section-heading', older: true })}>Older Posts</H1>
         )}
         <Section>
           {posts.map(({ node: post }: any, index) => {

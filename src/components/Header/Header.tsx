@@ -6,7 +6,6 @@ import Link from '$components/Link';
 
 import { Element } from '$lib/types';
 import { getBem } from '$lib/utils';
-import { useBreakpoint } from '$lib/hooks';
 
 import ThemeToggle from './ThemeToggle';
 import NavToggle from './NavToggle';
@@ -41,9 +40,6 @@ const Header: React.FC<HeaderProps> = ({
         <div>
           <Link className={bem({ el: 'home-link' })} to="/">
             Chance<span> the Developer</span>
-
-
-
           </Link>
           <NavMenu
             navIsActive={false}
