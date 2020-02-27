@@ -1,6 +1,7 @@
 import React from 'react';
 import { webFonts, FontProvider, ThemeProvider } from './src/lib/providers';
 import { uniq } from 'lodash';
+import { Themes } from './src/lib/providers/theme';
 import './src/lib/styles/app.scss';
 
 export const onRenderBody = ({ setHeadComponents, setPreBodyComponents }) => {
@@ -17,7 +18,7 @@ export const onRenderBody = ({ setHeadComponents, setPreBodyComponents }) => {
           (function() {
             window.__onThemeChange = function() {};
             var storageKey = 'chance_the_dev_theme';
-            var themes = ['dark', 'default'];
+            var themes = [${Themes.Dark}, ${Themes.Default}];
             function setTheme(newTheme) {
               window.__theme = newTheme;
               preferredTheme = newTheme;
@@ -41,9 +42,9 @@ export const onRenderBody = ({ setHeadComponents, setPreBodyComponents }) => {
             }
             var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
             darkQuery.addListener(function(e) {
-              window.__setPreferredTheme(e.matches ? 'dark' : 'default')
+              window.__setPreferredTheme(e.matches ? ${Themes.Dark} : ${Themes.Default})
             });
-            setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'default'));
+            setTheme(preferredTheme || (darkQuery.matches ? ${Themes.Dark} : ${Themes.Default}));
           })();
         `,
       }}

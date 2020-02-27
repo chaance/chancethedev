@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { whatInput } from './src/lib/utils';
 import { FontProvider, ThemeProvider } from './src/lib/providers';
 import './src/lib/styles/app.scss';

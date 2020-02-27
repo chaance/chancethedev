@@ -22,4 +22,30 @@
     width: inherit;
     height: inherit;
   }
+
+  &__graphic {
+    width: inherit;
+    height: inherit;
+
+    .shape {
+      transition: fill 1s ease;
+      fill: #ffb000;
+    }
+
+    .mask {
+      transition: transform 1s cubic-bezier(1, 0.4, 0.6, 2);
+      transform: translate(-100%, -70%) scale(0.5);
+    }
+
+    .theme-dark & {
+      .shape {
+        fill: #fff;
+      }
+
+      .mask {
+        transition: transform 1s cubic-bezier(0.2, 0.6, 0.4, 1);
+        transform: translate(0, 0) scale(1);
+      }
+    }
+  }
 }

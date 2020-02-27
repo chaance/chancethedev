@@ -35,31 +35,40 @@ const Header: React.FC<HeaderProps> = ({
     data,
   ]);
 
-  const isTinyScreen = !useBreakpoint(320);
-
   return (
     <header className={bem(className)} {...props}>
       <div className={bem({ el: 'inner' })}>
         <div>
           <Link className={bem({ el: 'home-link' })} to="/">
-            {isTinyScreen ? 'Chance' : 'Chance the Developer'}
+            Chance<span> the Developer</span>
+
+
+
           </Link>
-          {!usesToggleNav && <NavMenu navIsActive={false} items={items} />}
+          <NavMenu
+            navIsActive={false}
+            items={items}
+            aria-hidden={usesToggleNav}
+          />
         </div>
         <div className={bem({ el: 'button-group' })}>
           <ThemeToggle />
           <NavToggle
             navIsActive={navIsActive}
             setNavIsActive={setNavIsActive}
+            aria-controls="main-nav"
+            aria-hidden={!usesToggleNav}
+            tabIndex={!usesToggleNav ? -1 : 0}
           />
-          {usesToggleNav && (
-            <NavMenu
-              setNavIsActive={setNavIsActive}
-              usesToggleNav
-              navIsActive={navIsActive}
-              items={items}
-            />
-          )}
+          <NavMenu
+            id="main-nav"
+            setNavIsActive={setNavIsActive}
+            usesToggleNav
+            navIsActive={navIsActive}
+            items={items}
+            className="toggle"
+            aria-hidden={!usesToggleNav}
+          />
         </div>
       </div>
     </header>
@@ -71,15 +80,23 @@ function NavMenu({
   setNavIsActive = () => {},
   navIsActive,
   items,
+  className,
+  id,
+  ...props
 }: any) {
   return (
     <div
-      className={bem({
-        el: 'menu-wrapper',
-        'nav-active': usesToggleNav ? navIsActive : false,
-      })}
+      className={bem(
+        {
+          el: 'menu-wrapper',
+          'nav-active': usesToggleNav ? navIsActive : false,
+          toggle: usesToggleNav,
+        },
+        className
+      )}
+      {...props}
     >
-      <nav>
+      <nav id={id}>
         <Menu
           className={bem({ el: 'menu' })}
           toggle={() => setNavIsActive(!navIsActive)}

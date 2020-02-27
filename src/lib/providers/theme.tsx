@@ -1,26 +1,50 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { DeepPartial } from '$lib/types';
+import React, {
+  useLayoutEffect,
+  createContext,
+  useContext,
+  useRef,
+  useState,
+  useEffect,
+} from 'react';
+
+export enum Themes {
+  Dark = 'dark',
+  Default = 'default',
+}
 
 const THEME_KEY = 'chance_the_dev_theme';
 
 const themeInitialState: ThemeContextProps = {
-  theme: 'default',
+  theme: Themes.Default,
   toggleDarkMode: () => ({}),
 };
 
 const ThemeContext = createContext<ThemeContextProps>(themeInitialState);
 
 const ThemeProvider: React.FC = ({ children }) => {
-  const initializeTheme = (): Themes => {
+  const [theme, setTheme] = useState<Themes>(() => {
     if (typeof window !== 'undefined') {
-      return window.localStorage.getItem(THEME_KEY) ||
-        window.matchMedia('(prefers-color-scheme: dark)').matches === true
-        ? 'dark'
-        : 'default';
+      let preferenceFromLocalStorage = window.localStorage.getItem(
+        THEME_KEY
+      ) as Themes | null;
+      let preferenceFromOS = window.matchMedia('(prefers-color-scheme: dark)')
+        .matches
+        ? Themes.Dark
+        : Themes.Default;
+
+      if (
+        preferenceFromLocalStorage !== Themes.Dark &&
+        preferenceFromLocalStorage !== Themes.Default
+      ) {
+        preferenceFromLocalStorage = null;
+      }
+
+      return preferenceFromLocalStorage
+        ? preferenceFromLocalStorage
+        : preferenceFromOS;
     }
-    return 'default';
-  };
-  const [theme, setTheme] = useState<Themes>(initializeTheme);
+    return Themes.Default;
+  });
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -28,7 +52,20 @@ const ThemeProvider: React.FC = ({ children }) => {
     }
   }, [theme]);
 
-  const toggleDarkMode = () => setTheme(theme === 'dark' ? 'default' : 'dark');
+  let mounted = useRef(false);
+
+  useEffect(() => {
+    let timeout = window.setTimeout(() => {
+      let root = document.querySelector('html');
+      root && root.setAttribute('data-initial-load', '');
+    }, 500);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
+
+  const toggleDarkMode = () =>
+    setTheme(theme === Themes.Dark ? Themes.Default : Themes.Dark);
 
   return (
     <ThemeContext.Provider
@@ -46,12 +83,23 @@ function useThemeContext() {
   return useContext(ThemeContext);
 }
 
+function addStyleTag(styles: string) {
+  let css = document.createElement('style');
+  css.type = 'text/css';
+  if ((css as any).styleSheet) {
+    (css as any).styleSheet.cssText = styles;
+  } else {
+    css.appendChild(document.createTextNode(styles));
+  }
+  document.getElementsByTagName('head')[0].appendChild(css);
+  return css;
+}
+
 export { ThemeProvider, ThemeContext, useThemeContext, themeInitialState };
 
 ////////////////////////////////////////////////////////////////////////////////
 // TYPES
 ////////////////////////////////////////////////////////////////////////////////
-export type Themes = 'default' | 'dark';
 
 export interface ThemeState {
   theme: Themes;

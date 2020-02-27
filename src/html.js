@@ -1,16 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const HTML = ({
-  bodyAttributes,
-  headComponents,
-  htmlAttributes,
-  body,
-  postBodyComponents,
-  preBodyComponents,
-}) => {
+export default function HTML(props) {
   return (
-    <html {...htmlAttributes}>
+    <html data-no-js="" {...props.htmlAttributes}>
       <head>
         <meta charSet="utf-8" />
         <meta httpEquiv="x-ua-compatible" content="ie=edge" />
@@ -18,22 +11,31 @@ const HTML = ({
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
-        {headComponents}
+        {props.headComponents}
       </head>
-      <body {...bodyAttributes}>
-        {preBodyComponents}
-        <noscript>This site runs best with JavaScript enabled.</noscript>
+      <body {...props.bodyAttributes}>
+        {props.preBodyComponents}
         <div
           key={`body`}
           id="___gatsby"
           // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: body }}
+          dangerouslySetInnerHTML={{ __html: props.body }}
         />
-        {postBodyComponents}
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.addEventListener('DOMContentLoaded', function() {
+                document.querySelector('html').removeAttribute('data-no-js');
+              });
+              `,
+          }}
+        />
+        {props.postBodyComponents}
       </body>
     </html>
   );
-};
+}
 
 HTML.propTypes = {
   htmlAttributes: PropTypes.object,
@@ -43,5 +45,3 @@ HTML.propTypes = {
   body: PropTypes.string,
   postBodyComponents: PropTypes.array,
 };
-
-export default HTML;

@@ -42,9 +42,29 @@
       line-height: 1;
       /* height: 16px; */
     }
+
+    span {
+      display: none;
+      @include breakpoint(320) {
+        display: inline;
+      }
+    }
+
   }
 
   &__menu-wrapper {
+    display: none;
+    @include breakpoint(large) {
+      display: block;
+    }
+
+    &.toggle {
+      display: block;
+      @include breakpoint(large) {
+        display: none;
+      }
+    }
+
     @include breakpoint(medium down) {
       position: absolute;
       height: 100%;

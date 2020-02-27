@@ -1,5 +1,6 @@
 html {
   font-size: 16px;
+  background: var(--color-body-bg);
 
   @include breakpoint(xxxlarge) {
     font-size: 18px;
@@ -16,6 +17,18 @@ body {
     @supports (display: grid) {
       overflow-x: initial;
       scroll-padding-bottom: rem(100);
+    }
+  }
+}
+
+#___gatsby {
+  :not([data-no-js]):not([data-initial-load]) & {
+    animation: bodyFadeIn ease-out 2800ms;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none !important;
     }
   }
 }
@@ -174,4 +187,16 @@ ol {
 
 .twitter-tweet {
   margin: #{rhythm(1)} 0 !important;
+}
+
+@keyframes bodyFadeIn {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

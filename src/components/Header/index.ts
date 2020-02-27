@@ -1,4 +1,5 @@
 import { Element } from '$lib/types';
+import { Themes } from '$lib/providers';
 
 export { default } from './Header';
 
