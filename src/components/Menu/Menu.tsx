@@ -32,7 +32,7 @@ const MenuList = forwardRef<HTMLUListElement, MenuListProps>(
     return (
       <ul
         ref={ref}
-        className={cx(className, { active: childIsActive })}
+        className={cx(className, 'MenuList', { active: childIsActive })}
         {...props}
       >
         {clones}
@@ -42,6 +42,7 @@ const MenuList = forwardRef<HTMLUListElement, MenuListProps>(
 );
 
 export const Menu: React.FC<MenuProps> = ({
+  className,
   items,
   togglable,
   toggleActive,
@@ -71,7 +72,7 @@ export const Menu: React.FC<MenuProps> = ({
         to,
         options = {},
         children = [] as any,
-        className,
+        className: itemClassName,
         onClick,
         redirect,
         linkProps,
@@ -81,7 +82,7 @@ export const Menu: React.FC<MenuProps> = ({
       return (
         <MenuItem
           key={id}
-          className={cx(className, { active })}
+          className={cx(itemClassName, 'MenuItem', { active })}
           hasChildren={!!(children && children.length)}
           tabIndex={-1}
         >
@@ -100,9 +101,16 @@ export const Menu: React.FC<MenuProps> = ({
     });
   return (
     <MenuList
+      className={cx(className, 'Menu')}
       ref={ref}
       onBlur={() => {
         requestAnimationFrame(() => {
+          // When the user is toggling away from the last item in the menu, we
+          // we want to close the menu as they navigate away. This way they
+          // don't have to back-tab all the way back up the menu tree to the
+          // toggle button (if they want to get back to the toggle button to
+          // reopen the menu, it's only a single back-tab since we assign
+          // tabIndex of -1 to menu links when it's closed).
           if (
             toggle &&
             ref.current &&

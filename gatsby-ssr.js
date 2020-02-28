@@ -18,7 +18,7 @@ export const onRenderBody = ({ setHeadComponents, setPreBodyComponents }) => {
           (function() {
             window.__onThemeChange = function() {};
             var storageKey = 'chance_the_dev_theme';
-            var themes = [${Themes.Dark}, ${Themes.Default}];
+            var themes = ['${Themes.Dark}', '${Themes.Default}'];
             function setTheme(newTheme) {
               window.__theme = newTheme;
               preferredTheme = newTheme;
@@ -42,9 +42,9 @@ export const onRenderBody = ({ setHeadComponents, setPreBodyComponents }) => {
             }
             var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
             darkQuery.addListener(function(e) {
-              window.__setPreferredTheme(e.matches ? ${Themes.Dark} : ${Themes.Default})
+              window.__setPreferredTheme(e.matches ? '${Themes.Dark}' : '${Themes.Default}')
             });
-            setTheme(preferredTheme || (darkQuery.matches ? ${Themes.Dark} : ${Themes.Default}));
+            setTheme(preferredTheme || (darkQuery.matches ? '${Themes.Dark}' : '${Themes.Default}'));
           })();
         `,
       }}

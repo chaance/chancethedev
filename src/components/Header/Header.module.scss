@@ -113,11 +113,6 @@
   /* sub-menu */
   & > li ul {
     margin: #{rhythm(1 / 3)} 0 #{rhythm(1 / 1.5)};
-    display: none;
-  }
-  & > li.active ul,
-  & > li ul.active {
-    display: block;
   }
 
   /* top-level menu items */
