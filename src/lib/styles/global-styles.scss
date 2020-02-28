@@ -12,6 +12,7 @@ body {
   color: var(--color-text);
   transition: color 400ms ease-out, background 400ms ease-out;
   overflow-x: hidden;
+  line-height: var(--line-height-base);
 
   @include breakpoint(large) {
     @supports (display: grid) {
@@ -60,17 +61,39 @@ object,
 [tabindex='0'],
 [contenteditable],
 [focusable] {
-  @include apply-keyboard-focus-styles;
+  [data-whatinput='keyboard'] &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-focus);
+  }
+}
+
+a {
+  [data-whatinput='keyboard'] &:focus {
+    outline: none;
+    box-shadow: none;
+    text-decoration: underline;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-color: var(--color-focus);
+    text-decoration-thickness: 0.15em;
+  }
 }
 
 h1,
+.h1,
 h2,
+.h2,
 h3,
+.h3,
 h4,
+.h4,
 h5,
-h6 {
+.h5,
+h6,
+.h6 {
   color: inherit;
   font-size: inherit;
+  line-height: var(--line-height-heading);
 }
 
 h1,

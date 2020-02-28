@@ -1,10 +1,10 @@
 import React from 'react';
+import cx from 'classnames';
 import theme from 'prism-react-renderer/themes/duotoneDark';
 import Highlight, { defaultProps, Language } from 'prism-react-renderer';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
-import { getBem } from '$lib/utils';
 
-let bem = getBem('mdx');
+const styles = require('./mdx.module.scss');
 
 interface CodeProps {
   children: string;
@@ -43,7 +43,7 @@ const Code: React.FC<CodeProps> = ({
         getLineProps,
         getTokenProps,
       }) => (
-        <pre className={bem({ el: 'pre' }, childClass)} style={style}>
+        <pre className={cx(styles.pre || 'pre', childClass)} style={style}>
           {tokens.map((line, i) => (
             <div key={i} {...getLineProps({ line, key: i })}>
               {line.map((token, key) => (

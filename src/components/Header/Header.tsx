@@ -1,17 +1,13 @@
 import React from 'react';
+import cx from 'classnames';
 import { useStaticQuery, graphql } from 'gatsby';
-
 import Menu, { MenuItemData } from '$components/Menu';
 import Link from '$components/Link';
-
 import { Element } from '$lib/types';
-import { getBem } from '$lib/utils';
-
 import ThemeToggle from './ThemeToggle';
 import NavToggle from './NavToggle';
-import './Header.scss';
 
-let bem = getBem('Header');
+const styles = require('./Header.module.scss');
 
 const Header: React.FC<HeaderProps> = ({
   navIsActive,
@@ -35,10 +31,10 @@ const Header: React.FC<HeaderProps> = ({
   ]);
 
   return (
-    <header className={bem(className)} {...props}>
-      <div className={bem({ el: 'inner' })}>
+    <header className={cx(className, 'Header', styles.header)} {...props}>
+      <div className={styles.inner}>
         <div>
-          <Link className={bem({ el: 'home-link' })} to="/">
+          <Link className={styles.homeLink} to="/">
             Chance<span> the Developer</span>
           </Link>
           <NavMenu
@@ -47,7 +43,7 @@ const Header: React.FC<HeaderProps> = ({
             aria-hidden={usesToggleNav}
           />
         </div>
-        <div className={bem({ el: 'button-group' })}>
+        <div className={styles.buttonGroup}>
           <ThemeToggle />
           <NavToggle
             navIsActive={navIsActive}
@@ -82,19 +78,15 @@ function NavMenu({
 }: any) {
   return (
     <div
-      className={bem(
-        {
-          el: 'menu-wrapper',
-          'nav-active': usesToggleNav ? navIsActive : false,
-          toggle: usesToggleNav,
-        },
-        className
-      )}
+      className={cx(styles.menuWrapper, className, {
+        [styles.navActive]: usesToggleNav ? navIsActive : false,
+        [styles.toggle]: usesToggleNav,
+      })}
       {...props}
     >
       <nav id={id}>
         <Menu
-          className={bem({ el: 'menu' })}
+          className={styles.menu}
           toggle={() => setNavIsActive(!navIsActive)}
           togglable={usesToggleNav}
           toggleActive={usesToggleNav ? navIsActive : false}

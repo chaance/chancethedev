@@ -1,25 +1,24 @@
 import React from 'react';
+import cx from 'classnames';
 import Link from '$components/Link';
 import { MenuItemData } from '$components/Menu';
-import { getBem } from '$lib/utils';
 import config from '$src/../config';
 import { FooterProps } from './index';
-import './Footer.scss';
 
-let bem = getBem('Footer');
+const styles = require('./Footer.module.scss');
 
 const Footer: React.FC<FooterProps> = ({ className, ...props }) => (
-  <footer className={bem(className)} {...props}>
+  <footer className={cx(className, styles.footer)} {...props}>
     <nav>
-      <ul className={bem({ el: 'menu' })}>
+      <ul className={styles.menu}>
         {MENU_ITEMS.map(({ id, to, label }) => (
-          <li key={id} className={bem({ el: 'menu-item' })}>
+          <li key={id} className={styles.menuItem}>
             <Link to={to}>{label}</Link>
           </li>
         ))}
       </ul>
     </nav>
-    <div className={bem({ el: 'copyright' })}>
+    <div className={styles.copyright}>
       {`\u00A9 ${new Date().getFullYear()}`} Zero Rights Reserved
     </div>
   </footer>

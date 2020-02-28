@@ -1,0 +1,82 @@
+// Values are in pixels, not rems!
+$line-height: 2;
+$button-width: 18;
+$gutter: 4;
+$transition-duration: 300;
+
+@function get-transform($which, $active: false) {
+  $active-translate: if(
+    $which == 'before',
+    #{$gutter + $line-height}px,
+    #{($gutter + $line-height) * -1}px
+  );
+  $active-rotate: if($which == 'before', 45deg, -45deg);
+
+  @return unquote(
+    'translateY(#{if($active, $active-translate, 0)})
+    rotate(#{if($active, $active-rotate, 0)})'
+  );
+}
+
+.button {
+  width: #{$button-width}px;
+  height: #{$line-height * 3 + $gutter * 2}px;
+  margin: 0;
+  padding: 0;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  cursor: default;
+}
+
+.line {
+  display: block;
+  user-select: none;
+  position: relative;
+  margin-top: #{$line-height + $gutter}px;
+  margin-bottom: #{$line-height + $gutter}px;
+  width: #{$button-width}px;
+  height: #{$line-height}px;
+  background-color: var(--color-black);
+
+  .button[aria-pressed='true'] & {
+    background-color: transparent;
+  }
+
+  &,
+  &::before,
+  &::after {
+    display: block;
+    border-radius: 0;
+    transition-property: background-color, transform;
+    transition-duration: #{$transition-duration}ms;
+  }
+
+  &::before,
+  &::after {
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    content: '';
+    background-color: var(--color-black);
+  }
+
+  &::before {
+    top: #{($line-height + $gutter) * -1}px;
+    transform: get-transform(before);
+
+    .button[aria-pressed='true'] & {
+      transform: get-transform(before, true);
+    }
+  }
+
+  &::after {
+    top: #{$line-height + $gutter}px;
+    transform: get-transform(after);
+
+    .button[aria-pressed='true'] & {
+      transform: get-transform(after, true);
+    }
+  }
+}

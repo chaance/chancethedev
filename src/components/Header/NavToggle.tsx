@@ -1,10 +1,9 @@
 import React from 'react';
+import cx from 'classnames';
 import BurgerButton from '$components/BurgerButton';
-import { getBem } from '$lib/utils';
-import './NavToggle.scss';
 import { Element } from '$lib/types';
 
-let bem = getBem('NavToggle');
+const styles = require('./NavToggle.module.scss');
 
 const NavToggle: React.FC<NavToggleProps> = ({
   className,
@@ -13,7 +12,7 @@ const NavToggle: React.FC<NavToggleProps> = ({
 }) => {
   return (
     <BurgerButton
-      className={bem(className)}
+      className={cx(className, 'NavToggle', styles.button)}
       setActive={setNavIsActive}
       active={navIsActive}
     >

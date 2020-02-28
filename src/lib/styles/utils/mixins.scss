@@ -1,13 +1,6 @@
 @import 'variables';
 @import 'breakpoints';
 
-@mixin apply-keyboard-focus-styles {
-  [data-whatinput='keyboard'] &:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px var(--color-primary);
-  }
-}
-
 @mixin make-content-grid($col1, $col2) {
   position: relative;
   max-width: rhythm(26);

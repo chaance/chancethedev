@@ -1,14 +1,13 @@
 import React from 'react';
+import classNames from 'classnames';
 import Code from './Code';
 import { H1, H2, H3, H4, H5, H6 } from '$components/Heading';
 import { Element } from '$lib/types';
-import { getBem } from '$lib/utils';
-import './mdx.scss';
 
-let bem = getBem('mdx');
+const styles = require('./mdx.module.scss');
 
-function cx(className?: string, el?: string) {
-  return bem({ el }, className);
+function cx(module: string, className?: string) {
+  return classNames(className, styles[module] || module);
 }
 
 export default {
@@ -35,6 +34,6 @@ export default {
   ),
   code: Code,
   pre: ({ className, ...props }: Element<'pre'>) => (
-    <pre className={cx(className, 'pre')} {...props} />
+    <pre className={cx('pre', className)} {...props} />
   ),
 };

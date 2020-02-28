@@ -1,14 +1,14 @@
 import React from 'react';
+import cx from 'classnames';
 import { H4 } from '$components/Heading';
 import { TwitterIcon } from '$components/Icons';
 import Link from '$components/Link';
 import VH from '@reach/visually-hidden';
-import { leadingSlashIt, getBem } from '$lib/utils';
+import { leadingSlashIt } from '$lib/utils';
 import config from '$src/../config';
 import { PostMetaProps } from './index';
-import './PostMeta.scss';
 
-let bem = getBem('PostMeta');
+const styles = require('./PostMeta.module.scss');
 
 const PostMeta: React.FC<PostMetaProps> = ({
   className,
@@ -18,35 +18,45 @@ const PostMeta: React.FC<PostMetaProps> = ({
   ...props
 }) => {
   return (
-    <div className={bem(className)} {...props}>
+    <div className={cx(className, 'PostMeta', styles.wrapper)} {...props}>
       {author && author.image && (
-        <div className={bem({ el: 'image-wrapper' })}>
-          <img src={leadingSlashIt(author.image)} alt={`${author.name} bio`} />
+        <div className={styles.imageWrapper}>
+          <img
+            className={styles.image}
+            src={leadingSlashIt(author.image)}
+            alt={`${author.name} bio`}
+          />
         </div>
       )}
       <div>
-        {author && (
-          <H4 className={bem({ el: 'author-name' })}>{author.name}</H4>
-        )}
-        <ul className={bem({ el: 'post-info' })}>
-          {date && <li className={bem({ el: 'info-item' })}>{date}</li>}
-          {append
-            ? append.map((item, index) => (
-                <li className={bem({ el: 'info-item' })} key={index}>
-                  {item}
-                </li>
-              ))
-            : null}
-          <li className={bem({ el: 'info-item' })}>
-            <Link target="_blank" rel="noopener noreferrer" to={config.twitter}>
-              <VH>Twitter</VH>
-              <TwitterIcon aria-hidden />
-            </Link>
-          </li>
-        </ul>
+        {author && <H4 className={styles.authorName}>{author.name}</H4>}
+        <PostInfo date={date} append={append} />
       </div>
     </div>
   );
 };
+
+function PostInfo({ date, append }: any) {
+  return (
+    <ul className={styles.postInfo}>
+      {date && <InfoItem>{date}</InfoItem>}
+      {append
+        ? (append as React.ReactNode[]).map((item, index) => (
+            <InfoItem key={index}>{item}</InfoItem>
+          ))
+        : null}
+      <InfoItem>
+        <Link target="_blank" rel="noopener noreferrer" to={config.twitter}>
+          <VH>Twitter</VH>
+          <TwitterIcon aria-hidden />
+        </Link>
+      </InfoItem>
+    </ul>
+  );
+}
+
+function InfoItem(props: any) {
+  return <li className={styles.infoItem} {...props} />;
+}
 
 export default PostMeta;

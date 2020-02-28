@@ -28,6 +28,7 @@
   --color-border: #{$chancethedev--gray-20};
   --color-black: #{$chancethedev--black-100};
   --color-white: #{$chancethedev--white-0};
+  --color-focus: var(--color-primary);
   @include make-root-css-variables();
 }
 

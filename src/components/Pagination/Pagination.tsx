@@ -1,10 +1,10 @@
 import React from 'react';
+import cx from 'classnames';
 import Link from '$components/Link';
-import { leadingSlashIt, getBem } from '$lib/utils';
+import { leadingSlashIt } from '$lib/utils';
 import { PaginationProps } from './index';
-import './Pagination.scss';
 
-let bem = getBem('Pagination');
+const styles = require('./Pagination.module.scss');
 
 const Pagination: React.FC<PaginationProps> = ({
   className,
@@ -16,10 +16,10 @@ const Pagination: React.FC<PaginationProps> = ({
   nextLabel = 'Newer Posts',
 }) => {
   return (
-    <nav className={bem(className)} aria-label="Post navigation">
-      <ul className={bem({el: 'page-list'})}>
+    <nav className={cx(className, styles.wrapper)} aria-label="Post navigation">
+      <ul className={styles.pageList}>
         {previousPagePath && (
-          <li className={bem({el: 'page'})}>
+          <li className={styles.page}>
             <Link
               to={leadingSlashIt(previousPagePath)}
               aria-label={previousAriaLabel || `See ${previousLabel}`}
@@ -29,7 +29,7 @@ const Pagination: React.FC<PaginationProps> = ({
           </li>
         )}
         {nextPagePath && (
-          <li className={bem({el: 'page'})}>
+          <li className={styles.page}>
             <Link
               to={leadingSlashIt(nextPagePath)}
               aria-label={nextAriaLabel || `See ${nextLabel}`}

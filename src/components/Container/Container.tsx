@@ -1,16 +1,12 @@
 import React from 'react';
-import { getBem } from '$lib/utils';
+import cx from 'classnames';
 import { ContainerProps } from './index';
-import './Container.scss';
 
-let bem = getBem('Container');
+const styles = require('./Container.module.scss');
 
-const Container: React.FC<ContainerProps> = ({
-  className,
-  ...props
-}) => {
+const Container: React.FC<ContainerProps> = ({ className, ...props }) => {
   return (
-    <div className={bem(className)} {...props}>
+    <div className={cx(className, 'Container', styles.container)} {...props}>
       {props.children}
     </div>
   );

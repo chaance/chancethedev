@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
+import cx from 'classnames';
 import Img from 'gatsby-image';
 import Link from '$components/Link';
 import VH from '@reach/visually-hidden';
 import { HT, H2 } from '$components/Heading';
 import { unSlashIt, getBem } from '$lib/utils';
 import { PodcastExcerptProps } from './index';
-import './PodcastExcerpt.scss';
 
-let bem = getBem('PodcastExcerpt');
+const styles = require('./PodcastExcerpt.module.scss');
 
 const PodcastExcerpt: React.FC<PodcastExcerptProps> = ({
   audioUrl,
@@ -31,11 +31,13 @@ const PodcastExcerpt: React.FC<PodcastExcerptProps> = ({
   const H = isFeatured ? HT : H2;
   return (
     <article
-      className={bem({ 'is-featured': isFeatured }, className)}
+      className={cx(className, 'PodcastExcerpt', styles.wrapper, {
+        [styles.isFeatured]: isFeatured,
+      })}
       {...props}
     >
       {isFeatured && banner ? (
-        <div className={bem({ el: 'banner-wrapper' })} aria-hidden>
+        <div className={styles.bannerWrapper} aria-hidden>
           <Link
             aria-label={`Listen to "${title}"`}
             to={permalink}
@@ -45,30 +47,34 @@ const PodcastExcerpt: React.FC<PodcastExcerptProps> = ({
           </Link>
         </div>
       ) : null}
-      <div className={bem({ el: 'inner-wrapper' })}>
+      <div className={styles.innerWrapper}>
         <header>
-          <H className={bem({ el: 'heading', 'is-featured': isFeatured })}>
+          <H
+            className={cx(styles.heading, {
+              [styles.headingFeatured]: isFeatured,
+            })}
+          >
             <Link to={permalink}>{title}</Link>
           </H>
-          <span className={bem({ el: 'episode-info' })}>
+          <span className={styles.episodeInfo}>
             {date}
             {` • ${timeToListen}`}
           </span>
         </header>
         <div>
           <p
-            className={bem({ el: 'desc' })}
+            className={styles.desc}
             // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{ __html: description }}
           />
           {audioUrl && (
-            <audio className={bem({ el: 'audio' })} controls>
+            <audio className={styles.audio} controls>
               <source src={audioUrl} />
             </audio>
           )}
           <span>
             <Link
-              className={bem({ el: 'listen-link' })}
+              className={styles.listenLink}
               to={permalink}
               rel="bookmark"
               tabIndex={-1}
@@ -78,7 +84,7 @@ const PodcastExcerpt: React.FC<PodcastExcerptProps> = ({
                 : title}
             </Link>
             {includeAllLink && (
-              <Link className={bem({ el: 'listen-link' })} to="/podcast">
+              <Link className={styles.listenLink} to="/podcast">
                 See All Episodes
               </Link>
             )}

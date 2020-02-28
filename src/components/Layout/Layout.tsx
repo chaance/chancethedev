@@ -10,10 +10,8 @@ import Container from '$components/Container';
 import { useBreakpoint } from '$lib/hooks';
 import { useThemeContext, useFonts } from '$lib/providers';
 import { Element, SiteMetadata, Frontmatter } from '$lib/types';
-import { getBem } from '$lib/utils';
-import './Layout.scss';
 
-let bem = getBem('Layout');
+const styles = require('./Layout.module.scss');
 
 const Layout: React.FC<LayoutProps> = ({
   className,
@@ -63,8 +61,12 @@ const Layout: React.FC<LayoutProps> = ({
   }, [isLargeScreen, navIsActive]);
 
   return (
-    <Container className={bem({ 'nav-is-active': navIsActive }, className)}>
-      <div className={bem({ el: 'grid-wrapper' })}>
+    <Container
+      className={cx(className, 'Layout', styles.wrapper, {
+        [styles.navIsActive]: navIsActive,
+      })}
+    >
+      <div className={styles.gridWrapper}>
         <Helmet
           title={site.title}
           meta={[
@@ -89,12 +91,12 @@ const Layout: React.FC<LayoutProps> = ({
           usesToggleNav={!isLargeScreen}
           navIsActive={isLargeScreen ? false : navIsActive}
           setNavIsActive={isLargeScreen ? () => void null : setNavIsActive}
-          className={bem({ el: 'Header' })}
+          className={styles.header}
         />
         <MDXProvider components={mdxComponents as any}>
-          <div className={bem({ el: 'body' })}>{children}</div>
+          <div className={styles.body}>{children}</div>
         </MDXProvider>
-        <Footer className={bem({ el: 'Footer' })} />
+        <Footer className={styles.footer} />
       </div>
     </Container>
   );

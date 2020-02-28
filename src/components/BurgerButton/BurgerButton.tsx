@@ -1,10 +1,9 @@
 import React from 'react';
+import cx from 'classnames';
 import VH from '@reach/visually-hidden';
-import { getBem } from '$lib/utils';
 import { BurgerButtonProps } from './index';
-import './BurgerButton.scss';
 
-let bem = getBem('BurgerButton');
+const styles = require('./BurgerButton.module.scss');
 
 const BurgerButton: React.FC<BurgerButtonProps> = ({
   children,
@@ -18,14 +17,14 @@ const BurgerButton: React.FC<BurgerButtonProps> = ({
     <button
       {...props}
       aria-pressed={active}
-      className={bem(className)}
+      className={cx(className, 'BurgerButton', styles.button)}
       onClick={event => {
         onClick && onClick(event);
         setActive(!active);
       }}
     >
       <VH>{children}</VH>
-      <span className={bem({ el: 'line' })} aria-hidden />
+      <span className={styles.line} aria-hidden />
     </button>
   );
 };
