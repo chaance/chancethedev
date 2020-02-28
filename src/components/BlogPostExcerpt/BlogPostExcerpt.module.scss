@@ -50,16 +50,28 @@
   margin: #{rhythm(1 / 2)} 0;
 }
 
+.linkWrapper {
+  display: block;
+  margin-top: rhythm(1 / 2);
+
+  @supports (display: grid) {
+    display: grid;
+    column-gap: rhythm(1 / 2);
+    @include breakpoint(medium) {
+      grid-template-columns: 1fr auto;
+    }
+  }
+}
+
 .moreLink {
   display: block;
   font-family: var(--font-sans);
   font-weight: bold;
-  margin-top: rhythm(1 / 2);
-  color: var(--color-light-primary);
+  color: var(--color-dark-primary);
   text-transform: uppercase;
   letter-spacing: 0.5;
 
   &:hover {
-    color: var(--color-light-link);
+    color: var(--color-link);
   }
 }

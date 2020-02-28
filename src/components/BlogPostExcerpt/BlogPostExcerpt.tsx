@@ -62,7 +62,7 @@ const BlogPostExcerpt: React.FC<BlogPostExcerptProps> = ({
             // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{ __html: spoiler }}
           />
-          <span>
+          <span className={styles.linkWrapper}>
             <Link
               className={styles.moreLink}
               to={permalink}

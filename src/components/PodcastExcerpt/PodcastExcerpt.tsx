@@ -72,7 +72,7 @@ const PodcastExcerpt: React.FC<PodcastExcerptProps> = ({
               <source src={audioUrl} />
             </audio>
           )}
-          <span>
+          <span className={styles.linkWrapper}>
             <Link
               className={styles.listenLink}
               to={permalink}

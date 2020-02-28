@@ -20,6 +20,8 @@
 
   // colors
   --color-primary: #{$chancethedev--blue-30};
+  --color-light-primary: #{$chancethedev--blue-20};
+  --color-dark-primary: #{$chancethedev--blue-40};
   --color-text: #{$chancethedev--black-100};
   --color-light-text: #{$chancethedev--gray-50};
   --color-body-bg: #{$chancethedev--white-0};
@@ -34,6 +36,8 @@
 
 .theme-dark {
   --color-primary: #{$chancethedev--blue-20};
+  --color-light-primary: #{$chancethedev--blue-40};
+  --color-dark-primary: #{$chancethedev--blue-10};
   --color-text: #{$chancethedev--white-0};
   --color-light-text: #{$chancethedev--gray-20};
   --color-body-bg: #{$chancethedev--black-100};
