@@ -22,7 +22,7 @@ module.exports = {
   userTwitter: '@chancethedev',
   ogSiteName: 'Chance the Developer',
   ogLanguage: 'en_US',
-  typekitId: 'fni3eij',
+  typekitId: 'bmo6hfj',
   podcastID: 'be80c501-3fbc-4cd2-9e9b-b11d13e4925e',
 
   // Manifest and Progress color

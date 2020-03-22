@@ -19,10 +19,6 @@
   }
 
   .innerWrapper {}
-
-  a {
-    text-decoration: none;
-  }
 }
 
 .heading {
@@ -30,6 +26,14 @@
 
   &.headingFeatured {
     margin-top: 0;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  a:not(:hover):not(:focus) {
+    text-decoration: none;
   }
 }
 
@@ -53,6 +57,12 @@
   font-family: var(--font-sans);
   color: var(--color-light-text);
   margin: #{rhythm(1 / 2)} 0;
+
+  .isFeatured & {
+    @include breakpoint(xlarge) {
+      font-size: 1.125rem;
+    }
+  }
 }
 
 .linkWrapper {
@@ -71,10 +81,9 @@
 .listenLink {
   display: block;
   font-family: var(--font-sans);
-  font-weight: bold;
-  color: var(--color-dark-primary);
+  font-weight: var(--font-weight-bold);
+  color: inherit;
   text-transform: uppercase;
-  letter-spacing: 0.5;
 
   &:hover {
     color: var(--color-link);

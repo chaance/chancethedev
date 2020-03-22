@@ -2,8 +2,8 @@
   margin: #{rhythm(1)} 0;
   font-size: rem(22);
   font-family: var(--font-serif);
-  font-weight: bold;
-  font-style: inherit;
+  font-weight: var(--font-weight-bold);
+  font-style: italic;
   letter-spacing: -0.012em;
   line-height: 1.48;
 
@@ -15,16 +15,20 @@
     font-size: rem(30);
   }
 
+  @include breakpoint(large) {
+    font-size: rem(40);
+  }
+
   cite {
     display: block;
     font-size: rem(14);
+    font-family: var(--font-sans);
 
     @include breakpoint(medium) {
       font-size: rem(16);
       font-style: normal;
-      font-weight: 400;
+      font-weight: var(--font-weight-normal);
       margin-top: rhythm(1 / 2);
-      letter-spacing: 1;
     }
 
     span {
@@ -51,4 +55,14 @@
       }
     }
   }
+}
+
+.pre {
+  padding: 0;
+  border: 1px solid var(--color-border);
+  background: var(--color-body-bg);
+}
+
+.code {
+  padding: calc(var(--rhythm) / 2);
 }

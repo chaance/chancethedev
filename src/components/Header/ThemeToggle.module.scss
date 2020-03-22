@@ -3,6 +3,7 @@
 }
 
 .button {
+  position: relative;
   margin: 0;
   padding: 0;
   appearance: none;
@@ -17,6 +18,22 @@
     border-radius: rhythm($global-margin / 4);
     width: rhythm($global-margin / 2);
     height: rhythm($global-margin / 2);
+  }
+
+  &:focus {
+    transition: box-shadow 400ms ease-out;
+    box-shadow: 0 0 0 6px var(--color-focus) !important;
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      box-shadow: 0 0 0 3px var(--color-body-bg);
+      transition: inherit;
+    }
   }
 }
 

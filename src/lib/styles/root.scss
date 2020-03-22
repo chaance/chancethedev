@@ -8,25 +8,30 @@
 
 :root {
   // fonts
-  --font-serif: 'ivyjournal', georgia, serif;
-  --font-sans: 'ivystyle-sans', helvetica, arial, sans-serif;
-  --font-mono: 'ibm-plex-mono', 'Consolas', 'Menlo', 'Monaco', 'Andale Mono',
+  --font-serif: 'kazimir', georgia, times, serif;
+  --font-sans: 'nimbus-sans', helvetica, arial, sans-serif;
+  --font-mono: 'anonymous-pro', 'Consolas', 'Menlo', 'Monaco', 'Andale Mono',
     'Ubuntu Mono', monospace;
+
+  --font-weight-normal: 300;
+  --font-weight-bold: 700;
 
   // spacing
   --line-height-base: 1.6;
   --line-height-heading: 1.3;
+  --letter-spacing-base: -0.0125em;
+  --letter-spacing-heading: -0.025em;
   --rhythm: calc(1rem * var(--line-height-base));
 
   // colors
-  --color-primary: #{$chancethedev--blue-30};
-  --color-light-primary: #{$chancethedev--blue-20};
-  --color-dark-primary: #{$chancethedev--blue-40};
+  --color-primary: #{$chancethedev--green-40};
+  --color-light-primary: #{$chancethedev--green-30};
+  --color-dark-primary: #{$chancethedev--green-50};
   --color-text: #{$chancethedev--black-100};
   --color-light-text: #{$chancethedev--gray-50};
   --color-body-bg: #{$chancethedev--white-0};
   --color-link: #{$chancethedev--gray-50};
-  --color-link-hover: #{$chancethedev--blue-30};
+  --color-link-hover: #{$chancethedev--green-40};
   --color-border: #{$chancethedev--gray-20};
   --color-black: #{$chancethedev--black-100};
   --color-white: #{$chancethedev--white-0};
@@ -35,14 +40,14 @@
 }
 
 .theme-dark {
-  --color-primary: #{$chancethedev--blue-20};
-  --color-light-primary: #{$chancethedev--blue-40};
-  --color-dark-primary: #{$chancethedev--blue-10};
+  --color-primary: #{$chancethedev--green-20};
+  --color-light-primary: #{$chancethedev--green-40};
+  --color-dark-primary: #{$chancethedev--green-10};
   --color-text: #{$chancethedev--white-0};
   --color-light-text: #{$chancethedev--gray-20};
   --color-body-bg: #{$chancethedev--black-100};
   --color-link: #{$chancethedev--gray-20};
-  --color-link-hover: #{$chancethedev--blue-20};
+  --color-link-hover: #{$chancethedev--green-20};
   --color-border: #{$chancethedev--gray-60};
   --color-black: #{$chancethedev--white-0};
   --color-white: #{$chancethedev--black-100};

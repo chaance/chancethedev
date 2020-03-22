@@ -2,7 +2,7 @@
   padding-top: rhythm($global-margin / 2);
   font-size: rem(14);
   font-family: var(--font-sans);
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   line-height: 1;
   border-top: 1px solid var(--color-border);
 

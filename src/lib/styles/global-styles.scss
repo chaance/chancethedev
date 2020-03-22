@@ -2,8 +2,12 @@ html {
   font-size: 16px;
   background: var(--color-body-bg);
 
-  @include breakpoint(xxxlarge) {
+  @include breakpoint(xlarge) {
     font-size: 18px;
+  }
+
+  @include breakpoint(xxxlarge) {
+    font-size: 20px;
   }
 }
 
@@ -13,6 +17,8 @@ body {
   transition: color 400ms ease-out, background 400ms ease-out;
   overflow-x: hidden;
   line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-base);
+  font-size: 1rem;
 
   @include breakpoint(large) {
     @supports (display: grid) {
@@ -61,13 +67,19 @@ object,
 [tabindex='0'],
 [contenteditable],
 [focusable] {
+  outline: none;
+  box-shadow: none;
+
   [data-whatinput='keyboard'] &:focus {
     outline: none;
     box-shadow: 0 0 0 3px var(--color-focus);
   }
 }
 
-a {
+a,
+a[tabindex='0'] {
+
+  &:hover,
   [data-whatinput='keyboard'] &:focus {
     outline: none;
     box-shadow: none;
@@ -75,8 +87,12 @@ a {
     text-decoration-line: underline;
     text-decoration-style: solid;
     text-decoration-color: var(--color-focus);
-    text-decoration-thickness: 0.15em;
+    text-decoration-thickness: 0.125em;
   }
+}
+
+strong {
+  letter-spacing: var(--letter-spacing-heading);
 }
 
 h1,
@@ -94,12 +110,13 @@ h6,
   color: inherit;
   font-size: inherit;
   line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-heading);
 }
 
 h1,
 .h1 {
   font-size: rem(20);
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   @include breakpoint(medium) {
     font-size: rem(32);
   }
@@ -132,21 +149,20 @@ h4,
 h5,
 .h5 {
   font-size: rem(16);
-  letter-spacing: 0.5;
   text-transform: uppercase;
 }
 
 h6,
 .h6 {
   font-size: rem(14);
-  letter-spacing: 0.5;
   text-transform: uppercase;
 }
 
 .h-title {
   font-size: rem(22);
-  font-family: var(--font-serif);
-  font-weight: normal;
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-heading);
   @include breakpoint(medium) {
     font-size: rem(36);
   }

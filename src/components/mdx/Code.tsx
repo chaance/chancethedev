@@ -1,8 +1,10 @@
 import React from 'react';
 import cx from 'classnames';
-import theme from 'prism-react-renderer/themes/duotoneDark';
+import themeDark from 'prism-react-renderer/themes/nightOwl';
+import themeLight from 'prism-react-renderer/themes/nightOwlLight';
 import Highlight, { defaultProps, Language } from 'prism-react-renderer';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
+import { useThemeContext, Themes } from '$lib/providers';
 
 const styles = require('./mdx.module.scss');
 
@@ -19,10 +21,12 @@ const Code: React.FC<CodeProps> = ({
   'react-live': live,
   ...props
 }) => {
+  const { theme } = useThemeContext();
+  const codeTheme = theme === Themes.Dark ? themeDark : themeLight;
   const language = className.replace(/language-/, '') as Language;
   if (live) {
     return (
-      <LiveProvider code={children.trim()} theme={theme}>
+      <LiveProvider code={children.trim()} theme={codeTheme}>
         <LiveEditor />
         <LiveError />
         <LivePreview />
@@ -34,7 +38,13 @@ const Code: React.FC<CodeProps> = ({
       {...defaultProps}
       code={children.trim()}
       language={language}
-      theme={theme}
+      theme={{
+        ...codeTheme,
+        plain: {
+          ...codeTheme.plain,
+          backgroundColor: 'var(--color-body-bg)',
+        },
+      }}
     >
       {({
         className: childClass,
@@ -43,7 +53,7 @@ const Code: React.FC<CodeProps> = ({
         getLineProps,
         getTokenProps,
       }) => (
-        <pre className={cx(styles.pre || 'pre', childClass)} style={style}>
+        <div className={cx(childClass, styles.code)} style={style}>
           {tokens.map((line, i) => (
             <div key={i} {...getLineProps({ line, key: i })}>
               {line.map((token, key) => (
@@ -51,7 +61,7 @@ const Code: React.FC<CodeProps> = ({
               ))}
             </div>
           ))}
-        </pre>
+        </div>
       )}
     </Highlight>
   );

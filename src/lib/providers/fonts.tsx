@@ -7,9 +7,9 @@ import { canUseDOM } from '$lib//utils';
 
 const typekitStylesheet = `https://use.typekit.net/${config.typekitId}.css`;
 
-export const IVY_JOURNAL = 'ivyjournal';
-export const IVY_JOURNAL_SANS = 'ivystyle-sans';
-export const IBM_PLEX_MONO = 'ibm-plex-mono';
+export const IVY_JOURNAL = 'kazimir';
+export const IVY_JOURNAL_SANS = 'nimbus-sans';
+export const IBM_PLEX_MONO = 'anonymous-pro';
 
 // Map of font names to each font's corresponding stylesheet
 export const webFonts: {

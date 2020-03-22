@@ -2,7 +2,7 @@
   margin: #{rhythm($global-margin)} 0 0;
   padding: #{rhythm($global-margin / 2)} 0 0;
   font-family: var(--font-sans);
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
 }
 
 .pageList {
