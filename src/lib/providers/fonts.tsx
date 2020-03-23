@@ -7,7 +7,10 @@ import { canUseDOM } from '$lib//utils';
 
 const typekitStylesheet = `https://use.typekit.net/${config.typekitId}.css`;
 
-const { ffSerif, ffSans, ffMono } = require('../styles/root.scss');
+//const { ffSerif, ffSans, ffMono } = require('../styles/root.scss');
+const ffSerif = 'kazimir';
+const ffSans = 'nimbus-sans';
+const ffMono = 'anonymous-pro';
 
 export { ffSerif, ffSans, ffMono };
 

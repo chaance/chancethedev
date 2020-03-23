@@ -3,12 +3,10 @@ import { fonts, fontLists } from '$lib/providers/fonts';
 
 export { fonts };
 
-const { baseLineHeight, headerLineHeight } = require('./styles/root.scss');
-
 const typography = new Typography({
   baseFontSize: '16px',
-  baseLineHeight,
-  headerLineHeight,
+  baseLineHeight: 1.6,
+  headerLineHeight: 1.1,
   headerFontFamily: fontLists.sans,
   bodyFontFamily: fontLists.sans,
   scaleRatio: 2,
