@@ -27,8 +27,6 @@ form {
 
 ul,
 ol {
-  list-style-position: inside;
-  margin-left: 0;
   font-size: inherit;
 }
 
@@ -36,11 +34,6 @@ img {
   display: block;
   width: 100%;
   height: auto;
-}
-
-a {
-  transition-duration: 100ms;
-  transition-timing-function: ease-out;
 }
 
 a:not([href]):not([tabindex]) {

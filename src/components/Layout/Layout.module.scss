@@ -60,8 +60,6 @@
       bottom: 0;
       background: var(--color-body-bg);
       padding-bottom: rhythm($global-margin);
-      transition: color 400ms ease-out, background 400ms ease-out,
-        box-shadow 400ms ease-out;
     }
   }
 }

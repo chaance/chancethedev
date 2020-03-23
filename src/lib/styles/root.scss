@@ -6,19 +6,25 @@
   }
 }
 
+$line-height-base: 1.6;
+$line-height-heading: 1.1;
+$ff-serif: 'kazimir';
+$ff-sans: 'nimbus-sans';
+$ff-mono: 'anonymous-pro';
+
 :root {
   // fonts
-  --font-serif: 'kazimir', georgia, times, serif;
-  --font-sans: 'nimbus-sans', helvetica, arial, sans-serif;
-  --font-mono: 'anonymous-pro', 'Consolas', 'Menlo', 'Monaco', 'Andale Mono',
+  --font-serif: #{$ff-serif}, georgia, times, serif;
+  --font-sans: #{$ff-sans}, helvetica, arial, sans-serif;
+  --font-mono: #{$ff-mono}, 'Consolas', 'Menlo', 'Monaco', 'Andale Mono',
     'Ubuntu Mono', monospace;
 
   --font-weight-normal: 300;
   --font-weight-bold: 700;
 
   // spacing
-  --line-height-base: 1.6;
-  --line-height-heading: 1.3;
+  --line-height-base: #{$line-height-base};
+  --line-height-heading: #{$line-height-heading};
   --letter-spacing-base: -0.0125em;
   --letter-spacing-heading: -0.025em;
   --rhythm: calc(1rem * var(--line-height-base));
@@ -51,4 +57,12 @@
   --color-border: #{$chancethedev--gray-60};
   --color-black: #{$chancethedev--white-0};
   --color-white: #{$chancethedev--black-100};
+}
+
+:export {
+  baseLineHeight: $line-height-base;
+  headerLineHeight: $line-height-heading;
+  ffSerif: unquote($ff-serif);
+  ffSans: unquote($ff-sans);
+  ffMono: unquote($ff-mono);
 }

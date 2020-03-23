@@ -1,0 +1,78 @@
+.main {
+  max-width: rem(700);
+  position: relative;
+}
+
+.print {
+  @include breakpoint(medium) {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
+
+.pageTitle {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.expertiseHeading {
+  margin-bottom: 0;
+}
+
+.expertiseList {
+  margin-top: calc(var(--rhythm) / 2);
+  margin-bottom: 0;
+}
+
+.inlineList {
+  list-style: none;
+  margin-left: 0;
+
+  li {
+    display: inline;
+    margin-bottom: 0;
+
+    &:not(:last-of-type)::after {
+      content: '•';
+      display: inline-block;
+      margin: 0 0.5em;
+    }
+  }
+}
+
+.clientList {
+  display: inline;
+  list-style: none;
+  margin: 0;
+
+  li {
+    display: inline-block;
+    margin: 0;
+
+    &:not(:last-of-type)::after {
+      content: ',';
+      margin-right: 0.5em;
+    }
+  }
+}
+
+.recentWorkHeading {
+  margin-bottom: 0;
+
+  a {
+    color: inherit;
+  }
+}
+
+.jobHeading {
+  margin-bottom: 0;
+
+  a {
+    color: inherit;
+  }
+}
+
+.school {
+  margin-bottom: 0;
+}

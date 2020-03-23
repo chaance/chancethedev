@@ -49,7 +49,7 @@ $transition-duration: 300;
   &::after {
     display: block;
     border-radius: 0;
-    transition-property: background-color, transform;
+    transition-property: transform;
     transition-duration: #{$transition-duration}ms;
   }
 

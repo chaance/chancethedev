@@ -7,24 +7,24 @@ import { canUseDOM } from '$lib//utils';
 
 const typekitStylesheet = `https://use.typekit.net/${config.typekitId}.css`;
 
-export const IVY_JOURNAL = 'kazimir';
-export const IVY_JOURNAL_SANS = 'nimbus-sans';
-export const IBM_PLEX_MONO = 'anonymous-pro';
+const { ffSerif, ffSans, ffMono } = require('../styles/root.scss');
+
+export { ffSerif, ffSans, ffMono };
 
 // Map of font names to each font's corresponding stylesheet
 export const webFonts: {
   [key in Font]: string;
 } = {
-  [IVY_JOURNAL]: typekitStylesheet,
-  [IVY_JOURNAL_SANS]: typekitStylesheet,
-  [IBM_PLEX_MONO]: typekitStylesheet,
+  [ffSerif]: typekitStylesheet,
+  [ffSans]: typekitStylesheet,
+  [ffMono]: typekitStylesheet,
 };
 
 export const fontLists = {
-  serif: [IVY_JOURNAL, 'georgia', 'serif'],
-  sans: [IVY_JOURNAL_SANS, 'helvetica', 'arial', 'sans-serif'],
+  serif: [ffSerif, 'georgia', 'serif'],
+  sans: [ffSans, 'helvetica', 'arial', 'sans-serif'],
   mono: [
-    IBM_PLEX_MONO,
+    ffMono,
     '"Consolas"',
     '"Menlo"',
     '"Monaco"',

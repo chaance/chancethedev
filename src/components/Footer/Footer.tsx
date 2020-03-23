@@ -47,4 +47,9 @@ const MENU_ITEMS: MenuItemData[] = [
     label: 'LinkedIn',
     to: config.linkedin,
   },
+  {
+    id: 5,
+    label: 'Resume',
+    to: '/resume',
+  },
 ];
