@@ -1,5 +1,6 @@
 import React from 'react';
 import Layout from '$components/Layout';
+import SEO from '$components/SEO';
 import cx from 'classnames';
 import VisuallyHidden from '@reach/visually-hidden';
 
@@ -8,6 +9,7 @@ const styles = require('./Resume.module.scss');
 const Resume: React.FC = () => {
   return (
     <Layout>
+      <SEO title="Chance's Resume" />
       <main className={styles.main}>
         <header>
           <h1 className={styles.pageTitle}>Chance Strickland</h1>
