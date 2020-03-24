@@ -3,6 +3,7 @@ import { MDXProvider } from '@mdx-js/react';
 import cx from 'classnames';
 import { graphql, useStaticQuery } from 'gatsby';
 import { Helmet } from 'react-helmet';
+import { SkipNavLink, SkipNavContent } from '@reach/skip-nav';
 import mdxComponents from '$components/mdx';
 import Header from '$components/Header';
 import Footer from '$components/Footer';
@@ -87,12 +88,14 @@ const Layout: React.FC<LayoutProps> = ({
         >
           <html lang="en" />
         </Helmet>
+        <SkipNavLink />
         <Header
           usesToggleNav={!isLargeScreen}
           navIsActive={isLargeScreen ? false : navIsActive}
           setNavIsActive={isLargeScreen ? () => void null : setNavIsActive}
           className={styles.header}
         />
+        <SkipNavContent />
         <MDXProvider components={mdxComponents as any}>
           <div className={styles.body}>{children}</div>
         </MDXProvider>

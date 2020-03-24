@@ -13,6 +13,9 @@ $ff-sans: 'nimbus-sans';
 $ff-mono: 'anonymous-pro';
 
 :root {
+  // prevent @reach style warnings
+  --reach-skip-nav: 1;
+
   // fonts
   --font-serif: #{$ff-serif}, georgia, times, serif;
   --font-sans: #{$ff-sans}, helvetica, arial, sans-serif;
