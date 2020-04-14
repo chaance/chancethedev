@@ -30,8 +30,9 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  font-family: var(--font-sans);
-  font-size: rem(14);
+  font-family: var(--font-title-small);
+  font-size: rem(12);
+  text-transform: uppercase;
   color: var(--color-light-text);
 
   svg {
@@ -63,12 +64,15 @@
       display: none;
     }
   }
-
-  @include breakpoint(medium) {
-    font-size: rem(16);
-  }
 }
 
 .authorName {
   margin: 0;
+  font-family: var(--font-sans);
+  letter-spacing: var(--letter-spacing-heading);
+  text-transform: none;
+  font-size: rem(18);
+  @include breakpoint(medium) {
+    font-size: rem(20);
+  }
 }

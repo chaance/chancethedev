@@ -3,7 +3,7 @@ import cx from 'classnames';
 import Img from 'gatsby-image';
 import Link from '$components/Link';
 import VH from '@reach/visually-hidden';
-import { HT, H2 } from '$components/Heading';
+import { HT, H2, H4 } from '$components/Heading';
 import { unSlashIt, getBem } from '$lib/utils';
 import { PodcastExcerptProps } from './index';
 
@@ -16,19 +16,20 @@ const PodcastExcerpt: React.FC<PodcastExcerptProps> = ({
   title,
   slug,
   date,
-  timeToListen,
   description,
   includeAllLink,
   isFeatured,
-  listenLinkText = t => (
+  listenLinkText = (t) => (
     <Fragment>
       Listen Now<VH> to {`"${t}"`}</VH>
     </Fragment>
   ),
   ...props
 }) => {
-  const permalink = `/podcast/${unSlashIt(slug)}`;
-  const H = isFeatured ? HT : H2;
+  let audioRef = React.useRef<HTMLAudioElement>(null);
+  let [timeToListen, setTimeToListen] = React.useState<null | number>(null);
+  let permalink = `/podcast/${unSlashIt(slug)}`;
+  let H = isFeatured ? HT : H4;
   return (
     <article
       className={cx(className, 'PodcastExcerpt', styles.wrapper, {
@@ -43,7 +44,7 @@ const PodcastExcerpt: React.FC<PodcastExcerptProps> = ({
             to={permalink}
             tabIndex={-1}
           >
-            <img src={banner} alt="" />
+            <img src="/images/cover-art-2x.jpg" alt="" />
           </Link>
         </div>
       ) : null}
@@ -54,11 +55,18 @@ const PodcastExcerpt: React.FC<PodcastExcerptProps> = ({
               [styles.headingFeatured]: isFeatured,
             })}
           >
-            <Link to={permalink}>{title}</Link>
+            <Link to={permalink} className="shadow-link">
+              {title}
+            </Link>
           </H>
           <span className={styles.episodeInfo}>
-            {date}
-            {` • ${timeToListen}`}
+            {[
+              date,
+              timeToListen &&
+                `${timeToRoundedMinutes(timeToListen)} minute listen`,
+            ]
+              .filter(Boolean)
+              .join(' • ')}
           </span>
         </header>
         <div>
@@ -68,13 +76,20 @@ const PodcastExcerpt: React.FC<PodcastExcerptProps> = ({
             dangerouslySetInnerHTML={{ __html: description }}
           />
           {audioUrl && (
-            <audio className={styles.audio} controls>
+            <audio
+              className={styles.audio}
+              ref={audioRef}
+              onLoadedMetadata={(event) => {
+                setTimeToListen(audioRef.current!.duration);
+              }}
+              controls
+            >
               <source src={audioUrl} />
             </audio>
           )}
           <span className={styles.linkWrapper}>
             <Link
-              className={styles.listenLink}
+              className={cx(styles.listenLink)}
               to={permalink}
               rel="bookmark"
               tabIndex={-1}
@@ -84,7 +99,7 @@ const PodcastExcerpt: React.FC<PodcastExcerptProps> = ({
                 : title}
             </Link>
             {includeAllLink && (
-              <Link className={styles.listenLink} to="/podcast">
+              <Link className={cx(styles.listenLink)} to="/podcast">
                 See All Episodes
               </Link>
             )}
@@ -96,3 +111,7 @@ const PodcastExcerpt: React.FC<PodcastExcerptProps> = ({
 };
 
 export default PodcastExcerpt;
+
+function timeToRoundedMinutes(time: number) {
+  return Math.floor(time / 60);
+}

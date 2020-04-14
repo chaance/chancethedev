@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import VH from '@reach/visually-hidden';
+import { Tooltip } from '@reach/tooltip';
 import { useThemeContext, Themes } from '$lib/providers';
 import { ThemeToggleProps, ThemeGraphicProps } from './index';
 
@@ -10,16 +11,18 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ className, ...props }) => {
   const { theme, toggleDarkMode } = useThemeContext();
   let label = `Switch to ${theme === Themes.Dark ? 'light' : 'dark'} mode`;
   return (
-    <button
-      className={cx(className, 'ThemeToggle', styles.button)}
-      {...props}
-      onClick={toggleDarkMode}
-    >
-      <VH>{label}</VH>
-      <span className={styles.inner} aria-hidden>
-        <ThemeGraphic />
-      </span>
-    </button>
+    <Tooltip label={label}>
+      <button
+        className={cx(className, 'ThemeToggle', styles.button)}
+        {...props}
+        onClick={toggleDarkMode}
+      >
+        <VH>{label}</VH>
+        <span className={styles.inner} aria-hidden>
+          <ThemeGraphic />
+        </span>
+      </button>
+    </Tooltip>
   );
 };
 

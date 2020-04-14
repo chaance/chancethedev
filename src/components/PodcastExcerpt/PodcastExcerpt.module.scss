@@ -47,9 +47,11 @@
 
 .episodeInfo {
   display: block;
-  margin: #{rhythm(1 / 2)} 0;
-  font-family: var(--font-sans);
-  font-size: rem(14);
+  margin: #{rhythm(3 / 4)} 0;
+  text-transform: uppercase;
+  font-family: var(--font-title-small);
+  font-weight: var(--font-weight-bold);
+  font-size: rem(12);
   color: var(--color-light-text);
 }
 
@@ -80,13 +82,19 @@
 
 .listenLink {
   display: block;
-  font-family: var(--font-sans);
+  font-family: var(--font-title-small);
   font-weight: var(--font-weight-bold);
-  color: inherit;
+  font-size: rem(12);
   text-transform: uppercase;
+  color: inherit;
+
+  &:not(:focus) {
+    text-decoration: none;
+  }
 
   &:hover {
-    color: inherit;
+    text-decoration: none;
+    //color: var;
   }
 }
 

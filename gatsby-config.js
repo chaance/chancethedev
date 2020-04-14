@@ -156,13 +156,14 @@ module.exports = {
         feeds: [
           {
             serialize: ({ query: { site, allMdx } }) => {
-              return allMdx.edges.map(edge => {
-                return Object.assign({}, edge.node.frontmatter, {
-                  description: edge.node.excerpt,
-                  date: edge.node.fields.date,
-                  url: site.siteMetadata.siteUrl + '/' + edge.node.fields.slug,
-                  guid: site.siteMetadata.siteUrl + '/' + edge.node.fields.slug,
-                });
+              return allMdx.edges.map(({ node }) => {
+                return {
+                  ...node.frontmatter,
+                  description: node.excerpt,
+                  date: node.fields.date,
+                  url: site.siteMetadata.siteUrl + '/' + node.fields.slug,
+                  guid: site.siteMetadata.siteUrl + '/' + node.fields.slug,
+                };
               });
             },
             query: `

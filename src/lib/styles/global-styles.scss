@@ -75,17 +75,34 @@ object,
   }
 }
 
-a:not(.button),
-a[tabindex='0']:not(.button) {
+a {
   &:hover,
   [data-whatinput='keyboard'] &:focus {
     outline: none;
     box-shadow: none;
     text-decoration: underline;
-    text-decoration-line: underline;
     text-decoration-style: solid;
     text-decoration-color: var(--color-focus);
     text-decoration-thickness: 0.125em;
+  }
+}
+
+a.shadow-link {
+  text-decoration: none;
+  transition: text-shadow 300ms ease-out;
+
+  &:hover {
+    transition-timing-function: ease-in;
+    --shadow-front-offset: 1px;
+    --shadow-front-offset: clamp(1px, 0.0625em, 2px);
+    --shadow-back-offset: 2px;
+    --shadow-back-offset: clamp(2px, 0.125em, 4px);
+    outline: none;
+    box-shadow: none;
+    text-decoration: none;
+    text-shadow: var(--shadow-front-offset) var(--shadow-front-offset)
+        var(--color-body-bg),
+      var(--shadow-back-offset) var(--shadow-back-offset) var(--color-focus);
   }
 }
 
@@ -124,6 +141,8 @@ h5,
 .h5,
 h6,
 .h6 {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
   color: inherit;
   font-size: inherit;
   line-height: var(--line-height-heading);
@@ -132,56 +151,70 @@ h6,
 
 h1,
 .h1 {
-  font-size: rem(20);
-  font-weight: var(--font-weight-bold);
-  @include breakpoint(medium) {
-    font-size: rem(32);
-  }
-}
-
-h2,
-.h2 {
   font-size: rem(18);
-  @include breakpoint(medium) {
-    font-size: rem(24);
-  }
-}
-
-h3,
-.h3 {
-  font-size: rem(16);
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-title);
+  letter-spacing: var(--letter-spacing-title);
   @include breakpoint(medium) {
     font-size: rem(20);
   }
 }
 
-h4,
-.h4 {
+h2,
+.h2 {
   font-size: rem(16);
+  font-family: var(--font-title);
+  letter-spacing: var(--letter-spacing-title);
   @include breakpoint(medium) {
     font-size: rem(18);
   }
 }
 
+h3,
+.h3 {
+  font-size: rem(15);
+  font-family: var(--font-title);
+  letter-spacing: var(--letter-spacing-title);
+  @include breakpoint(medium) {
+    font-size: rem(16);
+  }
+}
+
+h4,
+.h4 {
+  font-size: rem(14);
+  font-family: var(--font-title);
+  letter-spacing: var(--letter-spacing-title);
+}
+
 h5,
 .h5 {
-  font-size: rem(16);
+  font-size: rem(12);
   text-transform: uppercase;
+  font-family: var(--font-title);
+  letter-spacing: var(--letter-spacing-title);
 }
 
 h6,
 .h6 {
-  font-size: rem(14);
+  font-size: rem(12);
   text-transform: uppercase;
+  font-family: var(--font-title);
+  letter-spacing: var(--letter-spacing-title);
 }
 
 .h-title {
-  font-size: rem(22);
-  font-family: var(--font-sans);
+  font-size: rem(18);
+  font-family: var(--font-title);
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--letter-spacing-heading);
+  line-height: var(--line-height-heading);
+  text-transform: uppercase;
   @include breakpoint(medium) {
-    font-size: rem(36);
+    font-size: rem(20);
+  }
+  @include breakpoint(large) {
+    font-size: rem(22);
   }
 }
 
@@ -279,4 +312,18 @@ ol {
   width: auto;
   height: auto;
   clip: auto;
+}
+
+[data-reach-tooltip] {
+  z-index: 1;
+  pointer-events: none;
+  position: absolute;
+  padding: 0.2em 0.4em;
+  box-shadow: rem(2) rem(2) rem(10) rgba(#000, 0.25);
+  white-space: nowrap;
+  font-size: 0.8em;
+  font-weight: var(--font-weight-bold);
+  background: var(--color-text);
+  color: var(--color-body-bg);
+  border: solid 1px var(--color-body-bg);
 }

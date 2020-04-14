@@ -7,40 +7,52 @@
 }
 
 $line-height-base: 1.6;
-$line-height-heading: 1.1;
+$line-height-heading: 1.2;
 $ff-serif: 'kazimir';
 $ff-sans: 'nimbus-sans';
 $ff-mono: 'anonymous-pro';
+$ff-title: 'titling-gothic-fb-extended';
+$ff-title-small: 'nimbus-sans-extended';
 
 :root {
   // prevent @reach style warnings
   --reach-skip-nav: 1;
+  --reach-tooltip: 1;
 
   // fonts
   --font-serif: #{$ff-serif}, georgia, times, serif;
   --font-sans: #{$ff-sans}, helvetica, arial, sans-serif;
+  --font-title: #{$ff-title}, helvetica, arial, sans-serif;
+  --font-title-small: #{$ff-title-small}, helvetica, arial, sans-serif;
   --font-mono: #{$ff-mono}, 'Consolas', 'Menlo', 'Monaco', 'Andale Mono',
     'Ubuntu Mono', monospace;
 
-  --font-weight-normal: 300;
+  --font-weight-normal: 400;
   --font-weight-bold: 700;
 
   // spacing
   --line-height-base: #{$line-height-base};
   --line-height-heading: #{$line-height-heading};
   --letter-spacing-base: -0.0125em;
-  --letter-spacing-heading: -0.025em;
+
+
+  // --letter-spacing-heading: -0.025em;
+  --letter-spacing-heading: initial;
+
+  --letter-spacing-title: 0.1rem;
+  --letter-spacing-title: max(1px, 0.1em);
+
   --rhythm: calc(1rem * var(--line-height-base));
 
   // colors
-  --color-primary: #{$chancethedev--green-40};
-  --color-light-primary: #{$chancethedev--green-30};
-  --color-dark-primary: #{$chancethedev--green-50};
+  --color-primary: #{$chancethedev--yellow-40};
+  --color-light-primary: #{$chancethedev--yellow-30};
+  --color-dark-primary: #{$chancethedev--yellow-50};
   --color-text: #{$chancethedev--black-100};
   --color-light-text: #{$chancethedev--gray-50};
   --color-body-bg: #{$chancethedev--white-0};
   --color-link: #{$chancethedev--gray-50};
-  --color-link-hover: #{$chancethedev--green-40};
+  --color-link-hover: #{$chancethedev--yellow-40};
   --color-border: #{$chancethedev--gray-20};
   --color-black: #{$chancethedev--black-100};
   --color-white: #{$chancethedev--white-0};
@@ -49,14 +61,14 @@ $ff-mono: 'anonymous-pro';
 }
 
 .theme-dark {
-  --color-primary: #{$chancethedev--green-20};
-  --color-light-primary: #{$chancethedev--green-40};
-  --color-dark-primary: #{$chancethedev--green-10};
+  --color-primary: #{$chancethedev--yellow-30};
+  --color-light-primary: #{$chancethedev--yellow-40};
+  --color-dark-primary: #{$chancethedev--yellow-10};
   --color-text: #{$chancethedev--white-0};
   --color-light-text: #{$chancethedev--gray-20};
   --color-body-bg: #{$chancethedev--black-100};
   --color-link: #{$chancethedev--gray-20};
-  --color-link-hover: #{$chancethedev--green-20};
+  --color-link-hover: #{$chancethedev--yellow-20};
   --color-border: #{$chancethedev--gray-60};
   --color-black: #{$chancethedev--white-0};
   --color-white: #{$chancethedev--black-100};
@@ -65,7 +77,4 @@ $ff-mono: 'anonymous-pro';
 :export {
   baseLineHeight: $line-height-base;
   headerLineHeight: $line-height-heading;
-  ffSerif: unquote($ff-serif);
-  ffSans: unquote($ff-sans);
-  ffMono: unquote($ff-mono);
 }

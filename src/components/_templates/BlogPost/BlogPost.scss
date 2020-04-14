@@ -39,10 +39,6 @@
     font-size: rem(18);
     color: var(--color-light-text);
     margin: #{rhythm(1 / 2)} 0;
-
-    @include breakpoint(medium) {
-      font-size: rem(20);
-    }
   }
 
   &__PostMeta {
@@ -69,8 +65,67 @@
       font-size: rem(18);
     }
 
-    @include breakpoint(large) {
+    h1,
+    .h1,
+    h2,
+    .h2,
+    h3,
+    .h3,
+    h4,
+    .h4,
+    h5,
+    .h5,
+    h6,
+    .h6 {
+      font-family: var(--font-sans);
+      text-transform: none;
+      line-height: var(--line-height-heading);
+      letter-spacing: var(--letter-spacing-heading);
+    }
+
+    h1,
+    .h1 {
       font-size: rem(20);
+      font-weight: var(--font-weight-bold);
+      @include breakpoint(medium) {
+        font-size: rem(32);
+      }
+    }
+
+    h2,
+    .h2 {
+      font-size: rem(18);
+      @include breakpoint(medium) {
+        font-size: rem(24);
+      }
+    }
+
+    h3,
+    .h3 {
+      font-size: rem(16);
+      @include breakpoint(medium) {
+        font-size: rem(20);
+      }
+    }
+
+    h4,
+    .h4 {
+      font-size: rem(16);
+      @include breakpoint(medium) {
+        font-size: rem(18);
+      }
+    }
+
+    h5,
+    .h5 {
+      font-size: rem(16);
+      text-transform: uppercase;
+    }
+
+    h6,
+    .h6 {
+      font-size: rem(14);
+      text-transform: uppercase;
     }
   }
 }

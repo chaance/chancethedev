@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import VH from '@reach/visually-hidden';
 import PodcastExcerpt from '$components/PodcastExcerpt';
-import { Section, H1, H2 } from '$components/Heading';
+import { Section, H1, H3 } from '$components/Heading';
 import Layout from '$components/Layout';
 import SEO from '$components/SEO';
 import { formatListenTime, getBem } from '$lib/utils';
@@ -24,9 +24,9 @@ const Podcast: React.FC<PodcastProps> = ({
       <SEO />
 
       <Section wrap={true}>
-        <H1 className={bem({ el: 'section-heading', featured: true })}>
+        <H3 className={bem({ el: 'section-heading', featured: true })}>
           Latest Episode
-        </H1>
+        </H3>
         <Section>
           <PodcastExcerpt
             isFeatured={true}
@@ -34,8 +34,6 @@ const Podcast: React.FC<PodcastProps> = ({
             title={formatTitle(firstEpisode.title)}
             slug={firstEpisode.fields.formattedSlug}
             date={firstEpisode.published_at}
-            //timeToListen={formatListenTime(firstEpisode.timeToListen)}
-            timeToListen="57 minute listen"
             description={firstEpisode.summary}
             listenLinkText={title => (
               <Fragment>
@@ -61,9 +59,6 @@ const Podcast: React.FC<PodcastProps> = ({
                   title={formatTitle(episode.title)}
                   slug={episode.fields.formattedSlug}
                   date={episode.published_at}
-                  // GET TIMESTAMP
-                  // timeToListen={formatListenTime(episode.timeToListen)}
-                  timeToListen="57 minute listen"
                   description={episode.summary}
                 />
               )

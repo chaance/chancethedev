@@ -9,7 +9,6 @@ export interface PodcastExcerptProps extends Element<'article'> {
   includeAllLink?: boolean;
   isFeatured?: boolean;
   slug: string;
-  timeToListen: string;
   title: string;
   listenLinkText?: ((title: string) => React.ReactNode) | string;
   audioUrl?: string;

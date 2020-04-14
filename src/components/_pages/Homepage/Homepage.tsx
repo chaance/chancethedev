@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import VH from '@reach/visually-hidden';
 import Layout from '$components/Layout';
 import SEO from '$components/SEO';
-import { Section, H1 } from '$components/Heading';
+import { Section, H1, H2, H3 } from '$components/Heading';
 import PodcastExcerpt from '$components/PodcastExcerpt';
 import { getBem } from '$lib/utils';
 import './Homepage.scss';
@@ -24,7 +24,7 @@ const Homepage: React.FC<any> = ({
       <SEO />
 
       <Section wrap={true}>
-        <H1 className={bem({ el: 'section-heading' })}>Latest Episode</H1>
+        <H3 className={bem({ el: 'section-heading' })}>Latest Episode</H3>
         <Section>
           <PodcastExcerpt
             isFeatured={true}
@@ -32,8 +32,6 @@ const Homepage: React.FC<any> = ({
             title={formatTitle(firstEpisode.title)}
             slug={firstEpisode.fields.formattedSlug}
             date={firstEpisode.published_at}
-            //timeToListen={formatListenTime(firstEpisode.timeToListen)}
-            timeToListen="57 minute listen"
             description={firstEpisode.summary}
             includeAllLink
             audioUrl={firstEpisode.audio_url}

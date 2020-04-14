@@ -22,6 +22,9 @@ const Episode: React.FC<EpisodeProps> = ({
     },
   },
 }) => {
+  let audioRef = React.useRef<HTMLAudioElement>(null);
+  let [timeToListen, setTimeToListen] = React.useState<null | number>(null);
+
   return (
     <Layout className={bem()}>
       <SEO />
@@ -34,9 +37,19 @@ const Episode: React.FC<EpisodeProps> = ({
             <PostMeta
               className={bem({ el: 'PostMeta' })}
               date={date}
-              append={['57 minutes']}
+              append={[
+                timeToListen &&
+                  `${timeToRoundedMinutes(timeToListen)} minute listen`,
+              ].filter(Boolean)}
             />
-            <audio className={bem({ el: 'audio' })} controls>
+            <audio
+              ref={audioRef}
+              onLoadedMetadata={(event) => {
+                setTimeToListen(audioRef.current!.duration);
+              }}
+              className={bem({ el: 'audio' })}
+              controls
+            >
               <source src={audio_url} />
             </audio>
           </div>
@@ -54,3 +67,7 @@ const Episode: React.FC<EpisodeProps> = ({
 };
 
 export default Episode;
+
+function timeToRoundedMinutes(time: number) {
+  return Math.floor(time / 60);
+}

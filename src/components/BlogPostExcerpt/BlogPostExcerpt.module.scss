@@ -1,5 +1,4 @@
 .wrapper {
-
   &.isFeatured {
     @include breakpoint(large) {
       display: grid;
@@ -18,7 +17,8 @@
   }
 }
 
-.innerWrapper {}
+.innerWrapper {
+}
 
 .heading {
   margin: #{rhythm(1 / 2)} 0;
@@ -42,9 +42,12 @@
 
 .postInfo {
   display: block;
-  margin: #{rhythm(1 / 2)} 0;
-  font-family: var(--font-sans);
-  font-size: rem(14);
+  margin: #{rhythm(3 / 4)} 0;
+  font-family: var(--font-title-small);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-title);
+  font-size: rem(12);
+  text-transform: uppercase;
   color: var(--color-light-text);
 }
 
@@ -75,12 +78,19 @@
 
 .moreLink {
   display: block;
-  font-family: var(--font-sans);
   font-weight: var(--font-weight-bold);
-  color: inherit;
+  font-family: var(--font-title-small);
+  letter-spacing: var(--letter-spacing-title);
+  font-size: rem(12);
   text-transform: uppercase;
+  color: inherit;
+
+  &:not(:focus) {
+    text-decoration: none;
+  }
 
   &:hover {
-    color: inherit;
+    text-decoration: none;
+    //color: var;
   }
 }

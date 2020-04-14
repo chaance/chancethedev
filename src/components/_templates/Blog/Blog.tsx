@@ -1,6 +1,6 @@
 import React from 'react';
 import BlogPostExcerpt from '$components/BlogPostExcerpt';
-import { Section, H1, H2 } from '$components/Heading';
+import { Section, H1, H3 } from '$components/Heading';
 import Layout from '$components/Layout';
 import Pagination from '$components/Pagination';
 import SEO from '$components/SEO';
@@ -35,9 +35,9 @@ const Blog: React.FC<BlogProps> = ({
 
       {hasFeaturedPost && (
         <Section wrap={true}>
-          <H1 className={bem({ el: 'section-heading', featured: true })}>
+          <H3 className={bem({ el: 'section-heading', featured: true })}>
             Latest Post
-          </H1>
+          </H3>
           <Section>
             <BlogPostExcerpt
               isFeatured={true}

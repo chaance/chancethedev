@@ -29,8 +29,18 @@
   @include breakpoint(medium) {
     margin: 0;
     &:not(:last-child) {
-      margin-right: 1rem;
+      margin-right: rhythm($global-margin / 3);
+
+      @include breakpoint(large) {
+        margin-right: rhythm($global-margin / 2);
+      }
     }
+  }
+}
+
+.menuLink {
+  &:not(:focus) {
+    text-decoration: none;
   }
 }
 

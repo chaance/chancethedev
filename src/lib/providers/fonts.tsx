@@ -7,12 +7,16 @@ import { canUseDOM } from '$lib//utils';
 
 const typekitStylesheet = `https://use.typekit.net/${config.typekitId}.css`;
 
-//const { ffSerif, ffSans, ffMono } = require('../styles/root.scss');
+//const { ffSans, ffMono, ffTitle } = require('../styles/root.scss');
 const ffSerif = 'kazimir';
 const ffSans = 'nimbus-sans';
 const ffMono = 'anonymous-pro';
+const ffTitle = 'nimbus-sans';
+const ffTitleSmall = 'nimbus-sans-extended';
 
-export { ffSerif, ffSans, ffMono };
+export { ffSerif, ffSans, ffMono, ffTitle, ffTitleSmall };
+
+const __DEV__ = process.env.NODE_ENV === 'development';
 
 // Map of font names to each font's corresponding stylesheet
 export const webFonts: {
@@ -21,11 +25,15 @@ export const webFonts: {
   [ffSerif]: typekitStylesheet,
   [ffSans]: typekitStylesheet,
   [ffMono]: typekitStylesheet,
+  [ffTitle]: typekitStylesheet,
+  [ffTitleSmall]: typekitStylesheet,
 };
 
 export const fontLists = {
   serif: [ffSerif, 'georgia', 'serif'],
   sans: [ffSans, 'helvetica', 'arial', 'sans-serif'],
+  title: [ffTitle, ...ffSans],
+  titleSmall: [ffTitleSmall, ...ffSans],
   mono: [
     ffMono,
     '"Consolas"',
@@ -48,15 +56,17 @@ export const fonts: Fonts = Object.entries(fontLists)
   );
 
 const loadFonts = async () => {
+  let returnIfFailOrBail = {
+    loaded: false,
+    fonts: Object.keys(webFonts),
+  };
+
   // For SSR, bail
   if (!canUseDOM()) {
-    return {
-      loaded: false,
-      fonts: Object.keys(webFonts),
-    };
+    return returnIfFailOrBail;
   }
 
-  const _fonts = Object.keys(webFonts).map(async key => {
+  const _fonts = Object.keys(webFonts).map(async (key) => {
     const font = new FontFaceObserver(key);
     const fontName = kebabCase(key);
     try {
@@ -70,16 +80,22 @@ const loadFonts = async () => {
   try {
     const fontStatuses = await Promise.all(_fonts);
     if (fontStatuses.some(({ loaded }) => loaded === false)) {
-      return Promise.reject(
-        'There was an error loading some web fonts. Reverting to fallbacks.'
-      );
+      if (__DEV__) {
+        console.error(
+          'There was an error loading some web fonts. Reverting to fallbacks.'
+        );
+      }
+      return returnIfFailOrBail;
     }
     return {
       loaded: true,
       fonts: fontStatuses.map(({ font }) => font as Font),
     };
   } catch (err) {
-    return Promise.reject(err);
+    if (__DEV__) {
+      console.error(err);
+    }
+    return returnIfFailOrBail;
   }
 };
 
@@ -131,4 +147,4 @@ export type Fonts = {
   [key in FontStyle]: Font;
 };
 
-export type FontStyle = 'serif' | 'sans' | 'mono';
+export type FontStyle = 'serif' | 'sans' | 'mono' | 'title' | 'titleSmall';

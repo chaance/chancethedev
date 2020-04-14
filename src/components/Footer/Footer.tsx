@@ -13,7 +13,7 @@ const Footer: React.FC<FooterProps> = ({ className, ...props }) => (
       <ul className={styles.menu}>
         {MENU_ITEMS.map(({ id, to, label }) => (
           <li key={id} className={styles.menuItem}>
-            <Link to={to}>{label}</Link>
+            <Link className={styles.menuLink} to={to}>{label}</Link>
           </li>
         ))}
       </ul>

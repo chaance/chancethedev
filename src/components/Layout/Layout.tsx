@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { MDXProvider } from '@mdx-js/react';
 import cx from 'classnames';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -62,46 +62,48 @@ const Layout: React.FC<LayoutProps> = ({
   }, [isLargeScreen, navIsActive]);
 
   return (
-    <Container
-      className={cx(className, 'Layout', styles.wrapper, {
-        [styles.navIsActive]: navIsActive,
-      })}
-    >
-      <div className={styles.gridWrapper}>
-        <Helmet
-          title={site.title}
-          meta={[
-            { name: 'description', content: description },
-            { name: 'keywords', content: keywords },
-          ]}
-          bodyAttributes={{
-            class: cx(
-              `theme-${theme}`,
-              {
-                fontsError,
-                fontsLoaded,
-                [`fonts--${fontsLoadingState}`]: fontsLoadingState,
-              },
-              ...fontList
-            ),
-          }}
-        >
-          <html lang="en" />
-        </Helmet>
-        <SkipNavLink />
-        <Header
-          usesToggleNav={!isLargeScreen}
-          navIsActive={isLargeScreen ? false : navIsActive}
-          setNavIsActive={isLargeScreen ? () => void null : setNavIsActive}
-          className={styles.header}
-        />
-        <SkipNavContent />
-        <MDXProvider components={mdxComponents as any}>
-          <div className={styles.body}>{children}</div>
-        </MDXProvider>
-        <Footer className={styles.footer} />
-      </div>
-    </Container>
+    <Fragment>
+      <SkipNavLink />
+      <Container
+        className={cx(className, 'Layout', styles.wrapper, {
+          [styles.navIsActive]: navIsActive,
+        })}
+      >
+        <div className={styles.gridWrapper}>
+          <Helmet
+            title={site.title}
+            meta={[
+              { name: 'description', content: description },
+              { name: 'keywords', content: keywords },
+            ]}
+            bodyAttributes={{
+              class: cx(
+                `theme-${theme}`,
+                {
+                  fontsError,
+                  fontsLoaded,
+                  [`fonts--${fontsLoadingState}`]: fontsLoadingState,
+                },
+                ...fontList
+              ),
+            }}
+          >
+            <html lang="en" />
+          </Helmet>
+          <Header
+            usesToggleNav={!isLargeScreen}
+            navIsActive={isLargeScreen ? false : navIsActive}
+            setNavIsActive={isLargeScreen ? () => void null : setNavIsActive}
+            className={styles.header}
+          />
+          <SkipNavContent />
+          <MDXProvider components={mdxComponents as any}>
+            <div className={styles.body}>{children}</div>
+          </MDXProvider>
+          <Footer className={styles.footer} />
+        </div>
+      </Container>
+    </Fragment>
   );
 };
 

@@ -49,7 +49,7 @@ const BlogPostExcerpt: React.FC<BlogPostExcerptProps> = ({
               [styles.headingFeatured]: isFeatured,
             })}
           >
-            <Link to={permalink}>{title}</Link>
+            <Link className="shadow-link" to={permalink}>{title}</Link>
           </H>
           <span className={styles.postInfo}>
             {date}
