@@ -15,7 +15,7 @@ module.exports = {
   siteDescription: 'A web developer who occasionally podcasts.',
   author: authors.find(author => author.id === 'chance'),
   organization: 'Chance Digital',
-  keywords: ['podcast', 'web development', 'blog', 'JavaScript', 'React'],
+  keywords: ['podcast', 'web development', 'JavaScript', 'React'],
 
   // siteFBAppID: '123456789', // Facebook App ID - Optional
   itunesAppId: '1344502648',

@@ -7,12 +7,12 @@ import { HT } from '$components/Heading';
 import PostMeta from '$components/PostMeta';
 import config from '$src/../config';
 import { formatReadingTime, getBem } from '$lib/utils';
-import { BlogPostProps } from './index';
-import './BlogPost.scss';
+import { NotesPostProps } from './index';
+import './NotesPost.scss';
 
-let bem = getBem('BlogPostTemplate');
+let bem = getBem('NotesPostTemplate');
 
-const BlogPost: React.FC<BlogPostProps> = ({
+const NotesPost: React.FC<NotesPostProps> = ({
   data: {
     site,
     mdx,
@@ -29,7 +29,7 @@ const BlogPost: React.FC<BlogPostProps> = ({
   const authorObject = authorNode ? authorNode.node : null;
   return (
     <Layout className={bem()} frontmatter={mdx.frontmatter}>
-      <SEO frontmatter={mdx.frontmatter} isBlogPost />
+      <SEO frontmatter={mdx.frontmatter} isNotesPost />
       <article className={bem({ el: 'post-wrapper' })}>
         <header className={bem({ el: 'header' })}>
           <div className={bem({ el: 'header-inner' })}>
@@ -69,4 +69,4 @@ const BlogPost: React.FC<BlogPostProps> = ({
   );
 };
 
-export default BlogPost;
+export default NotesPost;

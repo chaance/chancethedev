@@ -6,7 +6,7 @@ langs: ['en']
 description: Hiring is hard; hiring well is harder. Hiring inclusively is crucial.
 banner: './banner.jpg'
 bannerAlt: 'Overhead image of people riding a crowded subway train'
-keywords: ['accessibility', 'blog', 'diversity', 'do better', 'growth', 'learning']
+keywords: ['accessibility', 'diversity', 'do better', 'growth', 'learning']
 published: true
 ---
 

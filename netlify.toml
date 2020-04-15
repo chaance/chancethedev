@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "/blog/*"
+  to = "/notes/:splat"
+  status = 301

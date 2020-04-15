@@ -307,7 +307,7 @@ function createPosts(createPage, createRedirect, edges, pathPrefix = null) {
 
 function createPaginatedPages(createPage, edges, context) {
   const edgesByContentType = edges.reduce((acc, edge) => {
-    const contentType = edge.node.parent.sourceInstanceName || 'blog';
+    const contentType = edge.node.parent.sourceInstanceName || 'notes';
     if (!acc[contentType]) {
       acc[contentType] = [];
     }
@@ -321,7 +321,7 @@ function createPaginatedPages(createPage, edges, context) {
         // These content types will have a featured first post.
         // This will offset the total number of posts in a grid row, so we
         // want the first page to have one more post than subsequent pages.
-        const hasFeaturedFirstPost = ['blog', 'podcast'].includes(contentType);
+        const hasFeaturedFirstPost = ['notes', 'podcast'].includes(contentType);
         const pageIndex = Math.floor(
           (hasFeaturedFirstPost && index > 0 ? index - 1 : index) /
             PAGINATION_OFFSET
@@ -345,7 +345,7 @@ function createPaginatedPages(createPage, edges, context) {
         path.resolve(`src/templates/${contentType}.js`)
       )
         ? path.resolve(`src/templates/${contentType}.js`)
-        : path.resolve(`src/templates/blog.js`);
+        : path.resolve(`src/templates/notes.js`);
 
       createPage({
         path: index > 0 ? `${pathPrefix}/${index}` : `${pathPrefix}`,

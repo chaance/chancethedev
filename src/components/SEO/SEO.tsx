@@ -15,7 +15,7 @@ const SEO: React.FC<SEOProps> = ({
   locale = 'en_US',
   meta = [],
   postImage = null,
-  isBlogPost = false,
+  isNotesPost = false,
 }) => {
   const {
     site: { siteMetadata: seo },
@@ -49,14 +49,14 @@ const SEO: React.FC<SEOProps> = ({
   const postMeta =
     frontmatter || postData.childMarkdownRemark.frontmatter || {};
   const title =
-    isBlogPost && postMeta ? postMeta.title : titleProp || seo.title;
+    isNotesPost && postMeta ? postMeta.title : titleProp || seo.title;
   const description = postMeta.description || seo.description;
   const image = postImage ? `${seo.canonicalUrl}${postImage}` : seo.image;
   const url = postMeta.slug
     ? `${seo.canonicalUrl}${path.sep}${postMeta.slug}`
     : seo.canonicalUrl;
 
-  const datePublished = isBlogPost ? postMeta.date : false;
+  const datePublished = isNotesPost ? postMeta.date : false;
 
   const defaultMeta = [
     { name: 'copyright', content: 'Chance Digital' },
@@ -65,7 +65,7 @@ const SEO: React.FC<SEOProps> = ({
     { property: 'og:site_name', content: `Chance the Developer Podcast` },
     { property: `og:title`, content: title },
     { property: `og:description`, content: description },
-    { property: `og:type`, content: isBlogPost ? 'article' : 'website' },
+    { property: `og:type`, content: isNotesPost ? 'article' : 'website' },
     { property: 'og:url', content: url },
     { property: 'og:image', content: image },
     { property: 'og:locale', content: locale },
@@ -91,7 +91,7 @@ const SEO: React.FC<SEOProps> = ({
         titleTemplate={seo.title === title ? `%s` : `%s | ${seo.title}`}
       />
       <SchemaOrg
-        isBlogPost={isBlogPost}
+        isBlogPost={isNotesPost}
         url={url}
         title={title}
         image={image}

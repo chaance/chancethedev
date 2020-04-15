@@ -1,8 +1,8 @@
 import { Element } from '$lib/types';
 
-export { default } from './BlogPostExcerpt';
+export { default } from './NotesPostExcerpt';
 
-export interface BlogPostExcerptProps extends Element<'article'> {
+export interface NotesPostExcerptProps extends Element<'article'> {
   isFeatured?: boolean;
   banner?: any;
   title: string;

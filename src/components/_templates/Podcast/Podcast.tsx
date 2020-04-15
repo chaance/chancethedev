@@ -15,7 +15,7 @@ const Podcast: React.FC<PodcastProps> = ({
     allBuzzsproutPodcastEpisode: { edges: episodes },
   },
 }) => {
-  // Only the first page will have a featured (lastest) blog post
+  // Only the first page will have a featured (lastest) post
   const firstEpisode = episodes[0].node;
   const formatTitle = (title: string) => title.replace(/^E(\d|,)+:\s/, '');
 

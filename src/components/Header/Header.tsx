@@ -158,8 +158,8 @@ function getLinks(siteTitle: string): MenuItemData[] {
     },
     {
       id: 4,
-      label: 'Blog',
-      to: '/blog',
+      label: 'Notes',
+      to: '/notes',
     },
     /* {
       id: 5,

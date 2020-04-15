@@ -45,7 +45,7 @@ const SchemaOrg = React.memo<SchemaOrgProps>(
           },
           {
             '@context': 'http://schema.org',
-            '@type': 'BlogPosting',
+            '@type': 'NotesPosting',
             url,
             name: title,
             alternateName: defaultTitle,

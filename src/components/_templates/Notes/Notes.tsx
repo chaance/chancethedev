@@ -1,16 +1,16 @@
 import React from 'react';
-import BlogPostExcerpt from '$components/BlogPostExcerpt';
+import NotesPostExcerpt from '$components/NotesPostExcerpt';
 import { Section, H1, H3 } from '$components/Heading';
 import Layout from '$components/Layout';
 import Pagination from '$components/Pagination';
 import SEO from '$components/SEO';
 import { formatReadingTime, getBem } from '$lib/utils';
-import { BlogProps } from './index';
-import './Blog.scss';
+import { NotesProps } from './index';
+import './Notes.scss';
 
-let bem = getBem('BlogTemplate');
+let bem = getBem('NotesTemplate');
 
-const Blog: React.FC<BlogProps> = ({
+const Notes: React.FC<NotesProps> = ({
   data: { site, allMdx },
   pageContext: { pagination, contentType },
 }) => {
@@ -25,7 +25,7 @@ const Blog: React.FC<BlogProps> = ({
     )
     .filter((post: any) => post !== undefined);
 
-  // Only the first page will have a featured (lastest) blog post
+  // Only the first page will have a featured (lastest) post
   const hasFeaturedPost = !nextPagePath;
   const firstPost = posts[0].node;
 
@@ -39,7 +39,7 @@ const Blog: React.FC<BlogProps> = ({
             Latest Post
           </H3>
           <Section>
-            <BlogPostExcerpt
+            <NotesPostExcerpt
               isFeatured={true}
               banner={firstPost.frontmatter.banner}
               title={firstPost.frontmatter.title}
@@ -61,7 +61,7 @@ const Blog: React.FC<BlogProps> = ({
           {posts.map(({ node: post }: any, index) => {
             return (
               !(hasFeaturedPost && index === 0) && (
-                <BlogPostExcerpt
+                <NotesPostExcerpt
                   key={post.fields.slug}
                   banner={post.frontmatter.banner}
                   title={post.frontmatter.title}
@@ -87,4 +87,4 @@ const Blog: React.FC<BlogProps> = ({
   );
 };
 
-export default Blog;
+export default Notes;

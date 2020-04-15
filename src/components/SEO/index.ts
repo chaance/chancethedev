@@ -9,7 +9,7 @@ export { default } from './SEO';
 export interface SEOProps {
   description?: string;
   frontmatter?: Frontmatter;
-  isBlogPost?: boolean;
+  isNotesPost?: boolean;
   lang?: string;
   locale?: string;
   meta?: HelmetProps['meta'];

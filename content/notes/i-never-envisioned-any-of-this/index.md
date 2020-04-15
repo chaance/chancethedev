@@ -6,7 +6,7 @@ langs: ['en']
 description: Some musings about planning and not planning.
 banner: './banner.jpg'
 bannerAlt: 'Photo of the cosmos in all of its randomness'
-keywords: ['blog', 'careers', 'growth', 'learning', 'musings', 'uncertainty']
+keywords: ['careers', 'growth', 'learning', 'musings', 'uncertainty']
 published: true
 ---
 

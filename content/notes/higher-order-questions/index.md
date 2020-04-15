@@ -6,7 +6,7 @@ langs: ['en']
 description: What do you do when you feel out of sync with where you work but you don’t feel out of sync with the mission of the organization itself?
 banner: './banner.jpg'
 bannerAlt: 'A seagull flying in a flock'
-keywords: ['blog', 'growth', 'uncertainty']
+keywords: ['growth', 'uncertainty']
 published: true
 ---
 

@@ -5,11 +5,11 @@ import Link from '$components/Link';
 import VH from '@reach/visually-hidden';
 import { HT, H2 } from '$components/Heading';
 import { unSlashIt, getBem } from '$lib/utils';
-import { BlogPostExcerptProps } from './index';
+import { NotesPostExcerptProps } from './index';
 
-const styles = require('./BlogPostExcerpt.module.scss');
+const styles = require('./NotesPostExcerpt.module.scss');
 
-const BlogPostExcerpt: React.FC<BlogPostExcerptProps> = ({
+const NotesPostExcerpt: React.FC<NotesPostExcerptProps> = ({
   banner,
   className,
   title,
@@ -18,14 +18,14 @@ const BlogPostExcerpt: React.FC<BlogPostExcerptProps> = ({
   timeToRead,
   spoiler,
   isFeatured,
-  contentType = 'blog',
+  contentType = 'notes',
   ...props
 }) => {
   const permalink = `/${contentType}/${unSlashIt(slug)}`;
   const H = isFeatured ? HT : H2;
   return (
     <article
-      className={cx(className, 'BlogPostExcerpt', styles.wrapper, {
+      className={cx(className, 'NotesPostExcerpt', styles.wrapper, {
         [styles.isFeatured]: isFeatured,
       })}
       {...props}
@@ -78,4 +78,4 @@ const BlogPostExcerpt: React.FC<BlogPostExcerptProps> = ({
   );
 };
 
-export default BlogPostExcerpt;
+export default NotesPostExcerpt;

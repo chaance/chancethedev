@@ -1,11 +1,11 @@
 import { Frontmatter, AuthorNode } from '$lib/types';
 
-export { default } from './BlogPost';
+export { default } from './NotesPost';
 
 ////////////////////////////////////////////////////////////////////////////////
 // TYPES
 ////////////////////////////////////////////////////////////////////////////////
-export interface BlogPostProps {
+export interface NotesPostProps {
   data: {
     site: any;
     allAuthors: {

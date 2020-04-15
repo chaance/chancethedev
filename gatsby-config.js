@@ -38,8 +38,8 @@ module.exports = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        path: `${__dirname}/content/blog`,
-        name: 'blog',
+        path: `${__dirname}/content/notes`,
+        name: 'notes',
       },
     },
     {
@@ -189,7 +189,7 @@ module.exports = {
               }
             `,
             output: '/rss.xml',
-            title: 'Blog RSS Feed',
+            title: 'Notes RSS Feed',
           },
         ],
       },
