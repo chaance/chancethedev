@@ -17,3 +17,4 @@
   - [ ] Layout (only large screens)
     - [ ] Default grid
     - [ ] E-reader
+- [ ] Add system for social images
