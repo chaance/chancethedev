@@ -1,5 +1,5 @@
-.dark-mode {
-  composes: dark-mode from global;
+.theme-dark {
+  composes: theme-dark from global;
 }
 
 .button {
@@ -57,7 +57,7 @@
     transform: translate(-100%, -70%) scale(0.5);
   }
 
-  :global .dark-mode :local & {
+  :global .theme-dark :local & {
     .shape {
       fill: #fff;
     }

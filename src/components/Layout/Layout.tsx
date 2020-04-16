@@ -9,7 +9,7 @@ import Header from '$components/Header';
 import Footer from '$components/Footer';
 import Container from '$components/Container';
 import { useBreakpoint } from '$lib/hooks';
-import { useFonts } from '$lib/providers';
+import { useThemeContext, useFonts } from '$lib/providers';
 import { Element, SiteMetadata, Frontmatter } from '$lib/types';
 
 const styles = require('./Layout.module.scss');
@@ -41,6 +41,7 @@ const Layout: React.FC<LayoutProps> = ({
     description: frontmatterDescription = '',
   } = frontmatter;
 
+  const { theme } = useThemeContext();
   const [navIsActive, setNavIsActive] = useState(false);
 
   const keywords = (frontmatterKeywords || siteKeywords).join(', ');
@@ -77,6 +78,7 @@ const Layout: React.FC<LayoutProps> = ({
             ]}
             bodyAttributes={{
               class: cx(
+                `theme-${theme}`,
                 {
                   fontsError,
                   fontsLoaded,
