@@ -61,7 +61,7 @@ $ff-title-small: 'nimbus-sans-extended';
   @include make-root-css-variables();
 }
 
-.theme-dark {
+.dark-mode {
   --color-primary: #{$chancethedev--yellow-30};
   --color-xlight-primary: #{$chancethedev--yellow-50};
   --color-light-primary: #{$chancethedev--yellow-40};

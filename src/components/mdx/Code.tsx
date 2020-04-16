@@ -2,9 +2,9 @@ import React from 'react';
 import cx from 'classnames';
 import themeDark from 'prism-react-renderer/themes/nightOwl';
 import themeLight from 'prism-react-renderer/themes/nightOwlLight';
+import useDarkMode from 'use-dark-mode';
 import Highlight, { defaultProps, Language } from 'prism-react-renderer';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
-import { useThemeContext, Themes } from '$lib/providers';
 
 const styles = require('./mdx.module.scss');
 
@@ -21,8 +21,8 @@ const Code: React.FC<CodeProps> = ({
   'react-live': live,
   ...props
 }) => {
-  const { theme } = useThemeContext();
-  const codeTheme = theme === Themes.Dark ? themeDark : themeLight;
+  const darkMode = useDarkMode(false);
+  const codeTheme = darkMode.value ? themeDark : themeLight;
   const language = className.replace(/language-/, '') as Language;
   if (live) {
     return (

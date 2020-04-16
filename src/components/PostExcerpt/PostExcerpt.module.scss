@@ -109,11 +109,12 @@
     transition-property: transform;
     transition-duration: inherit;
     transition-timing-function: inherit;
-    transform-origin: right;
+    transform-origin: left;
   }
 
   &:hover::before {
     transform: scaleX(0);
+    transform-origin: right;
   }
 }
 
