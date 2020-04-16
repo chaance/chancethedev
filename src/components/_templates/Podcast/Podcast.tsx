@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import VH from '@reach/visually-hidden';
-import PodcastExcerpt from '$components/PodcastExcerpt';
+import PostExcerpt from '$components/PostExcerpt';
 import { Section, H1, H3 } from '$components/Heading';
 import Layout from '$components/Layout';
 import SEO from '$components/SEO';
@@ -28,39 +28,44 @@ const Podcast: React.FC<PodcastProps> = ({
           Latest Episode
         </H3>
         <Section>
-          <PodcastExcerpt
-            isFeatured={true}
+          <PostExcerpt
+            audioUrl={firstEpisode.audio_url}
             banner={firstEpisode.artwork_url}
-            title={formatTitle(firstEpisode.title)}
-            slug={firstEpisode.fields.formattedSlug}
+            contentType="podcast"
             date={firstEpisode.published_at}
-            description={firstEpisode.summary}
-            listenLinkText={title => (
+            excerpt={firstEpisode.summary}
+            isFeatured
+            slug={firstEpisode.fields.formattedSlug}
+            title={formatTitle(firstEpisode.title)}
+            renderReadMore={(title) => (
               <Fragment>
                 See the Shownotes<VH> for {`"${title}"`}</VH>
               </Fragment>
             )}
-            audioUrl={firstEpisode.audio_url}
           />
         </Section>
       </Section>
 
       <Section className={bem({ el: 'post-grid' })} wrap={true}>
-        <H1 className={bem({ el: 'section-heading', older: true })}>
+        <H3 className={bem({ el: 'section-heading', older: true })}>
           Older Episodes
-        </H1>
+        </H3>
 
         <Section>
           {episodes.map(({ node: episode }: any, index) => {
             return (
               index !== 0 && (
-                <PodcastExcerpt
-                  key={episode.id}
-                  title={formatTitle(episode.title)}
-                  slug={episode.fields.formattedSlug}
-                  date={episode.published_at}
-                  description={episode.summary}
-                />
+                <>
+                  <PostExcerpt
+                    key={episode.id}
+                    contentType="podcast"
+                    title={formatTitle(episode.title)}
+                    slug={episode.fields.formattedSlug}
+                    date={episode.published_at}
+                    excerpt={episode.summary}
+                    renderReadMore={() => 'Listen Now'}
+                  />
+                </>
               )
             );
           })}

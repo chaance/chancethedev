@@ -1,5 +1,5 @@
 import React from 'react';
-import NotesPostExcerpt from '$components/NotesPostExcerpt';
+import PostExcerpt from '$components/PostExcerpt';
 import { Section, H1, H3 } from '$components/Heading';
 import Layout from '$components/Layout';
 import Pagination from '$components/Pagination';
@@ -36,17 +36,17 @@ const Notes: React.FC<NotesProps> = ({
       {hasFeaturedPost && (
         <Section wrap={true}>
           <H3 className={bem({ el: 'section-heading', featured: true })}>
-            Latest Post
+            Latest Note
           </H3>
           <Section>
-            <NotesPostExcerpt
+            <PostExcerpt
               isFeatured={true}
               banner={firstPost.frontmatter.banner}
               title={firstPost.frontmatter.title}
               slug={firstPost.fields.slug}
               date={firstPost.frontmatter.date}
-              timeToRead={formatReadingTime(firstPost.timeToRead)}
-              spoiler={firstPost.frontmatter.description}
+              // timeToRead={formatReadingTime(firstPost.timeToRead)}
+              excerpt={firstPost.frontmatter.description}
               contentType={contentType}
             />
           </Section>
@@ -55,20 +55,22 @@ const Notes: React.FC<NotesProps> = ({
 
       <Section className={bem({ el: 'post-grid' })} wrap={true}>
         {hasFeaturedPost && (
-          <H1 className={bem({ el: 'section-heading', older: true })}>Older Posts</H1>
+          <H3 className={bem({ el: 'section-heading', older: true })}>
+            Older Notes
+          </H3>
         )}
         <Section>
           {posts.map(({ node: post }: any, index) => {
             return (
               !(hasFeaturedPost && index === 0) && (
-                <NotesPostExcerpt
+                <PostExcerpt
                   key={post.fields.slug}
                   banner={post.frontmatter.banner}
                   title={post.frontmatter.title}
                   slug={post.fields.slug}
                   date={post.frontmatter.date}
-                  timeToRead={formatReadingTime(post.timeToRead)}
-                  spoiler={post.frontmatter.description}
+                  // timeToRead={formatReadingTime(post.timeToRead)}
+                  excerpt={post.frontmatter.description}
                   contentType={contentType}
                 />
               )

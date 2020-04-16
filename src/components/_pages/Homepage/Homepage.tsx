@@ -3,7 +3,7 @@ import VH from '@reach/visually-hidden';
 import Layout from '$components/Layout';
 import SEO from '$components/SEO';
 import { Section, H1, H2, H3 } from '$components/Heading';
-import PodcastExcerpt from '$components/PodcastExcerpt';
+import PostExcerpt from '$components/PostExcerpt';
 import { getBem } from '$lib/utils';
 import './Homepage.scss';
 
@@ -26,16 +26,17 @@ const Homepage: React.FC<any> = ({
       <Section wrap={true}>
         <H3 className={bem({ el: 'section-heading' })}>Latest Episode</H3>
         <Section>
-          <PodcastExcerpt
+          <PostExcerpt
+            contentType="podcast"
             isFeatured={true}
             banner={firstEpisode.artwork_url}
             title={formatTitle(firstEpisode.title)}
             slug={firstEpisode.fields.formattedSlug}
             date={firstEpisode.published_at}
-            description={firstEpisode.summary}
+            excerpt={firstEpisode.summary}
             includeAllLink
             audioUrl={firstEpisode.audio_url}
-            listenLinkText={title => (
+            renderReadMore={(title) => (
               <Fragment>
                 See the Shownotes<VH> for {`"${title}"`}</VH>
               </Fragment>

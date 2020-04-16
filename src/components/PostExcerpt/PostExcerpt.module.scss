@@ -1,7 +1,5 @@
 .wrapper {
-
   &.isFeatured {
-    /* max-width: ${rhythm(33)}; */
     @include breakpoint(large) {
       display: grid;
       grid-template: 1fr / repeat(2, 1fr);
@@ -17,8 +15,9 @@
       }
     }
   }
+}
 
-  .innerWrapper {}
+.innerWrapper {
 }
 
 .heading {
@@ -38,24 +37,21 @@
 }
 
 .bannerWrapper {
-  img {
-    display: block;
-    margin: 0 0 #{rhythm($global-margin / 2)};
-    box-shadow: 0 rem(10) rem(40) rem(-20) rgba(#000, 0.425);
-  }
+  margin: 0 0 #{rhythm($global-margin / 2)};
 }
 
-.episodeInfo {
+.postInfo {
   display: block;
   margin: #{rhythm(3 / 4)} 0;
-  text-transform: uppercase;
   font-family: var(--font-title-small);
   font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-title);
   font-size: rem(12);
+  text-transform: uppercase;
   color: var(--color-light-text);
 }
 
-.desc {
+.excerpt {
   font-family: var(--font-sans);
   color: var(--color-light-text);
   margin: #{rhythm(1 / 2)} 0;
@@ -80,10 +76,11 @@
   }
 }
 
-.listenLink {
+.moreLink {
   display: block;
-  font-family: var(--font-title-small);
   font-weight: var(--font-weight-bold);
+  font-family: var(--font-title-small);
+  letter-spacing: var(--letter-spacing-title);
   font-size: rem(12);
   text-transform: uppercase;
   color: inherit;
@@ -102,4 +99,22 @@
   display: block;
   width: 100%;
   margin: rhythm(1) 0;
+}
+
+.allLink {
+  display: block;
+  font-family: var(--font-title-small);
+  font-weight: var(--font-weight-bold);
+  font-size: rem(12);
+  text-transform: uppercase;
+  color: inherit;
+
+  &:not(:focus) {
+    text-decoration: none;
+  }
+
+  &:hover {
+    text-decoration: none;
+    //color: var;
+  }
 }
