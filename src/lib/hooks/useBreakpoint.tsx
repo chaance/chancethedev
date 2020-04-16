@@ -4,7 +4,7 @@ import { useMediaLayout } from './useMedia';
 export const useBreakpoint = (
   bpQuery: string | number,
   defaultState: boolean = false,
-  toRem: boolean = true
+  toRem: boolean = false
 ) => {
   const queryObject = getBreakpointQueryObject(bpQuery, toRem);
   const matches = useMediaLayout(queryObject, defaultState);
