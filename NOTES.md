@@ -1,0 +1,19 @@
+## Todos:
+- [ ] Remove dark mode flash on initiial load
+- [ ] Remove pagination for notes
+- [ ] Add "talks" page w/ Magnolia conf recording
+- [ ] Add settings panel to unset custom fonts
+- [ ] Replace dark mode toggle with theme selection
+  - [ ] Themes
+    - [ ] Dark
+    - [ ] Light
+    - [ ] High-contrast dark
+    - [ ] High-contrast light
+    - [ ] Minimal
+  - [ ] Fonts
+    - [ ] Branded
+    - [ ] System default
+    - [ ] Optimized for dyslexia
+  - [ ] Layout (only large screens)
+    - [ ] Default grid
+    - [ ] E-reader
