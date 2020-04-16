@@ -46,6 +46,7 @@ $ff-title-small: 'nimbus-sans-extended';
 
   // colors
   --color-primary: #{$chancethedev--yellow-40};
+  --color-xlight-primary: #{$chancethedev--yellow-10};
   --color-light-primary: #{$chancethedev--yellow-30};
   --color-dark-primary: #{$chancethedev--yellow-50};
   --color-text: #{$chancethedev--black-100};
@@ -62,6 +63,7 @@ $ff-title-small: 'nimbus-sans-extended';
 
 .theme-dark {
   --color-primary: #{$chancethedev--yellow-30};
+  --color-xlight-primary: #{$chancethedev--yellow-50};
   --color-light-primary: #{$chancethedev--yellow-40};
   --color-dark-primary: #{$chancethedev--yellow-10};
   --color-text: #{$chancethedev--white-0};

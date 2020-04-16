@@ -127,18 +127,25 @@ const PostExcerpt: React.FC<PostExcerptProps> = ({
             </audio>
           )}
           <span className={styles.linkWrapper}>
-            <Link
-              className={styles.moreLink}
-              to={permalink}
-              rel="bookmark"
-              tabIndex={-1}
-            >
-              {renderReadMore(title)}
-            </Link>
-            {includeAllLink && (
-              <Link className={cx(styles.allLink)} to={`/${contentType}`}>
-                {sprintf(langMap.allLinkLabel, langMap.plural)}
+            <span>
+              <Link
+                className={cx(styles.footerLink, styles.moreLink)}
+                to={permalink}
+                rel="bookmark"
+                tabIndex={-1}
+              >
+                {renderReadMore(title)}
               </Link>
+            </span>
+            {includeAllLink && (
+              <span>
+                <Link
+                  className={cx(styles.footerLink, styles.allLink)}
+                  to={`/${contentType}`}
+                >
+                  {sprintf(langMap.allLinkLabel, langMap.plural)}
+                </Link>
+              </span>
             )}
           </span>
         </div>

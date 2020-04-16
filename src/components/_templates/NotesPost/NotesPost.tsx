@@ -37,7 +37,7 @@ const NotesPost: React.FC<NotesPostProps> = ({
               <figure className={bem({ el: 'banner-wrapper' })}>
                 <Img
                   sizes={banner.childImageSharp.fluid}
-                  alt={site.siteMetadata.keywords.join(', ')}
+                  alt={site.siteMetadata.bannerAlt || ''}
                 />
               </figure>
             )}
